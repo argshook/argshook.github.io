@@ -1,4 +1,4 @@
-module Forms exposing (..)
+module Forms exposing (Model, initialModel, Msg, view, update)
 
 import String
 import Html exposing (..)
