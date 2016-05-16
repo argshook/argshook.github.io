@@ -31,14 +31,20 @@ update msg model =
 fizzBuzzList : Int -> List String
 fizzBuzzList count =
   let
-      filters : List (Int, String)
+      filters : List (String, (Int -> Bool))
       filters =
-        [ (3, "C"), (5, "A"), (7, "T") ]
+        [ ("is divisible by 3", (\num -> num % 3 == 0 ))
+        , ("is one", (\num -> num == 1 ))
+        , ("is even", (\num -> num % 2 == 0 ))
+        , ("is greater than 10 but less than 15", (\num -> num > 10 && num < 15 ))
+        , ("is divisible by 5", (\num -> num % 5 == 0 ))
+        , ("is divisible by 7", (\num -> num % 7 == 0 ))
+        ]
 
 
-      applyFilter : Int -> (Int, String) -> Maybe String
-      applyFilter num (n, filter) =
-        if num % n == 0 then
+      applyFilter : Int -> (String, (Int -> Bool)) -> Maybe String
+      applyFilter num (filter, fn) =
+        if fn num then
           Just filter
         else
           Nothing
@@ -48,10 +54,10 @@ fizzBuzzList count =
       counter num =
         let
             item =
-              List.foldr (++) "" (List.filterMap (applyFilter num) filters)
+              List.foldr (\c a -> c ++ " " ++ a) "" (List.filterMap (applyFilter num) filters)
         in
             if String.length item /= 0
-            then item
+            then toString num ++ " " ++ item
             else toString num
 
   in
