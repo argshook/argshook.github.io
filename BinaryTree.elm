@@ -158,7 +158,9 @@ view model =
   in
       div
         [ style [ ("margin", "30px auto"), ("width", "600px")] ]
-        [ input
+        [ h3 [] [ text "Binary Tree" ]
+        , p [] [ text "Type some numbers and grow binary tree! What could be more fun!" ]
+        , input
             [ onInput Input
             , value model.treeNodeInput
             , style [ ("margin-bottom", "30px") ]
