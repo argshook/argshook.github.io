@@ -59,10 +59,10 @@ ageValidator model =
       else span [] []
 
 
---main =
-  --Html.App.program
-    --{ init = (initialModel, Cmd.none)
-    --, view = view
-    --, update = update
-    --, subscriptions = \_ -> Sub.none
-    --}
+main =
+  Html.App.program
+    { init = (initialModel, Cmd.none)
+    , view = view
+    , update = update
+    , subscriptions = \_ -> Sub.none
+    }
