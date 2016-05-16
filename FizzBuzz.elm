@@ -31,13 +31,28 @@ update msg model =
 fizzBuzzList : Int -> List String
 fizzBuzzList count =
   let
+      filters : List (Int, String)
+      filters =
+        [ (3, "C"), (5, "A"), (7, "T") ]
+
+
+      applyFilter : Int -> (Int, String) -> Maybe String
+      applyFilter num (n, filter) =
+        if num % n == 0 then
+          Just filter
+        else
+          Nothing
+
+
       counter : Int -> String
       counter num =
-        case (num % 3, num % 5) of
-          (0, 0) -> "FizzBuzz"
-          (0, _) -> "Fizz"
-          (_, 0) -> "Buzz"
-          _ -> toString num
+        let
+            item =
+              List.foldr (++) "" (List.filterMap (applyFilter num) filters)
+        in
+            if String.length item /= 0
+            then item
+            else toString num
 
   in
       List.map counter [1..count]
