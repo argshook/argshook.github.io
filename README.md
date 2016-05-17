@@ -1,6 +1,6 @@
 # Elm Experiments
 
-(Main.elm live)[https://argshook.github.io/elm-experiments]
+[Main.elm live](https://argshook.github.io/elm-experiments)
 
 some things i do with elm when i should be outside.
 
