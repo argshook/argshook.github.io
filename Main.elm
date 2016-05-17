@@ -12,11 +12,15 @@ import BinaryTree
 import CategoryTree
 
 
+type State = Home | Binary | Forms | Category
+
+
 type alias Model =
   { ageModel : Age.Model
   , formsModel : Forms.Model
   , binaryTreeModel : BinaryTree.Model
   , categoryTreeModel : CategoryTree.Model
+  , activeState : State
   }
 
 
@@ -26,6 +30,7 @@ initialModel =
   , formsModel = Forms.initialModel
   , binaryTreeModel = BinaryTree.initialModel
   , categoryTreeModel = CategoryTree.initialModel
+  , activeState = Home
   }
 
 
@@ -34,6 +39,7 @@ type Msg
   | FormsMsg Forms.Msg
   | BinaryTreeMsg BinaryTree.Msg
   | CategoryTreeMsg CategoryTree.Msg
+  | ChangeState State
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -41,50 +47,84 @@ update msg model =
   case msg of
     AgeMsg msg ->
       let
-          (ageModel, ageCmd) = Age.update msg model.ageModel
-
-          model' =
-            { model | ageModel = ageModel }
+          (model', cmd) = Age.update msg model.ageModel
       in
-          (model', Cmd.none)
+          ({ model | ageModel = model' }, Cmd.map AgeMsg cmd)
 
     FormsMsg msg ->
       let
           formsModel = Forms.update msg model.formsModel
-
-          model' =
-            { model | formsModel = formsModel }
       in
-          (model', Cmd.none)
+          ({ model | formsModel = formsModel }, Cmd.none)
 
     BinaryTreeMsg msg ->
       let
           (binaryTreeModel, binaryTreeCmd) = BinaryTree.update msg model.binaryTreeModel
-
-          model' =
-            { model | binaryTreeModel = binaryTreeModel }
       in
-          (model', Cmd.none)
+          ({ model | binaryTreeModel = binaryTreeModel }, Cmd.map BinaryTreeMsg binaryTreeCmd)
 
     CategoryTreeMsg msg ->
       let
           (categoryTreeModel, categoryTreeCmd) = CategoryTree.update msg model.categoryTreeModel
-
-          model' =
-            { model | categoryTreeModel = categoryTreeModel }
       in
-          (model', Cmd.none)
+          ({ model | categoryTreeModel = categoryTreeModel }, Cmd.map CategoryTreeMsg categoryTreeCmd)
+
+    ChangeState state ->
+      ({ model | activeState = state }, Cmd.none)
+
+
+displayComponent : Model -> Html Msg
+displayComponent model =
+  let
+      component =
+        case model.activeState of
+          Home -> text "Hello"
+
+          Forms ->
+            div
+              []
+              [ Html.App.map FormsMsg (Forms.view model.formsModel)
+              , Html.App.map AgeMsg (Age.view model.ageModel)
+              ]
+
+          Binary -> Html.App.map BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
+          Category -> Html.App.map CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
+  in
+    div
+      []
+      [ component ]
+
+
+stateMenu : Model -> Html Msg
+stateMenu model =
+  let
+      states =
+        [("Home", Home), ("Forms", Forms), ("Binary", Binary), ("Category", Category)]
+
+      activeStyle state =
+        if state == model.activeState then
+          [ ("font-weight", "bold") ]
+        else
+          []
+
+      menuItem (name, state) =
+        button
+          [ onClick (ChangeState state)
+          , style <| activeStyle state
+          ]
+          [ text name ]
+  in
+    div [] (List.map menuItem states)
 
 
 view : Model -> Html Msg
 view model =
   div
-    []
-    [ text "hai"
-    , Html.App.map AgeMsg (Age.view model.ageModel)
-    , Html.App.map FormsMsg (Forms.view model.formsModel)
-    , Html.App.map BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
-    , Html.App.map CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
+    [ style [ ("width", "600px"), ("margin", "30px auto") ] ]
+    [ h2 [] [ text "Elm experiments" ]
+    , p [] [ text "merely a sandbox to play with elm" ]
+    , stateMenu model
+    , displayComponent model
     ]
 
 
@@ -95,3 +135,4 @@ main =
     , update = update
     , subscriptions = \_ -> Sub.none
     }
+
