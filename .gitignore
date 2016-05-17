@@ -1,4 +1,5 @@
 elm-stuff/
-elm.js
 node_modules
+elm.js
+!elm.min.js
 *.vim
