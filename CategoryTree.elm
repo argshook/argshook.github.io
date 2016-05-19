@@ -8,12 +8,14 @@ import Html.Events exposing (..)
 import String
 
 
-type CategoryList a = Category String | CategoryList String (List (CategoryList a))
+type CategoryList a = Category CategoryNode | CategoryList CategoryNode (List (CategoryList a))
 
+type alias CategoryNode = (Int, String)
 
 type alias Model =
   { categoryInput : String
-  , selectedCategory : String
+  , selectedCategory : Int
+  , nextCategoryId : Int
   , categories : List (CategoryList String)
   }
 
@@ -21,16 +23,17 @@ type alias Model =
 initialModel : Model
 initialModel =
   { categoryInput = ""
-  , selectedCategory = ""
+  , selectedCategory = 0
+  , nextCategoryId = 15
   , categories =
-    [ Category "root"
-    , CategoryList "sibling "[ Category "Child" ]
-    , CategoryList "sibling 2 " [ CategoryList "Child 2" [ Category "child 3" ] ]
-    , Category "Another sibling"
-    , CategoryList "sibling 4 "
-        [ CategoryList "Child 4" [ Category "child 4a" ]
-        , CategoryList "Child 9" [ Category "child 123" ]
-        , CategoryList "Child 1" [ Category "child 2" ]
+    [ Category (1, "root")
+    , CategoryList (2, "sibling") [ Category (3, "Child") ]
+    , CategoryList (4, "sibling 2") [ CategoryList (5, "Child 2") [ Category (6, "child 3") ] ]
+    , Category (7, "Another sibling")
+    , CategoryList (8, "sibling 4 ")
+        [ CategoryList (9, "Child 4") [ Category (10, "child 4a") ]
+        , CategoryList (11, "Child 9") [ Category (12, "child 123") ]
+        , CategoryList (13, "Child 1") [ Category (14, "child 2") ]
         ]
     ]
   }
@@ -45,39 +48,49 @@ type Msg
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    Input newCategoryInput ->
-      ({ model | categoryInput = newCategoryInput }, Cmd.none)
+    Input newCategoryName ->
+      ({ model | categoryInput = newCategoryName }, Cmd.none)
 
     AddCategory ->
       let
           insertCategory category =
             case category of
-              Category name ->
-                if name == model.selectedCategory
-                then CategoryList model.selectedCategory [ Category model.categoryInput ]
-                else Category name
+              Category (id, name) ->
+                if id == model.selectedCategory then
+                  CategoryList (model.nextCategoryId, name) [ Category (model.nextCategoryId, model.categoryInput) ]
+                else
+                  Category (id, name)
 
-              CategoryList name list ->
-                if name == model.selectedCategory
-                then CategoryList name (Category model.categoryInput :: list)
-                else CategoryList name (List.foldl (\c a -> (insertCategory c) :: a) [] list)
+              CategoryList (id, name) list ->
+                if id == model.selectedCategory then
+                  CategoryList (id, name) (Category (model.nextCategoryId, model.categoryInput) :: list)
+                else
+                  CategoryList (id, name) (List.foldl (\c a -> (insertCategory c) :: a) [] list)
 
           newCategories =
-            if model.categoryInput /= "" && model.selectedCategory /= ""
-            then List.map insertCategory model.categories
-            else model.categories
+            if model.categoryInput /= "" then
+              List.map insertCategory model.categories
+            else
+              model.categories
 
           newModel =
             { model
             | categories = newCategories
             , categoryInput = ""
+            , nextCategoryId = model.nextCategoryId + 1
             }
 
       in
           (newModel, Cmd.none)
 
     SelectCategory selectedCategory ->
-      ({ model | selectedCategory = selectedCategory }, Cmd.none)
+      let
+          selectedCategoryAsInt =
+            case String.toInt selectedCategory of
+              Ok n -> n
+              Err error -> 0
+      in
+          ({ model | selectedCategory = selectedCategoryAsInt }, Cmd.none)
 
 
 view : Model -> Html Msg
@@ -95,10 +108,10 @@ view model =
       categoryRow : CategoryList String -> Html Msg
       categoryRow row =
         case row of
-          Category name ->
+          Category (id, name) ->
             li [] [ text name ]
 
-          CategoryList name list ->
+          CategoryList (id, name) list ->
             li
               []
               [ text name
@@ -116,11 +129,12 @@ view model =
             dropdownRow : Int -> CategoryList a -> List (Html Msg)
             dropdownRow depth row =
               case row of
-                Category name ->
-                  [ option [ value name ] [ text (dropdownRowName depth ++ " " ++ name) ] ]
+                Category (id, name) ->
+                  [ option [ value (toString id) ] [ text (dropdownRowName depth ++ " " ++ name ++ " id: " ++ (toString id)) ] ]
 
-                CategoryList name list ->
-                  List.foldl (\c a -> a ++ (dropdownRow (depth + 1) c) ) [ option [value name] [text (dropdownRowName depth ++ " " ++ name)] ] list
+                CategoryList (id, name) list ->
+                  List.foldl (\c a -> a ++ (dropdownRow (depth + 1) c) ) [ option [value (toString id)] [text (dropdownRowName
+                  depth ++ " " ++ name ++ " id: " ++ (toString id))] ] list
 
             dropdownRowName : Int -> String
             dropdownRowName depth =
@@ -136,7 +150,7 @@ view model =
         [ categoryInput
         , categoriesDropdown
         , categoryAddButton
-        , div [] [ text ("Selected category: " ++ model.selectedCategory) ]
+        , div [] [ text ("Selected category: " ++ (toString model.selectedCategory)) ]
         , div [] [ text "Categories go below" ]
         , ul [] (List.map categoryRow model.categories)
         ]
