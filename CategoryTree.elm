@@ -24,18 +24,8 @@ initialModel : Model
 initialModel =
   { categoryInput = ""
   , selectedCategory = 0
-  , nextCategoryId = 15
-  , categories =
-    [ Category (1, "root")
-    , CategoryList (2, "sibling") [ Category (3, "Child") ]
-    , CategoryList (4, "sibling 2") [ CategoryList (5, "Child 2") [ Category (6, "child 3") ] ]
-    , Category (7, "Another sibling")
-    , CategoryList (8, "sibling 4 ")
-        [ CategoryList (9, "Child 4") [ Category (10, "child 4a") ]
-        , CategoryList (11, "Child 9") [ Category (12, "child 123") ]
-        , CategoryList (13, "Child 1") [ Category (14, "child 2") ]
-        ]
-    ]
+  , nextCategoryId = 1
+  , categories = [ Category (0, "Root") ]
   }
 
 
@@ -57,7 +47,7 @@ update msg model =
             case category of
               Category (id, name) ->
                 if id == model.selectedCategory then
-                  CategoryList (model.nextCategoryId, name) [ Category (model.nextCategoryId, model.categoryInput) ]
+                  CategoryList (id, name) [ Category (model.nextCategoryId, model.categoryInput) ]
                 else
                   Category (id, name)
 
@@ -105,16 +95,22 @@ view model =
           ]
           []
 
+
+      categoryLabel : CategoryNode -> String
+      categoryLabel (id, name) =
+        toString id ++ ": " ++ name
+
+
       categoryRow : CategoryList String -> Html Msg
       categoryRow row =
         case row of
-          Category (id, name) ->
-            li [] [ text name ]
+          Category categoryNode ->
+            li [] [ text <| categoryLabel categoryNode ]
 
-          CategoryList (id, name) list ->
+          CategoryList categoryNode list ->
             li
               []
-              [ text name
+              [ text <| categoryLabel categoryNode
               , ul [] (List.map categoryRow list)
               ]
 
