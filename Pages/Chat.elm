@@ -1,4 +1,4 @@
-module Chat exposing (..)
+module Pages.Chat exposing (..)
 
 import Html.App
 import Html exposing (..)

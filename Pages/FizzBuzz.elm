@@ -1,4 +1,4 @@
-module FizzBuzz exposing (..)
+module Pages.FizzBuzz exposing (..)
 
 import Html.App exposing (..)
 import Html exposing (..)
@@ -33,12 +33,11 @@ fizzBuzzList count =
   let
       filters : List (String, (Int -> Bool))
       filters =
-        [ ("is divisible by 3", (\num -> num % 3 == 0 ))
-        , ("is one", (\num -> num == 1 ))
-        , ("is even", (\num -> num % 2 == 0 ))
-        , ("is greater than 10 but less than 15", (\num -> num > 10 && num < 15 ))
-        , ("is divisible by 5", (\num -> num % 5 == 0 ))
-        , ("is divisible by 7", (\num -> num % 7 == 0 ))
+        [ ("one", (\num -> num == 1 ))
+        , ("even", (\num -> num % 2 == 0 ))
+        , ("greater than 10 but less than 15", (\num -> num > 10 && num < 15 ))
+        , ("fizz", (\num -> num % 3 == 0 ))
+        , ("buzz", (\num -> num % 5 == 0 ))
         ]
 
 
@@ -57,7 +56,7 @@ fizzBuzzList count =
               List.foldr (\c a -> c ++ " " ++ a) "" (List.filterMap (applyFilter num) filters)
         in
             if String.length item /= 0
-            then toString num ++ " " ++ item
+            then toString num ++ " is " ++ item
             else toString num
 
   in
@@ -74,7 +73,7 @@ view model =
 
       printFizzBuzz : List String -> Html Msg
       printFizzBuzz list =
-        div [] (List.map (\n -> text <| n ++ ", ") list)
+        div [] (List.map (\n -> div [] [ text <| n ]) list)
   in
       div
         [ style [ ("margin", "30px auto"), ("width", "600px")] ]

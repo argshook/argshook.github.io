@@ -8,10 +8,11 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 import String
-import Age
-import Forms
-import BinaryTree
-import CategoryTree
+import Pages.Age as Age
+import Pages.Forms as Forms
+import Pages.BinaryTree as BinaryTree
+import Pages.CategoryTree as CategoryTree
+import Pages.FizzBuzz as FizzBuzz
 
 
 main =
@@ -46,6 +47,7 @@ pageParser =
   , format Binary (UrlParser.s "binary")
   , format Forms (UrlParser.s "forms")
   , format Category (UrlParser.s "category")
+  , format FizzBuzz (UrlParser.s "fizz-buzz")
   ]
 
 
@@ -56,6 +58,7 @@ toUrl state =
     Binary -> "#binary"
     Forms -> "#forms"
     Category -> "#category"
+    FizzBuzz -> "#fizz-buzz"
 
 
 urlUpdate : Result String State -> Model -> (Model, Cmd Msg)
@@ -74,7 +77,7 @@ urlUpdate result model =
       (model, Navigation.modifyUrl (toUrl model.state))
 
 
-type State = Home | Binary | Forms | Category
+type State = Home | Binary | Forms | Category | FizzBuzz
 
 
 type alias Model =
@@ -82,6 +85,7 @@ type alias Model =
   , formsModel : Forms.Model
   , binaryTreeModel : BinaryTree.Model
   , categoryTreeModel : CategoryTree.Model
+  , fizzBuzzModel : FizzBuzz.Model
   , state : State
   }
 
@@ -92,6 +96,7 @@ initialModel =
   , formsModel = Forms.initialModel
   , binaryTreeModel = BinaryTree.initialModel
   , categoryTreeModel = CategoryTree.initialModel
+  , fizzBuzzModel = FizzBuzz.initialModel
   , state = Home
   }
 
@@ -101,6 +106,7 @@ type Msg
   | FormsMsg Forms.Msg
   | BinaryTreeMsg BinaryTree.Msg
   | CategoryTreeMsg CategoryTree.Msg
+  | FizzBuzzMsg FizzBuzz.Msg
   | ChangeState State
 
 
@@ -131,6 +137,12 @@ update msg model =
       in
           ({ model | categoryTreeModel = categoryTreeModel }, Cmd.map CategoryTreeMsg categoryTreeCmd)
 
+    FizzBuzzMsg msg ->
+      let
+          (fizzBuzzModel, fizzBuzzCmd) = FizzBuzz.update msg model.fizzBuzzModel
+      in
+          ({ model | fizzBuzzModel = fizzBuzzModel }, Cmd.map FizzBuzzMsg fizzBuzzCmd)
+
     ChangeState newState ->
       ({ model | state = newState }, Navigation.newUrl (toUrl newState))
 
@@ -151,6 +163,7 @@ displayComponent model =
 
           Binary -> Html.App.map BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
           Category -> Html.App.map CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
+          FizzBuzz -> Html.App.map FizzBuzzMsg (FizzBuzz.view model.fizzBuzzModel)
   in
     div
       []
@@ -161,7 +174,7 @@ stateMenu : Model -> Html Msg
 stateMenu model =
   let
       states =
-        [("Home", Home), ("Forms", Forms), ("Binary", Binary), ("Category", Category)]
+        [("Home", Home), ("Forms", Forms), ("Binary", Binary), ("Category", Category), ("FizzBuzz", FizzBuzz)]
 
       activeStyle state =
         if state == model.state then

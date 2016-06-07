@@ -1,4 +1,4 @@
-module Dice exposing (..)
+module Pages.Dice exposing (..)
 
 
 import Html.App

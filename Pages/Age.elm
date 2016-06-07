@@ -1,4 +1,4 @@
-module Age exposing (Model, Msg, initialModel, view, update)
+module Pages.Age exposing (Model, Msg, initialModel, view, update)
 
 import Html.App exposing (..)
 import Html exposing (..)

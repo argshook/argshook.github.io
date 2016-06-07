@@ -1,4 +1,4 @@
-module CategoryTree exposing (..)
+module Pages.CategoryTree exposing (..)
 
 import Html.App exposing (..)
 import Html exposing (..)

@@ -1,4 +1,4 @@
-module BinaryTree exposing (..)
+module Pages.BinaryTree exposing (..)
 
 import Html.App exposing (..)
 import Html exposing (..)

@@ -1,4 +1,4 @@
-module Clock exposing (..)
+module Pages.Clock exposing (..)
 
 import Html exposing (..)
 import Html.App

@@ -1,4 +1,4 @@
-module HttpEffect exposing (..)
+module Pages.HttpEffect exposing (..)
 
 import Html.App
 import Html exposing (..)
