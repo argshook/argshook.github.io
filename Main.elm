@@ -1,6 +1,8 @@
 module Main exposing (..)
 
-import Html.App exposing (..)
+import Navigation
+import UrlParser exposing (Parser, (</>), format, int, oneOf, s, string)
+import Html.App
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -12,6 +14,66 @@ import BinaryTree
 import CategoryTree
 
 
+main =
+  Navigation.program urlParser
+    { init = init
+    , view = view
+    , update = update
+    , subscriptions = \_ -> Sub.none
+    , urlUpdate = urlUpdate
+    }
+
+
+init : Result String State -> ( Model, Cmd Msg )
+init result =
+  urlUpdate result initialModel
+
+
+urlParser : Navigation.Parser (Result String State)
+urlParser =
+  Navigation.makeParser (fromUrl << .hash)
+
+
+fromUrl : String -> Result String State
+fromUrl hash =
+  UrlParser.parse identity pageParser (String.dropLeft 1 hash)
+
+
+pageParser : Parser (State -> a) a
+pageParser =
+  oneOf
+  [ format Home (UrlParser.s "")
+  , format Binary (UrlParser.s "binary")
+  , format Forms (UrlParser.s "forms")
+  , format Category (UrlParser.s "category")
+  ]
+
+
+toUrl : State -> String
+toUrl state =
+  case state of
+    Home -> "#"
+    Binary -> "#binary"
+    Forms -> "#forms"
+    Category -> "#category"
+
+
+urlUpdate : Result String State -> Model -> (Model, Cmd Msg)
+urlUpdate result model =
+  case result of
+    Ok newState ->
+      case newState of
+        _ ->
+          let
+              model' =
+                { model | state = newState }
+          in
+              (model', Cmd.none)
+
+    Err _ ->
+      (model, Navigation.modifyUrl (toUrl model.state))
+
+
 type State = Home | Binary | Forms | Category
 
 
@@ -20,7 +82,7 @@ type alias Model =
   , formsModel : Forms.Model
   , binaryTreeModel : BinaryTree.Model
   , categoryTreeModel : CategoryTree.Model
-  , activeState : State
+  , state : State
   }
 
 
@@ -30,7 +92,7 @@ initialModel =
   , formsModel = Forms.initialModel
   , binaryTreeModel = BinaryTree.initialModel
   , categoryTreeModel = CategoryTree.initialModel
-  , activeState = Home
+  , state = Home
   }
 
 
@@ -69,15 +131,15 @@ update msg model =
       in
           ({ model | categoryTreeModel = categoryTreeModel }, Cmd.map CategoryTreeMsg categoryTreeCmd)
 
-    ChangeState state ->
-      ({ model | activeState = state }, Cmd.none)
+    ChangeState newState ->
+      ({ model | state = newState }, Navigation.newUrl (toUrl newState))
 
 
 displayComponent : Model -> Html Msg
 displayComponent model =
   let
       component =
-        case model.activeState of
+        case model.state of
           Home -> text "Hello"
 
           Forms ->
@@ -102,7 +164,7 @@ stateMenu model =
         [("Home", Home), ("Forms", Forms), ("Binary", Binary), ("Category", Category)]
 
       activeStyle state =
-        if state == model.activeState then
+        if state == model.state then
           [ ("font-weight", "bold") ]
         else
           []
@@ -127,12 +189,4 @@ view model =
     , displayComponent model
     ]
 
-
-main =
-  Html.App.program
-    { init = (initialModel, Cmd.none)
-    , view = view
-    , update = update
-    , subscriptions = \_ -> Sub.none
-    }
 
