@@ -43,7 +43,7 @@ toUrl state =
     Category -> "#category"
     FizzBuzz -> "#fizz-buzz"
     Blog n ->
-      "#blog" ++ toString n
+      "#blog/" ++ toString n
 
 
 urlUpdate : Result String State -> Model -> (Model, Cmd Msg)

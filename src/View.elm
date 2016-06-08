@@ -29,7 +29,13 @@ stateMenu : Model -> Html Msg
 stateMenu model =
   let
       states =
-        [("Home", Home), ("Forms", Forms), ("Binary", Binary), ("Category", Category), ("FizzBuzz", FizzBuzz)]
+        [ ("Home", Home)
+        , ("Forms", Forms)
+        , ("Binary", Binary)
+        , ("Category", Category)
+        , ("FizzBuzz", FizzBuzz)
+        , ("Blog", Blog 0)
+        ]
 
       activeStyle state =
         if state == model.state then
