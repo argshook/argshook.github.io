@@ -4,6 +4,7 @@ import Html.App
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Common exposing ((=>), colors)
 
 import Pages.Age as Age
 import Pages.Forms as Forms
@@ -15,21 +16,6 @@ import Pages.Blog.PostsList as PostsList
 
 import Models exposing (..)
 import Messages exposing (..)
-
-
-colors =
-  { dark = "#1f4504"
-  , darker = "#001d06"
-  , medium = "#5a7840"
-  , light = "#e9f1f4"
-  , complimentary = "#c0ad76"
-  }
-
-
-(=>) : String -> String -> (String, String)
-(=>) k v = (k, v)
-
-infixr 9 =>
 
 
 view : Model -> Html Msg
