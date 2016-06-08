@@ -76,7 +76,7 @@ view model =
         div [] (List.map (\n -> div [] [ text <| n ]) list)
   in
       div
-        [ style [ ("margin", "30px auto"), ("width", "600px")] ]
+        []
         [ input
             [ onInput ChangeCount
             , value model.count

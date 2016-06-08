@@ -10,16 +10,46 @@ import Pages.Forms as Forms
 import Pages.BinaryTree as BinaryTree
 import Pages.CategoryTree as CategoryTree
 import Pages.FizzBuzz as FizzBuzz
+import Pages.Blog.Main as Blog
+import Pages.Blog.PostsList as PostsList
 
 import Models exposing (..)
 import Messages exposing (..)
 
+
+colors =
+  { dark = "#1f4504"
+  , darker = "#001d06"
+  , medium = "#5a7840"
+  , light = "#e9f1f4"
+  , complimentary = "#c0ad76"
+  }
+
+
+(=>) : String -> String -> (String, String)
+(=>) k v = (k, v)
+
+infixr 9 =>
+
+
 view : Model -> Html Msg
 view model =
   div
-    [ style [ ("width", "600px"), ("margin", "30px auto") ] ]
-    [ h2 [] [ text "Elm experiments" ]
-    , p [] [ text "merely a sandbox to play with elm" ]
+    [ style
+      [ "width" => "700px"
+      , "margin" => "0 auto"
+      , "min-height" => "100vh"
+      ]
+    ]
+    [ div
+        [ style [ "padding" => "30px", "background" => colors.light ] ]
+        [ h2
+          []
+          [ text "Elm experiments" ]
+        , p
+          []
+          [ text "merely a sandbox to play with elm" ]
+        ]
     , stateMenu model
     , displayComponent model
     ]
@@ -34,14 +64,23 @@ stateMenu model =
         , ("Binary", Binary)
         , ("Category", Category)
         , ("FizzBuzz", FizzBuzz)
-        , ("Blog", Blog 0)
+        ]
+
+      buttonStyle =
+        [ "border" => ("1px solid " ++ colors.medium)
+        , "border-radius" => "5px / 10px"
+        , "padding" => "10px 25px"
+        , "color" => colors.dark
+        , "background" => "transparent"
+        , "cursor" => "pointer"
+        , "font-weight" => "bold"
         ]
 
       activeStyle state =
         if state == model.state then
-          [ ("font-weight", "bold") ]
+          buttonStyle ++ [ "background" => colors.dark, "color" => colors.light ]
         else
-          []
+          buttonStyle
 
       menuItem (name, state) =
         button
@@ -49,8 +88,18 @@ stateMenu model =
           , style <| activeStyle state
           ]
           [ text name ]
+
+      menuStyles =
+        [ "display" => "flex"
+        , "justify-content" => "space-around"
+        , "padding" => "30px"
+        , "background" => colors.light
+        ]
+
   in
-    div [] (List.map menuItem states)
+    div
+      [ style menuStyles ]
+      (List.map menuItem states)
 
 
 displayComponent : Model -> Html Msg
@@ -58,7 +107,8 @@ displayComponent model =
   let
       component =
         case model.state of
-          Home -> text "Hello"
+          Home ->
+            Html.App.map PostsListMsg (PostsList.view model.postsListModel)
 
           Forms ->
             div
@@ -70,9 +120,9 @@ displayComponent model =
           Binary -> Html.App.map BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
           Category -> Html.App.map CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
           FizzBuzz -> Html.App.map FizzBuzzMsg (FizzBuzz.view model.fizzBuzzModel)
-          Blog n -> text <| toString n
+          Blog n -> Blog.view model
   in
     div
-      []
+      [ style [ "padding" => "30px 0 0" ] ]
       [ component ]
 

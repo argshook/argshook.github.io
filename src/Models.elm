@@ -5,6 +5,7 @@ import Pages.Forms as Forms
 import Pages.BinaryTree as BinaryTree
 import Pages.CategoryTree as CategoryTree
 import Pages.FizzBuzz as FizzBuzz
+import Pages.Blog.PostsList as PostsList
 
 
 type alias Model =
@@ -13,6 +14,7 @@ type alias Model =
   , binaryTreeModel : BinaryTree.Model
   , categoryTreeModel : CategoryTree.Model
   , fizzBuzzModel : FizzBuzz.Model
+  , postsListModel : PostsList.Model
   , state : State
   }
 
@@ -27,6 +29,7 @@ initialModel =
   , binaryTreeModel = BinaryTree.initialModel
   , categoryTreeModel = CategoryTree.initialModel
   , fizzBuzzModel = FizzBuzz.initialModel
+  , postsListModel = PostsList.initialModel
   , state = Home
   }
 

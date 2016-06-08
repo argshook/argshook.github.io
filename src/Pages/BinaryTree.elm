@@ -157,7 +157,7 @@ view model =
         findInTree treeNodeAsInt model.tree
   in
       div
-        [ style [ ("margin", "30px auto"), ("width", "600px")] ]
+        []
         [ h3 [] [ text "Binary Tree" ]
         , p [] [ text "Type some numbers and grow binary tree! What could be more fun!" ]
         , input

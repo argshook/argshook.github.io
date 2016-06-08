@@ -6,6 +6,7 @@ import Pages.Forms as Forms
 import Pages.BinaryTree as BinaryTree
 import Pages.CategoryTree as CategoryTree
 import Pages.FizzBuzz as FizzBuzz
+import Pages.Blog.PostsList as PostsList
 
 import Navigation
 import Messages exposing (..)
@@ -45,6 +46,12 @@ update msg model =
           (fizzBuzzModel, fizzBuzzCmd) = FizzBuzz.update msg model.fizzBuzzModel
       in
           ({ model | fizzBuzzModel = fizzBuzzModel }, Cmd.map FizzBuzzMsg fizzBuzzCmd)
+
+    PostsListMsg msg ->
+      let
+          (postsListModel, postsListCmd) = PostsList.update msg model.postsListModel
+      in
+          ({ model | postsListModel = postsListModel }, Cmd.map PostsListMsg postsListCmd)
 
     ChangeState newState ->
       ({ model | state = newState }, Navigation.newUrl (toUrl newState))

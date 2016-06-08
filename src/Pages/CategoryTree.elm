@@ -142,7 +142,7 @@ view model =
               (List.concat (List.map (dropdownRow 0) model.categories))
   in
       div
-        [ style [ ("margin", "30px auto"), ("width", "400px") ] ]
+        []
         [ categoryInput
         , categoriesDropdown
         , categoryAddButton
