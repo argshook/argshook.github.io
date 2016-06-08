@@ -17,7 +17,7 @@ type alias Model =
   }
 
 
-type State = Home | Binary | Forms | Category | FizzBuzz
+type State = Home | Binary | Forms | Category | FizzBuzz | Blog Int
 
 
 initialModel : Model

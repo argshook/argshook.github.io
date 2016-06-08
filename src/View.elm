@@ -64,6 +64,7 @@ displayComponent model =
           Binary -> Html.App.map BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
           Category -> Html.App.map CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
           FizzBuzz -> Html.App.map FizzBuzzMsg (FizzBuzz.view model.fizzBuzzModel)
+          Blog n -> text <| toString n
   in
     div
       []

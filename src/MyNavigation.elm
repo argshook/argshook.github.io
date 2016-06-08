@@ -25,11 +25,12 @@ fromUrl hash =
 pageParser : Parser (State -> a) a
 pageParser =
   oneOf
-  [ format Home (UrlParser.s "")
-  , format Binary (UrlParser.s "binary")
-  , format Forms (UrlParser.s "forms")
-  , format Category (UrlParser.s "category")
-  , format FizzBuzz (UrlParser.s "fizz-buzz")
+  [ format Home (s "")
+  , format Binary (s "binary")
+  , format Forms (s "forms")
+  , format Category (s "category")
+  , format FizzBuzz (s "fizz-buzz")
+  , format Blog (s "blog" </> int)
   ]
 
 
@@ -41,6 +42,8 @@ toUrl state =
     Forms -> "#forms"
     Category -> "#category"
     FizzBuzz -> "#fizz-buzz"
+    Blog n ->
+      "#blog" ++ toString n
 
 
 urlUpdate : Result String State -> Model -> (Model, Cmd Msg)
