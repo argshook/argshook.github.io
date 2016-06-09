@@ -41,8 +41,12 @@ view model state =
           Binary -> Html.App.map PagesMessages.BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
           Category -> Html.App.map PagesMessages.CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
           FizzBuzz -> Html.App.map PagesMessages.FizzBuzzMsg (FizzBuzz.view model.fizzBuzzModel)
-          Blog postName ->
-            Html.App.map PagesMessages.PostMsg (Post.view { postId = postName })
+          Blog postId ->
+            let
+                (postModel, postCmd) =
+                  Post.update (Post.LoadPost postId) model.postModel
+            in
+                Html.App.map PagesMessages.PostMsg (Post.view postModel)
   in
     div
       [ style [ "padding" => "30px 0 0" ] ]

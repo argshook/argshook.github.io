@@ -21,7 +21,7 @@ initialModel =
 
 posts : List String
 posts =
-  [ "First", "Second", "Third" ]
+  [ "hello-world", "hello-world2", "hello-world3" ]
 
 
 type Msg
@@ -64,8 +64,8 @@ view model =
 
 postCard : String -> Html Msg
 postCard post =
-  div
-    [ style [ "background" => colors.light, "margin" => "0 0 10px"  ]
+  a
+    [ style [ "background" => colors.light, "margin" => "0 0 10px", "display" => "block" ]
     , onClick (OpenPost post)
     ]
     [ text post ]
