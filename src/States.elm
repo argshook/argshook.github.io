@@ -7,5 +7,5 @@ type State
   | Forms
   | Category
   | FizzBuzz
-  | Blog Int
+  | Blog String
 

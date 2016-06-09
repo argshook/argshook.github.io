@@ -7,10 +7,12 @@ import Pages.BinaryTree as BinaryTree
 import Pages.CategoryTree as CategoryTree
 import Pages.FizzBuzz as FizzBuzz
 import Pages.Blog.PostsList as PostsList
+import Pages.Blog.Post as Post
 import Pages.PagesMessages as Msg exposing (..)
 import Pages.PagesModel as Model exposing (..)
 
 
+-- TODO: how could i dry this up?
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
@@ -49,4 +51,10 @@ update msg model =
           (postsListModel, postsListCmd) = PostsList.update msg model.postsListModel
       in
           ({ model | postsListModel = postsListModel }, Cmd.map PostsListMsg postsListCmd)
+
+    PostMsg msg ->
+      let
+          (postModel, postCmd) = Post.update msg model.postModel
+      in
+          ({ model | postModel = postModel }, Cmd.map PostMsg postCmd)
 

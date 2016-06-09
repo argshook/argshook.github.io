@@ -1,11 +1,11 @@
 module Pages.Blog.PostsList exposing (..)
 
+import Navigation
 import Html.App exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Common exposing ((=>), colors)
---import Messages exposing (..)
 
 import String
 
@@ -33,10 +33,10 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     Filter newFilter ->
-        ({ model | filter = newFilter }, Cmd.none)
+      ({ model | filter = newFilter }, Cmd.none)
 
     OpenPost post ->
-      (model, Cmd.none)
+      (model, Navigation.newUrl ("#blog/" ++ post))
 
 
 filteredPosts : String -> List (Html Msg)

@@ -31,7 +31,7 @@ pageParser =
   , format Forms (s "forms")
   , format Category (s "category")
   , format FizzBuzz (s "fizz-buzz")
-  , format Blog (s "blog" </> int)
+  , format Blog (s "blog" </> string)
   ]
 
 
@@ -43,8 +43,8 @@ toUrl state =
     Forms -> "#forms"
     Category -> "#category"
     FizzBuzz -> "#fizz-buzz"
-    Blog n ->
-      "#blog/" ++ toString n
+    Blog q ->
+      "#blog/" ++ q
 
 
 urlUpdate : Result String State -> Model -> (Model, Cmd Msg)
