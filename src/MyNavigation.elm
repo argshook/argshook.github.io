@@ -3,7 +3,8 @@ module MyNavigation exposing (..)
 import String
 import UrlParser exposing (Parser, (</>), format, int, oneOf, s, string)
 import Navigation
-import Models exposing (..)
+import Model exposing (Model, initialModel)
+import States exposing (..)
 import Messages exposing (..)
 
 

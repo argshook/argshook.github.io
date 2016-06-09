@@ -1,4 +1,4 @@
-module Models exposing (..)
+module Pages.PagesModel exposing (..)
 
 import Pages.Age as Age
 import Pages.Forms as Forms
@@ -15,11 +15,7 @@ type alias Model =
   , categoryTreeModel : CategoryTree.Model
   , fizzBuzzModel : FizzBuzz.Model
   , postsListModel : PostsList.Model
-  , state : State
   }
-
-
-type State = Home | Binary | Forms | Category | FizzBuzz | Blog Int
 
 
 initialModel : Model
@@ -30,6 +26,6 @@ initialModel =
   , categoryTreeModel = CategoryTree.initialModel
   , fizzBuzzModel = FizzBuzz.initialModel
   , postsListModel = PostsList.initialModel
-  , state = Home
   }
+
 
