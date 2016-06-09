@@ -48,7 +48,7 @@ getPost : PostId -> Cmd Msg
 getPost postId =
   let
       url =
-        "/Posts/" ++ postId ++ ".md"
+        "Posts/" ++ postId ++ ".md"
   in
       Task.perform FetchFail FetchSuccess (Http.getString url)
 
