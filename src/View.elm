@@ -6,7 +6,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String
 
-import Common exposing ((=>), colors)
+import Common exposing ((=>), colors, CSS)
 import Model exposing (..)
 import Messages exposing (..)
 import Pages.PagesView as PagesView
@@ -56,14 +56,22 @@ stateMenu model =
         , "font-weight" => "bold"
         ]
 
+      activeStyle : State -> CSS
       activeStyle state =
         let
-            _ = Debug.log "state" (model.state)
+            activeButtonStyle : Bool -> CSS
+            activeButtonStyle condition =
+              if condition then
+                buttonStyle ++ [ "background" => colors.dark, "color" => colors.light ]
+              else
+                buttonStyle
         in
-            if state == model.state then
-              buttonStyle ++ [ "background" => colors.dark, "color" => colors.light ]
-            else
-              buttonStyle
+            case model.state of
+              Blog postId ->
+                activeButtonStyle (state == Home)
+
+              _ ->
+                activeButtonStyle (model.state == state)
 
       menuItem (name, state) =
         button

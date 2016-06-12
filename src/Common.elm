@@ -16,3 +16,5 @@ colors =
   }
 
 
+type alias CSS = List (String, String)
+
