@@ -4,8 +4,9 @@ import Html.App
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Common exposing ((=>), colors)
+import String
 
+import Common exposing ((=>), colors)
 import Model exposing (..)
 import Messages exposing (..)
 import Pages.PagesView as PagesView
@@ -56,10 +57,13 @@ stateMenu model =
         ]
 
       activeStyle state =
-        if state == model.state then
-          buttonStyle ++ [ "background" => colors.dark, "color" => colors.light ]
-        else
-          buttonStyle
+        let
+            _ = Debug.log "state" (model.state)
+        in
+            if state == model.state then
+              buttonStyle ++ [ "background" => colors.dark, "color" => colors.light ]
+            else
+              buttonStyle
 
       menuItem (name, state) =
         button

@@ -42,11 +42,7 @@ view model state =
           Category -> Html.App.map PagesMessages.CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
           FizzBuzz -> Html.App.map PagesMessages.FizzBuzzMsg (FizzBuzz.view model.fizzBuzzModel)
           Blog postId ->
-            let
-                (postModel, postCmd) =
-                  Post.update (Post.LoadPost postId) model.postModel
-            in
-                Html.App.map PagesMessages.PostMsg (Post.view postModel)
+            Html.App.map PostsListMsg (PostsList.view model.postsListModel)
   in
     div
       [ style [ "padding" => "30px 0 0" ] ]

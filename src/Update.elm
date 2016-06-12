@@ -19,7 +19,6 @@ update msg model =
       in
           ({ model | pagesModel = model' }, Cmd.map PagesMessages cmd)
 
-
     ChangeState newState ->
       ({ model | state = newState }, Navigation.newUrl (toUrl newState))
 

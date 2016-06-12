@@ -5,7 +5,6 @@ import Html exposing (..)
 import Html.Events exposing (..)
 import Task
 import Http
-import Json.Decode as Json
 
 type alias PostId = String
 
@@ -56,7 +55,5 @@ getPost postId =
 view : Model -> Html Msg
 view model =
   div []
-    [ text model.postContent
-    , button [ onClick (LoadPost model.postId) ] [ text "fetch" ]
-    ]
+    [ text model.postContent ]
 
