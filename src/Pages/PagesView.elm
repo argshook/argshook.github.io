@@ -14,12 +14,11 @@ import Pages.CategoryTree as CategoryTree
 import Pages.FizzBuzz as FizzBuzz
 import Pages.Blog.Post as Post
 import Pages.Blog.PostsList as PostsList
-import Pages.PagesMessages as PagesMessages
-import Pages.PagesUpdate as PagesUpdate
 
 
-import Pages.PagesModel exposing (..)
-import Pages.PagesMessages exposing (..)
+import Pages.PagesModel as PagesModel exposing (..)
+import Pages.PagesMessages as PagesMessages exposing (..)
+import Pages.PagesUpdate as PagesUpdate exposing (..)
 import States exposing (..)
 
 
@@ -41,8 +40,8 @@ view model state =
           Binary -> Html.App.map PagesMessages.BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
           Category -> Html.App.map PagesMessages.CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
           FizzBuzz -> Html.App.map PagesMessages.FizzBuzzMsg (FizzBuzz.view model.fizzBuzzModel)
-          Blog postId ->
-            Html.App.map PostsListMsg (PostsList.view model.postsListModel)
+          Blog _ ->
+            Html.App.map PostMsg (Post.view model.postModel)
   in
     div
       [ style [ "padding" => "30px 0 0" ] ]

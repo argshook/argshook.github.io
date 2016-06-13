@@ -50,7 +50,11 @@ update msg model =
       let
           (postsListModel, postsListCmd) = PostsList.update msg model.postsListModel
       in
-          ({ model | postsListModel = postsListModel }, Cmd.map PostsListMsg postsListCmd)
+        case msg of
+          PostsList.OpenPost postId ->
+            model ! [ Cmd.map PostMsg (Post.getPost postId), Cmd.map PostsListMsg postsListCmd ]
+          _ ->
+            ({ model | postsListModel = postsListModel }, Cmd.map PostsListMsg postsListCmd)
 
     PostMsg msg ->
       let

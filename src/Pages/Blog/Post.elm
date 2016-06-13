@@ -1,6 +1,7 @@
 module Pages.Blog.Post exposing (..)
 
 
+import Navigation
 import Html exposing (..)
 import Html.Events exposing (..)
 import Task
@@ -55,5 +56,7 @@ getPost postId =
 view : Model -> Html Msg
 view model =
   div []
-    [ text model.postContent ]
+    [ text model.postId
+    , text model.postContent
+    ]
 

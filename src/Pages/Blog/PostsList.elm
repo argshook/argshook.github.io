@@ -7,20 +7,17 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String
 
+import Pages.Blog.Post as Post
 import Common exposing ((=>), colors)
-import Pages.Blog.Post as Post exposing (..)
+
 
 type alias Model =
-  { filter : String
-  , postModel : Post.Model
-  }
+  { filter : String }
 
 
 initialModel : Model
 initialModel =
-  { filter = ""
-  , postModel = Post.initialModel
-  }
+  { filter = "" }
 
 
 posts : List String
@@ -30,7 +27,6 @@ posts =
 
 type Msg
   = Filter String
-  | PostMsg Post.Msg
   | OpenPost String
 
 
@@ -41,23 +37,7 @@ update msg model =
       ({ model | filter = newFilter }, Cmd.none)
 
     OpenPost postId ->
-      let
-          (postModel, postCmd) =
-            Post.update (Post.LoadPost postId) model.postModel
-
-          navCmd =
-            Navigation.newUrl ("#blog/" ++ postId)
-
-          cmd =
-            Cmd.batch [ postCmd, navCmd ]
-      in
-          ({ model | postModel = postModel }, Cmd.map PostMsg cmd)
-
-    PostMsg msg ->
-      let
-          (postModel, postCmd) = Post.update msg model.postModel
-      in
-          ({ model | postModel = postModel }, Cmd.none)
+      (model, Navigation.newUrl ("#blog/" ++ postId))
 
 
 filteredPosts : String -> List (Html Msg)
@@ -71,20 +51,16 @@ filteredPosts filter =
 
 view : Model -> Html Msg
 view model =
-  let
-      postView =
-        Post.view model.postModel
-  in
-      div
-        [] <|
-        [ input
-          [ onInput Filter
-          , placeholder "Filter posts"
-          , value model.filter
-          , style [ "margin-bottom" => "30px" ]
-          ]
-          []
-        ] ++ ((filteredPosts model.filter) ++ [ Html.App.map PostMsg postView ])
+    div
+      [] <|
+      [ input
+        [ onInput Filter
+        , placeholder "Filter posts"
+        , value model.filter
+        , style [ "margin-bottom" => "30px" ]
+        ]
+        []
+      ] ++ (filteredPosts model.filter)
 
 
 postCard : String -> Html Msg
