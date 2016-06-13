@@ -40,7 +40,7 @@ stateMenu model =
   let
       states =
         [ ("Home", Home)
-        , ("Forms", Forms)
+        , ("Minesweeper", Minesweeper)
         , ("Binary", Binary)
         , ("Category", Category)
         , ("FizzBuzz", FizzBuzz)

@@ -8,10 +8,11 @@ import Common exposing ((=>), colors)
 
 
 import Pages.Age as Age
-import Pages.Forms as Forms
+import Pages.Minesweeper as Minesweeper
 import Pages.BinaryTree as BinaryTree
 import Pages.CategoryTree as CategoryTree
 import Pages.FizzBuzz as FizzBuzz
+
 import Pages.Blog.Post as Post
 import Pages.Blog.PostsList as PostsList
 
@@ -30,18 +31,20 @@ view model state =
           Home ->
             Html.App.map PostsListMsg (PostsList.view model.postsListModel)
 
-          Forms ->
-            div
-              []
-              [ Html.App.map PagesMessages.FormsMsg (Forms.view model.formsModel)
-              , Html.App.map PagesMessages.AgeMsg (Age.view model.ageModel)
-              ]
+          Binary ->
+            Html.App.map PagesMessages.BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
 
-          Binary -> Html.App.map PagesMessages.BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
-          Category -> Html.App.map PagesMessages.CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
-          FizzBuzz -> Html.App.map PagesMessages.FizzBuzzMsg (FizzBuzz.view model.fizzBuzzModel)
+          Category ->
+            Html.App.map PagesMessages.CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
+
+          FizzBuzz ->
+            Html.App.map PagesMessages.FizzBuzzMsg (FizzBuzz.view model.fizzBuzzModel)
+
           Blog _ ->
             Html.App.map PostMsg (Post.view model.postModel)
+
+          Minesweeper ->
+            Html.App.map PagesMessages.MinesweeperMsg (Minesweeper.view model.minesweeperModel)
   in
     div
       [ style [ "padding" => "30px 0 0" ] ]

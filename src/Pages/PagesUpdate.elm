@@ -2,7 +2,7 @@ module Pages.PagesUpdate exposing (..)
 
 
 import Pages.Age as Age
-import Pages.Forms as Forms
+import Pages.Minesweeper as Minesweeper
 import Pages.BinaryTree as BinaryTree
 import Pages.CategoryTree as CategoryTree
 import Pages.FizzBuzz as FizzBuzz
@@ -22,11 +22,11 @@ update msg model =
       in
           ({ model | ageModel = model' }, Cmd.map AgeMsg cmd)
 
-    FormsMsg msg ->
+    MinesweeperMsg msg ->
       let
-          formsModel = Forms.update msg model.formsModel
+          (model', cmd) = Minesweeper.update msg model.minesweeperModel
       in
-          ({ model | formsModel = formsModel }, Cmd.none)
+          ({ model | minesweeperModel = model' }, Cmd.map MinesweeperMsg cmd)
 
     BinaryTreeMsg msg ->
       let

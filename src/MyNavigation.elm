@@ -28,7 +28,7 @@ pageParser =
   oneOf
   [ format Home (s "")
   , format Binary (s "binary")
-  , format Forms (s "forms")
+  , format Minesweeper (s "minesweeper")
   , format Category (s "category")
   , format FizzBuzz (s "fizz-buzz")
   , format Blog (s "blog" </> string)
@@ -40,7 +40,7 @@ toUrl state =
   case state of
     Home -> "#"
     Binary -> "#binary"
-    Forms -> "#forms"
+    Minesweeper -> "#minesweeper"
     Category -> "#category"
     FizzBuzz -> "#fizz-buzz"
     Blog q ->

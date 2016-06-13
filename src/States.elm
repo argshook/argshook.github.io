@@ -4,7 +4,8 @@ module States exposing (..)
 type State
   = Home
   | Binary
-  | Forms
+  --| Forms
+  | Minesweeper
   | Category
   | FizzBuzz
   | Blog String
