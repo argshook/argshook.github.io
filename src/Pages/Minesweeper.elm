@@ -1,5 +1,6 @@
 module Pages.Minesweeper exposing (..)
 
+import Array exposing (Array, fromList)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -30,9 +31,14 @@ type MineState = Blown | NotBlown
 
 initialBoard : Board
 initialBoard =
-  [ [ (0, Closed (Mine NotBlown)), (1, Closed (Counter 1)), (2, Closed (Mine Blown)) ]
-  , [ (3, Closed (Mine NotBlown)), (4, Closed Empty), (5, Closed Empty) ]
-  , [ (6, Closed Empty), (7, Closed Empty), (8, Closed (Counter 2)) ]
+  [ [ (0, Closed (Mine NotBlown)), (1, Closed (Counter 2)), (2, Closed (Counter 1)), (3, Closed (Counter 1)), (4, Closed
+  (Counter 1))  ]
+  , [ (6, Closed (Mine NotBlown)), (7, Closed (Counter 3)), (8, Closed (Counter 3)), (9, Closed (Mine NotBlown)), (10,
+  Closed (Counter 1)) ]
+  , [ (11, Closed (Counter 1)), (12, Closed (Counter 1)), (13, Closed (Mine NotBlown)), (14, Closed (Mine NotBlown)), (15, Closed (Counter 1)) ]
+  , [ (16, Closed (Counter 1)), (17, Closed (Counter 2)), (18, Closed (Counter 1)), (19, Closed (Counter 1)), (20, Closed
+  (Counter 1)) ]
+  , [ (21, Closed (Mine NotBlown)), (22, Closed (Counter 1)), (23, Closed Empty), (24, Closed Empty), (25, Closed Empty) ]
   ]
 
 
@@ -88,9 +94,11 @@ view model =
                   , "vertical-align" => "middle"
                   , "cursor" => "pointer"
                   ] ++ [ "background" => background ]
-              , onClick <| RevealCell (id, c)
               ]
-              [ a [] [ text text' ] ]
+              [ button
+                [ onClick <| RevealCell (id, c) ]
+                [ text text' ]
+              ]
 
 
       row : List (Int, Cell) -> (Html Msg)
@@ -120,13 +128,13 @@ view model =
 newBoard : Board -> (Int, Cell) -> Board
 newBoard oldBoard (revealedId, revealedCell) =
   let
-      rows : List (Int, Cell) -> List (Int, Cell)
-      rows row =
-        List.map cell row
+      newRows : List (Int, Cell) -> List (Int, Cell)
+      newRows row =
+        List.map newCell row
 
 
-      cell : (Int, Cell) -> (Int, Cell)
-      cell (id, c) =
+      newCell : (Int, Cell) -> (Int, Cell)
+      newCell (id, c) =
         if revealedId == id then
           case c of
             Revealed content -> (id, c)
@@ -139,8 +147,101 @@ newBoard oldBoard (revealedId, revealedCell) =
         else
           (id, c)
 
+      (x, y) =
+        (revealedId % boardWidth oldBoard, revealedId // boardWidth oldBoard)
+
+      filledBoard =
+        let
+            targetCell =
+               getCellInBoard (x, y) oldBoard
+        in
+            floodFill (x, y) targetCell (revealedId, revealedCell) oldBoard
   in
-      List.map rows oldBoard
+      List.map newRows filledBoard
+
+
+floodFill : (Int, Int) -> Maybe (Int, Cell) -> (Int, Cell) -> Board -> Board
+floodFill (x, y) targetCell replacementCell board =
+  case getCellInBoard (x, y) board of
+    Just (id, cell) ->
+      case cell of
+        Closed content ->
+          case content of
+            Mine _ -> board
+            _ ->
+              if (id, cell) /= replacementCell then
+                let
+                    board' = setCellInBoard (x, y) replacementCell board
+                    boardN = floodFill (x, y - 1) targetCell replacementCell board'
+                    boardNE = floodFill (x + 1, y - 1) targetCell replacementCell boardN
+
+                    boardE = floodFill (x + 1, y) targetCell replacementCell boardNE
+                    boardSE = floodFill (x + 1, y + 1) targetCell replacementCell boardE
+
+                    boardS = floodFill (x, y + 1) targetCell replacementCell boardSE
+                    boardSW = floodFill (x - 1, y + 1) targetCell replacementCell boardS
+
+                    boardW = floodFill (x - 1, y) targetCell replacementCell boardSW
+                    boardNW = floodFill (x - 1, y + 1) targetCell replacementCell boardW
+                in
+                    boardNW
+              else
+                board
+        _ -> board
+
+    Nothing ->
+      board
+
+
+boardAsArray : Board -> Array (Array (Int, Cell))
+boardAsArray board =
+  board
+    |> List.map (\i -> Array.fromList i)
+    |> Array.fromList
+
+
+boardWidth : Board -> Int
+boardWidth board =
+  List.length <| List.concat (List.take 1 board)
+
+
+getCellInBoard : (Int, Int) -> Board -> Maybe (Int, Cell)
+getCellInBoard (x, y) board =
+  let
+      boardLength =
+        List.length board
+  in
+      case (x >= 0, x <= boardWidth board, y >= 0, y <= boardLength) of
+        (True, True, True, True) ->
+          List.drop (y * boardLength + x) (List.concat board)
+            |> List.head
+        _ -> Nothing
+
+
+setCellInBoard : (Int, Int) -> (Int, Cell) -> Board -> Board
+setCellInBoard (x, y) targetCell board =
+  let
+      row r =
+        List.map setCell r
+
+      setCell (id, cell) =
+        if (fst targetCell) == id then
+          case cell of
+            Closed content ->
+              case content of
+                Empty ->
+                  (id, Revealed Empty)
+                Counter n ->
+                  (id, Revealed (Counter n))
+                _ ->
+                  (id, cell)
+
+            _ -> (id, cell)
+        else
+          (id, cell)
+
+  in
+      List.map row board
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
