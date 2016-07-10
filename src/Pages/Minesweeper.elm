@@ -33,12 +33,12 @@ initialBoard : Board
 initialBoard =
   [ [ (0, Closed (Mine NotBlown)), (1, Closed (Counter 2)), (2, Closed (Counter 1)), (3, Closed (Counter 1)), (4, Closed
   (Counter 1))  ]
-  , [ (6, Closed (Mine NotBlown)), (7, Closed (Counter 3)), (8, Closed (Counter 3)), (9, Closed (Mine NotBlown)), (10,
-  Closed (Counter 1)) ]
-  , [ (11, Closed (Counter 1)), (12, Closed (Counter 1)), (13, Closed (Mine NotBlown)), (14, Closed (Mine NotBlown)), (15, Closed (Counter 1)) ]
-  , [ (16, Closed (Counter 1)), (17, Closed (Counter 2)), (18, Closed (Counter 1)), (19, Closed (Counter 1)), (20, Closed
+  , [ (5, Closed (Mine NotBlown)), (6, Closed (Counter 3)), (7, Closed (Counter 3)), (8, Closed (Mine NotBlown)), (9,
+  Closed (Counter 2)) ]
+  , [ (10, Closed (Counter 1)), (11, Closed (Counter 2)), (12, Closed (Mine NotBlown)), (13, Closed (Mine NotBlown)), (14, Closed (Counter 2)) ]
+  , [ (15, Closed (Counter 1)), (16, Closed (Counter 2)), (17, Closed (Counter 2)), (18, Closed (Counter 2)), (19, Closed
   (Counter 1)) ]
-  , [ (21, Closed (Mine NotBlown)), (22, Closed (Counter 1)), (23, Closed Empty), (24, Closed Empty), (25, Closed Empty) ]
+  , [ (20, Closed (Mine NotBlown)), (21, Closed (Counter 1)), (22, Closed Empty), (23, Closed Empty), (24, Closed Empty) ]
   ]
 
 
@@ -93,7 +93,8 @@ view model =
                   , "text-align" => "center"
                   , "vertical-align" => "middle"
                   , "cursor" => "pointer"
-                  ] ++ [ "background" => background ]
+                  , "background" => background
+                  ]
               ]
               [ button
                 [ onClick <| RevealCell (id, c) ]
@@ -147,21 +148,31 @@ newBoard oldBoard (revealedId, revealedCell) =
         else
           (id, c)
 
-      (x, y) =
-        (revealedId % boardWidth oldBoard, revealedId // boardWidth oldBoard)
+      boardWidth' =
+        boardWidth oldBoard
 
+      (x, y) =
+        (revealedId % boardWidth', revealedId // boardWidth oldBoard)
+
+      filledBoard : Board
       filledBoard =
         let
-            targetCell =
-               getCellInBoard (x, y) oldBoard
+            nextCellCoords : (Int, Int)
+            nextCellCoords =
+              ( ((revealedId + 1) % (boardWidth' * List.length oldBoard)) % boardWidth'
+              , revealedId // boardWidth'
+              )
+
+            nextCell =
+               Maybe.withDefault (revealedId, revealedCell) (getCellInBoard nextCellCoords oldBoard)
         in
-            floodFill (x, y) targetCell (revealedId, revealedCell) oldBoard
+            floodFill (x, y) nextCell oldBoard
   in
       List.map newRows filledBoard
 
 
-floodFill : (Int, Int) -> Maybe (Int, Cell) -> (Int, Cell) -> Board -> Board
-floodFill (x, y) targetCell replacementCell board =
+floodFill : (Int, Int) -> (Int, Cell) -> Board -> Board
+floodFill (x, y) targetCell board =
   case getCellInBoard (x, y) board of
     Just (id, cell) ->
       case cell of
@@ -169,24 +180,25 @@ floodFill (x, y) targetCell replacementCell board =
           case content of
             Mine _ -> board
             _ ->
-              if (id, cell) /= replacementCell then
+              if (id, cell) /= targetCell then
                 let
-                    board' = setCellInBoard (x, y) replacementCell board
-                    boardN = floodFill (x, y - 1) targetCell replacementCell board'
-                    boardNE = floodFill (x + 1, y - 1) targetCell replacementCell boardN
+                    board' = setCellInBoard (x, y) targetCell board
+                    boardN = floodFill (x, y - 1) (id, cell) board'
+                    boardNE = floodFill (x + 1, y - 1) (id, cell) boardN
 
-                    boardE = floodFill (x + 1, y) targetCell replacementCell boardNE
-                    boardSE = floodFill (x + 1, y + 1) targetCell replacementCell boardE
+                    boardE = floodFill (x + 1, y) (id, cell) boardNE
+                    boardSE = floodFill (x + 1, y + 1) (id, cell) boardE
 
-                    boardS = floodFill (x, y + 1) targetCell replacementCell boardSE
-                    boardSW = floodFill (x - 1, y + 1) targetCell replacementCell boardS
+                    boardS = floodFill (x, y + 1) (id, cell) boardSE
+                    boardSW = floodFill (x - 1, y + 1) (id, cell) boardS
 
-                    boardW = floodFill (x - 1, y) targetCell replacementCell boardSW
-                    boardNW = floodFill (x - 1, y + 1) targetCell replacementCell boardW
+                    boardW = floodFill (x - 1, y) (id, cell) boardSW
+                    boardNW = floodFill (x - 1, y + 1) (id, cell) boardW
                 in
                     boardNW
               else
                 board
+
         _ -> board
 
     Nothing ->
@@ -231,12 +243,15 @@ setCellInBoard (x, y) targetCell board =
               case content of
                 Empty ->
                   (id, Revealed Empty)
+
                 Counter n ->
                   (id, Revealed (Counter n))
+
                 _ ->
                   (id, cell)
 
             _ -> (id, cell)
+
         else
           (id, cell)
 

@@ -63,7 +63,7 @@ getRandomGif topic =
 
 decodeGifUrl : Json.Decoder String
 decodeGifUrl =
-  Json.at ["data", "image_url"] Json.string
+  Json.at ["main"] Json.string
 
 
 view : Model -> Html Msg
