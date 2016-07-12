@@ -87,7 +87,7 @@ view model =
                 _ -> colors.light
         in
             td
-              [ style <|
+              [ style
                   [ "width" => "64px"
                   , "height" => "64px"
                   , "text-align" => "center"

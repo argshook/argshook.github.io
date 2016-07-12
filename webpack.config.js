@@ -25,7 +25,7 @@ module.exports = {
       {
         test: /\.elm$/,
         exclude: excludes,
-        loader: 'elm-webpack'
+        loader: 'elm-hot!elm-webpack?verbose=true&warn=true'
       },
       {
         test: /\.js/,
@@ -34,6 +34,10 @@ module.exports = {
         query: {
           presets: ['es2015']
         }
+      },
+      {
+        test: /\.s?css$/,
+        loader: 'style-loader!css-loader!postcss-loader'
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -46,13 +50,18 @@ module.exports = {
     ],
   },
 
+  postcss: function() {
+    return [require('autoprefixer'), require('precss')];
+  },
+
   plugins: [
     new webpack.optimize.DedupePlugin(),
-    //new webpack.optimize.UglifyJsPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ],
 
   devServer: {
     inline: true,
+    hot: true,
     stats: {
       colors: true
     }
