@@ -8,6 +8,11 @@ some things i do with elm when i should be outside.
 
 * `npm start` [localhost:8080](http://localhost:8000)
 
+## prod
+
+* `npm run build`
+* `python -m http.server` [localhost:8000](http://localhost:8000)
+
 ## how
 
 * `elm make Main.elm --output=elm.js`

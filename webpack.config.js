@@ -1,16 +1,18 @@
 const path = require('path');
+const webpack = require('webpack');
 
 const excludes = ['/node_modules/', '/elm-stuff/'];
 
 
 module.exports = {
   entry: {
-    app: path.resolve(__dirname, 'app.js')
+    bundle: path.resolve(__dirname, 'src', 'index.js')
   },
 
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    path: path.resolve(__dirname),
+    filename: '[name].min.js',
+    publicPath: '/'
   },
 
   module: {
@@ -18,12 +20,20 @@ module.exports = {
       {
         test: /\.html$/,
         exclude: excludes,
-        loader: 'file?name=[name].[ext]'
+        loader: 'html'
       },
       {
         test: /\.elm$/,
         exclude: excludes,
         loader: 'elm-webpack'
+      },
+      {
+        test: /\.js/,
+        exclude: excludes,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
+        }
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -35,6 +45,11 @@ module.exports = {
       }
     ],
   },
+
+  plugins: [
+    new webpack.optimize.DedupePlugin(),
+    //new webpack.optimize.UglifyJsPlugin()
+  ],
 
   devServer: {
     inline: true,
