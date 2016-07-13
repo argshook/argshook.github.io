@@ -22,12 +22,8 @@ view model =
 
   in
       div
-        [ style
-          [ "width" => "700px"
-          , "margin" => "0 auto"
-          ]
-        ]
-        [ header
+        [ class "blog-wrapper" ]
+        [ div
             [ class "blog-head" ]
             [ h1
               []
@@ -54,49 +50,32 @@ stateMenu model =
         , ("FizzBuzz", FizzBuzz)
         ]
 
-      buttonStyle =
-        [ "border" => ("1px solid " ++ colors.medium)
-        , "border-radius" => "5px / 10px"
-        , "padding" => "10px 25px"
-        , "color" => colors.dark
-        , "background" => "transparent"
-        , "cursor" => "pointer"
-        , "font-weight" => "bold"
-        ]
-
-      activeStyle : State -> CSS
-      activeStyle state =
+      activeClass : State -> String
+      activeClass state =
         let
-            activeButtonStyle : Bool -> CSS
-            activeButtonStyle condition =
+            activeButtonClass : Bool -> String
+            activeButtonClass condition =
               if condition then
-                buttonStyle ++ [ "background" => colors.dark, "color" => colors.light ]
+                "blog-nav__btn--active"
               else
-                buttonStyle
+                ""
         in
             case model.state of
               Blog postId ->
-                activeButtonStyle (state == Home)
+                activeButtonClass (state == Home)
 
               _ ->
-                activeButtonStyle (model.state == state)
+                activeButtonClass (model.state == state)
 
       menuItem (name, state) =
         button
           [ onClick (ChangeState state)
-          , style <| activeStyle state
+          , class <| "blog-nav__btn " ++ (activeClass state)
           ]
           [ text name ]
 
-      menuStyles =
-        [ "display" => "flex"
-        , "justify-content" => "space-around"
-        , "padding" => "30px"
-        , "background" => colors.light
-        ]
-
   in
     div
-      [ style menuStyles ]
+      [ class "blog-nav" ]
       (List.map menuItem states)
 

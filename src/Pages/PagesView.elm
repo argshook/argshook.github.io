@@ -47,6 +47,6 @@ view model state =
             Html.App.map PagesMessages.MinesweeperMsg (Minesweeper.view model.minesweeperModel)
   in
     div
-      [ style [ "padding" => "30px 0 0" ] ]
+      [ class "blog-content" ]
       [ component ]
 

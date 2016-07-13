@@ -9,9 +9,8 @@ body {
 
 a { color: $color-darker; }
 
-input,
-button,
-select {
+.input,
+.btn {
   padding: .7rem 1rem;
   border: 1px solid $color-dark;
   border-radius: 3px;
@@ -22,15 +21,14 @@ input[type=text]:focus {
   border-color: $color-complimentary;
 }
 
-button {
+.btn {
   color: $color-darker;
   background: $color-complimentary;
 }
 
-input + button {
+.input + .btn {
   margin-left: -3px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-
 

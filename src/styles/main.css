@@ -1,20 +1,51 @@
 @import "vars.css";
 @import "base.css";
 
+.blog-wrapper {
+  max-width: 750px;
+  margin: 0 auto;
+}
 .blog-head {
   position: relative;
-  padding: 1rem;
+  padding: 2rem;
   background: $color-light;
   color: $color-dark;
+  box-shadow: 0 1rem 30px rgba(0,0,0,.1);
+
+  h1 {
+    margin: 0;
+  }
 
   &__github {
     position: absolute;
     top: 10%;
     right: 5%;
+    font-size: 1rem;
 
     a {
       color: $color-medium;
       text-decoration: none;
+    }
+  }
+}
+
+.blog-nav {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+
+  &__btn {
+    margin: 0 .5rem;
+    padding: 1rem 2.5rem;
+    background: $color-light;
+    font-size: 1rem;
+    border: 1px solid $color-dark;
+    border-radius: 50px;
+
+    &--active {
+      background: $color-medium;
+      color: $color-light;
+      border-color: $color-light;
     }
   }
 }
@@ -24,9 +55,55 @@
   margin-bottom: 1rem;
   padding: 1rem;
   border: 1px solid $color-medium;
+  transition: .1s ease all;
+  text-decoration: none;
+  border-radius: 3px;
 
   &:hover {
     background: $color-medium;
+    color: $color-light;
   }
+}
+
+.blog-content {
+  position: relative;
+  padding: 1rem 2rem;
+  background: $color-light;
+  border-top: 5px solid $color-medium;
+  margin-bottom: 10vh;
+  box-shadow: 0 0 250px 0 rgba(0,0,0,.2);
+
+  $cog-size: 300px;
+
+  &:before,
+  &:after {
+    position: absolute;
+    display: block;
+    left: calc(-$cog-size / 2);
+    top: calc(-$cog-size / 2);
+    width: calc($cog-size);
+    height: calc($cog-size);
+    box-shadow: 0 0 0 calc($cog-size / 10) $color-light inset;
+    border: 20px dotted $color-light;
+    border-radius: 50%;
+    content: '';
+    transform: rotate(0deg);
+    animation: blogContentCog 120s linear infinite;
+    z-index: -1;
+  }
+
+  &:after {
+    width: calc($cog-size / 2);
+    height: calc($cog-size / 2);
+    top: calc(-$cog-size / 4);
+    left: calc(-$cog-size / 4);
+    border: 10px dotted $color-light;
+    box-shadow: 0 0 0 calc($cog-size / 16) $color-light inset;
+    animation-direction: reverse;
+  }
+}
+
+@keyframes blogContentCog {
+  to { transform: rotateZ(360deg); }
 }
 
