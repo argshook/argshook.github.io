@@ -6,6 +6,11 @@ import Navigation
 import Model exposing (Model, initialModel)
 import States exposing (..)
 import Messages exposing (..)
+import Task
+
+import Pages.PagesUpdate
+import Pages.PagesMessages
+import Pages.Blog.Post as Post
 
 
 init : Result String State -> ( Model, Cmd Msg )
@@ -43,8 +48,7 @@ toUrl state =
     Minesweeper -> "#minesweeper"
     Category -> "#category"
     FizzBuzz -> "#fizz-buzz"
-    Blog q ->
-      "#blog/" ++ q
+    Blog q -> "#blog/" ++ q
 
 
 urlUpdate : Result String State -> Model -> (Model, Cmd Msg)
@@ -52,12 +56,22 @@ urlUpdate result model =
   case result of
     Ok newState ->
       case newState of
-        _ ->
+        States.Blog id ->
           let
-              model' =
-                { model | state = newState }
+              (pagesModel, pagesCmd) =
+                Pages.PagesUpdate.update
+                  (Pages.PagesMessages.PostMsg (Post.LoadPost id))
+                  model.pagesModel
+
           in
-              (model', Cmd.none)
+              { model
+              | state = newState
+              , pagesModel = pagesModel
+              } !
+              [ Cmd.map PagesMessages pagesCmd ]
+
+        _ ->
+          { model | state = newState } ! []
 
     Err _ ->
       (model, Navigation.modifyUrl (toUrl model.state))

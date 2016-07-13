@@ -4,7 +4,6 @@ import Html.App
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import String
 
 import Common exposing ((=>), colors, CSS)
 import Model exposing (..)
@@ -23,7 +22,7 @@ view model =
     ]
     [ div
         [ style [ "padding" => "30px", "background" => colors.light ] ]
-        [ h2
+        [ h1
           []
           [ text "Elm experiments" ]
         , p

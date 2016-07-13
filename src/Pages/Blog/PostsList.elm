@@ -52,21 +52,25 @@ filteredPosts filter =
 view : Model -> Html Msg
 view model =
     div
-      [] <|
-      [ input
-        [ onInput Filter
-        , placeholder "Filter posts"
-        , value model.filter
-        , style [ "margin-bottom" => "30px" ]
+      [ class "flex" ]
+      [ div [ class "col-8" ] (filteredPosts model.filter)
+      , div
+        [ class "col-4 px2" ]
+        [ input
+            [ onInput Filter
+            , placeholder "Filter posts"
+            , value model.filter
+            , class "my2 input"
+            ]
+            []
         ]
-        []
-      ] ++ (filteredPosts model.filter)
+      ]
 
 
 postCard : String -> Html Msg
 postCard post =
   a
-    [ style [ "background" => colors.light, "margin" => "0 0 10px", "display" => "block" ]
+    [ class "my2 p2 bg-teal border rounder block"
     , onClick (OpenPost post)
     ]
     [ text post ]

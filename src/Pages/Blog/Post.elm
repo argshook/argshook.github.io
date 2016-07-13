@@ -6,12 +6,14 @@ import Html exposing (..)
 import Html.Events exposing (..)
 import Task
 import Http
+import Markdown
 
 type alias PostId = String
 
 type alias Model =
   { postId : PostId
   , postContent : String
+  , isPostLoading : Bool
   }
 
 
@@ -19,6 +21,7 @@ initialModel : Model
 initialModel =
   { postId = ""
   , postContent = ""
+  , isPostLoading = True
   }
 
 
@@ -32,16 +35,25 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     LoadPost postId ->
-      ({ model | postId = postId }, getPost postId)
+      { model
+      | postId = postId
+      , isPostLoading = True
+      } ! [ getPost postId ]
 
     FetchSuccess data ->
-      ({ model | postContent = data }, Cmd.none)
+      { model
+      | postContent = data
+      , isPostLoading = False
+      } ! []
 
     FetchFail error ->
       let
           _ = Debug.log "fetch fail" error
       in
-          ({ model | postContent = "Failed to fetch :(" }, Cmd.none)
+          { model
+          | postContent = "Failed to fetch :("
+          , isPostLoading = False
+          } ! []
 
 
 getPost : PostId -> Cmd Msg
@@ -55,8 +67,11 @@ getPost postId =
 
 view : Model -> Html Msg
 view model =
-  div []
-    [ text model.postId
-    , text model.postContent
-    ]
+  if model.isPostLoading then
+    div [] [ text "Loading..." ]
+  else
+    div []
+      [ div [] [ text model.postId ]
+      , Markdown.toHtml [] model.postContent
+      ]
 

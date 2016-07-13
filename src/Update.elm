@@ -5,6 +5,7 @@ import Navigation
 import Messages exposing (..)
 import Model exposing (..)
 import MyNavigation exposing (..)
+import States exposing (..)
 
 import Pages.PagesUpdate exposing (..)
 import Pages.PagesMessages exposing (..)
@@ -20,5 +21,5 @@ update msg model =
           ({ model | pagesModel = model' }, Cmd.map PagesMessages cmd)
 
     ChangeState newState ->
-      ({ model | state = newState }, Navigation.newUrl (toUrl newState))
+      { model | state = newState } ! [ Navigation.newUrl (toUrl newState) ]
 
