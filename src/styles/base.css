@@ -1,0 +1,36 @@
+*, *:before, *:after { box-sizing: border-box; }
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Tahoma;
+  font-size: 18px;
+}
+
+a { color: $color-darker; }
+
+input,
+button,
+select {
+  padding: .7rem 1rem;
+  border: 1px solid $color-dark;
+  border-radius: 3px;
+  font-size: 15px;
+}
+
+input[type=text]:focus {
+  border-color: $color-complimentary;
+}
+
+button {
+  color: $color-darker;
+  background: $color-complimentary;
+}
+
+input + button {
+  margin-left: -3px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+

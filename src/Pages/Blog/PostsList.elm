@@ -60,7 +60,6 @@ view model =
             [ onInput Filter
             , placeholder "Filter posts"
             , value model.filter
-            , class "my2 input"
             ]
             []
         ]
@@ -70,8 +69,9 @@ view model =
 postCard : String -> Html Msg
 postCard post =
   a
-    [ class "my2 p2 bg-teal border rounder block"
+    [ class "blog-post-card"
     , onClick (OpenPost post)
+    , href ("#blog/" ++ post)
     ]
     [ text post ]
 

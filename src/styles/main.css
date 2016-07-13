@@ -1,16 +1,5 @@
-@import "_vars.scss";
-
-*, *:before, *:after { box-sizing: border-box; }
-
-body {
-  padding: 0;
-  margin: 0;
-  font-family: Tahoma;
-}
-
-a {
-  color: $color-darker;
-}
+@import "vars.css";
+@import "base.css";
 
 .blog-head {
   position: relative;
@@ -27,6 +16,17 @@ a {
       color: $color-medium;
       text-decoration: none;
     }
+  }
+}
+
+.blog-post-card {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid $color-medium;
+
+  &:hover {
+    background: $color-medium;
   }
 }
 

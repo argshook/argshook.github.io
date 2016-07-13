@@ -50,8 +50,14 @@ module.exports = {
     ],
   },
 
-  postcss: function() {
-    return [require('autoprefixer'), require('precss')];
+  postcss: function(webpack) {
+    return [
+      require('autoprefixer'),
+      require('postcss-import')({
+        addDependencyTo: webpack
+      }),
+      require('precss')
+    ];
   },
 
   plugins: [
