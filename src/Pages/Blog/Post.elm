@@ -1,4 +1,4 @@
-module Pages.Blog.Post exposing (..)
+port module Pages.Blog.Post exposing (..)
 
 
 import Navigation
@@ -29,6 +29,7 @@ type Msg
   = FetchSuccess String
   | FetchFail Http.Error
   | LoadPost PostId
+  | Highlight
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -40,11 +41,19 @@ update msg model =
       , isPostLoading = True
       } ! [ getPost postId ]
 
+    Highlight ->
+      model ! [ highlight "" ]
+
     FetchSuccess data ->
-      { model
-      | postContent = data
-      , isPostLoading = False
-      } ! []
+      let
+          model' =
+            { model
+            | postContent = data
+            , isPostLoading = False
+            }
+
+      in
+         update Highlight model'
 
     FetchFail error ->
       let
@@ -54,6 +63,7 @@ update msg model =
           | postContent = "Failed to fetch :("
           , isPostLoading = False
           } ! []
+
 
 
 getPost : PostId -> Cmd Msg
@@ -72,4 +82,7 @@ view model =
   else
     div []
       [ Markdown.toHtml [] model.postContent ]
+
+
+port highlight : String -> Cmd msg
 
