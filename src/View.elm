@@ -13,25 +13,34 @@ import States exposing (..)
 
 view : Model -> Html Msg
 view model =
-  div
-    [ style
-      [ "width" => "700px"
-      , "margin" => "0 auto"
-      , "min-height" => "100vh"
-      ]
-    ]
-    [ div
-        [ style [ "padding" => "30px", "background" => colors.light ] ]
-        [ h1
-          []
-          [ text "Elm experiments" ]
-        , p
-          []
-          [ text "merely a sandbox to play with elm" ]
+  let
+      githubLink =
+        a
+          [ href "https://github.com/argshook/elm-experiments"
+          , target "_blank" ]
+          [ text "github" ]
+
+  in
+      div
+        [ style
+          [ "width" => "700px"
+          , "margin" => "0 auto"
+          ]
         ]
-    , stateMenu model
-    , Html.App.map PagesMessages (PagesView.view model.pagesModel model.state)
-    ]
+        [ header
+            [ class "blog-head" ]
+            [ h1
+              []
+              [ text "Elm experiments" ]
+            , p
+              []
+              [ text "merely a sandbox to play with elm. "
+              , div [ class "blog-head__github" ] [ githubLink ]
+              ]
+            ]
+        , stateMenu model
+        , Html.App.map PagesMessages (PagesView.view model.pagesModel model.state)
+        ]
 
 
 stateMenu : Model -> Html Msg

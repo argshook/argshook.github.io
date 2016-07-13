@@ -71,7 +71,5 @@ view model =
     div [] [ text "Loading..." ]
   else
     div []
-      [ div [] [ text model.postId ]
-      , Markdown.toHtml [] model.postContent
-      ]
+      [ Markdown.toHtml [] model.postContent ]
 
