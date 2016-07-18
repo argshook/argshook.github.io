@@ -10,25 +10,49 @@ body {
 a { color: $color-darker; }
 
 .input,
+.select,
 .btn {
   padding: .7rem 1rem;
   border: 1px solid $color-dark;
-  border-radius: 3px;
-  font-size: 15px;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: .2s ease all;
+  background: #fff;
+  color: $color-dark;
+  text-decoration: none;
+
+  &:focus { outline: 0; }
 }
 
-input[type=text]:focus {
+.select {
+  padding: .625rem;
+}
+
+.input:focus {
   border-color: $color-complimentary;
+  box-shadow: 0 2px 15px color($color-medium l(+ 30%));
 }
 
 .btn {
-  color: $color-darker;
-  background: $color-complimentary;
-}
+  background: $color-light;
+  border: 1px solid $color-dark;
+  border-radius: 6px;
+  cursor: pointer;
 
-.input + .btn {
-  margin-left: -3px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  &--active {
+    background: $color-medium;
+    color: $color-light;
+    border-color: $color-light;
+  }
+
+  &--lg {
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+  }
+
+  &:hover {
+    background: $color-medium;
+    color: $color-light;
+  }
 }
 

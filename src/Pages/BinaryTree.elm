@@ -164,11 +164,13 @@ view model =
             [ onInput Input
             , value model.treeNodeInput
             , style [ ("margin-bottom", "30px") ]
+            , class "input"
             ]
             []
           , button
               [ onClick AddTreeNode
               , disabled isDuplicate
+              , class "btn"
               ]
               [ text "Add to tree" ]
           , div [] [ (drawTree model.tree) ]

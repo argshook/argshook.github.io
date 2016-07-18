@@ -92,6 +92,7 @@ view model =
           [ onInput Input
           , value model.categoryInput
           , style [ ("margin-bottom", "20px") ]
+          , class "input"
           ]
           []
 
@@ -117,7 +118,11 @@ view model =
 
       categoryAddButton : Html Msg
       categoryAddButton =
-        button [ onClick AddCategory ] [ text "Add" ]
+        button
+          [ onClick AddCategory
+          , class "btn"
+          ]
+          [ text "Add" ]
 
       categoriesDropdown : Html Msg
       categoriesDropdown =
@@ -138,7 +143,9 @@ view model =
 
         in
             select
-              [ onInput SelectCategory ]
+              [ onInput SelectCategory
+              , class "select"
+              ]
               (List.concat (List.map (dropdownRow 0) model.categories))
   in
       div

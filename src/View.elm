@@ -56,7 +56,7 @@ stateMenu model =
             activeButtonClass : Bool -> String
             activeButtonClass condition =
               if condition then
-                "blog-nav__btn--active"
+                "btn--active"
               else
                 ""
         in
@@ -70,7 +70,7 @@ stateMenu model =
       menuItem (name, state) =
         button
           [ onClick (ChangeState state)
-          , class <| "blog-nav__btn " ++ (activeClass state)
+          , class <| "blog-nav__btn btn btn--lg " ++ (activeClass state)
           ]
           [ text name ]
 

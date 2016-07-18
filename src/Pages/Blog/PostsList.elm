@@ -52,17 +52,19 @@ filteredPosts filter =
 view : Model -> Html Msg
 view model =
     div
-      [ class "flex" ]
-      [ div [ class "col-8" ] (filteredPosts model.filter)
-      , div
-        [ class "col-4 px2" ]
-        [ input
+      [ class "blog" ]
+      [ div
+        [ class "blog-posts-filter" ]
+        [ text "Filter posts "
+        , input
             [ onInput Filter
             , placeholder "Filter posts"
             , value model.filter
+            , class "input"
             ]
             []
         ]
+      , div [ class "blog-posts-list" ] (filteredPosts model.filter)
       ]
 
 

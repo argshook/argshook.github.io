@@ -4,6 +4,7 @@ port module Pages.Blog.Post exposing (..)
 import Navigation
 import Html exposing (..)
 import Html.Events exposing (..)
+import Html.Attributes exposing (..)
 import Task
 import Http
 import Markdown
@@ -30,6 +31,7 @@ type Msg
   | FetchFail Http.Error
   | LoadPost PostId
   | Highlight
+  | GoBack
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -64,6 +66,9 @@ update msg model =
           , isPostLoading = False
           } ! []
 
+    GoBack ->
+      --model ! [ Navigation.newUrl "#" ]
+      model ! []
 
 
 getPost : PostId -> Cmd Msg
@@ -80,8 +85,14 @@ view model =
   if model.isPostLoading then
     div [] [ text "Loading..." ]
   else
-    div []
-      [ Markdown.toHtml [] model.postContent ]
+    div [ class "blog-post" ]
+      [ a
+        [ class "blog-post__back-btn btn"
+        , href "#"
+        ]
+        [ text "Back" ]
+      ,  Markdown.toHtml [] model.postContent
+      ]
 
 
 port highlight : String -> Cmd msg
