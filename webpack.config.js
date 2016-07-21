@@ -56,8 +56,7 @@ module.exports = {
       require('postcss-import')({
         addDependencyTo: webpack
       }),
-      require('precss'),
-      require('postcss-color-function'),
+      require('precss')
     ];
   },
 

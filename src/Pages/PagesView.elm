@@ -4,10 +4,8 @@ module Pages.PagesView exposing (..)
 import Html.App
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Common exposing ((=>), colors)
 
 
-import Pages.Age as Age
 import Pages.Minesweeper as Minesweeper
 import Pages.BinaryTree as BinaryTree
 import Pages.CategoryTree as CategoryTree
@@ -19,7 +17,6 @@ import Pages.Blog.PostsList as PostsList
 
 import Pages.PagesModel as PagesModel exposing (..)
 import Pages.PagesMessages as PagesMessages exposing (..)
-import Pages.PagesUpdate as PagesUpdate exposing (..)
 import States exposing (..)
 
 
@@ -47,6 +44,19 @@ view model state =
             Html.App.map PagesMessages.MinesweeperMsg (Minesweeper.view model.minesweeperModel)
   in
     div
-      [ class "blog-content" ]
-      [ component ]
+      [ class "blog-content" ] <|
+      (cogBlock 0 3 Nothing) ++ (component :: (cogBlock 0 3 (Just "bottom")))
+
+cogBlock : Int -> Int -> Maybe String -> List (Html Msg)
+cogBlock start end modifier =
+  let
+      cssClass =
+        "blog-content__cog"
+
+      cssClassWithModifier =
+        case modifier of
+          Just m -> cssClass ++ "--" ++ m ++ " "
+          Nothing -> cssClass ++ " "
+  in
+      List.map (\c -> div [ class (cssClass ++ " " ++ cssClassWithModifier ++ cssClass ++ "--" ++ toString c) ] [] ) [start..end]
 

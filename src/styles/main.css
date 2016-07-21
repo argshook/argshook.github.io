@@ -33,7 +33,7 @@
 .blog-nav {
   display: flex;
   justify-content: center;
-  padding: 2rem 0;
+  padding: 4rem 0;
 
   &__btn {
     margin: 0 .5rem;
@@ -82,35 +82,59 @@
   background: $color-light;
   border-top: 5px solid $color-medium;
   margin-bottom: 10vh;
-  box-shadow: 0 0 250px 0 rgba(0,0,0,.2);
+  box-shadow: 0 100px 300px 0 rgba(0,0,0,.2);
 
-  $cog-size: 300px;
+  &__cog {
+    $num-cogs: 4;
+    $cog-size: 200px;
+    $cog-color: color($color-light l(-10%) alpha(-50%));
 
-  &:before,
-  &:after {
-    position: absolute;
-    display: block;
-    left: calc(-$cog-size / 2);
-    top: calc(-$cog-size / 2);
-    width: calc($cog-size);
-    height: calc($cog-size);
-    box-shadow: 0 0 0 calc($cog-size / 10) $color-light inset;
-    border: 20px dotted $color-light;
-    border-radius: 50%;
-    content: '';
-    transform: rotate(0deg);
-    animation: blogContentCog 120s linear infinite;
-    z-index: -1;
-  }
+    &:before,
+    &:after {
+      position: absolute;
+      display: block;
+      left: calc(-$cog-size / 2);
+      top: calc(-$cog-size / 2);
+      width: calc($cog-size);
+      height: calc($cog-size);
+      box-shadow: 0 0 0 calc($cog-size / 10) $cog-color inset;
+      border: calc($cog-size / 15) dotted $cog-color;
+      border-radius: 50%;
+      content: '';
+      transform: rotate(0deg);
+      animation: blogContentCog 120s linear infinite;
+      z-index: -1;
+    }
 
-  &:after {
-    width: calc($cog-size / 2);
-    height: calc($cog-size / 2);
-    top: calc(-$cog-size / 4);
-    left: calc(-$cog-size / 4);
-    border: 10px dotted $color-light;
-    box-shadow: 0 0 0 calc($cog-size / 16) $color-light inset;
-    animation-direction: reverse;
+    &:after {
+      width: calc($cog-size / 2);
+      height: calc($cog-size / 2);
+      top: calc(-$cog-size / 4);
+      border: 10px dotted $cog-color;
+      box-shadow: 0 0 0 calc($cog-size / 16) $cog-color inset;
+      animation-direction: reverse;
+      animation-delay: -5s;
+    }
+
+    @for $i from 0 to $num-cogs {
+      &--$i:before {
+        left: calc($cog-size * $i + $cog-size * $i / 2 - 25%);
+      }
+
+      &--$i:after {
+        left: calc($cog-size + $cog-size * $i + $cog-size * $i / 2 - 25%);
+      }
+    }
+
+    &--bottom:before {
+      top: auto;
+      bottom: calc(-$cog-size / 2);
+    }
+
+    &--bottom:after {
+      top: auto;
+      bottom: calc(-$cog-size / 4);
+    }
   }
 }
 
@@ -131,7 +155,6 @@
     padding: 1rem;
     border-radius: 50px 0 0 50px;
     border: 0;
-    box-shadow: -15px 10px 20px 0 color($color-light l(-10%));
     color: color($color-dark l(+10%));
 
     &:before {
