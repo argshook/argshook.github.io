@@ -38,7 +38,7 @@ function configPost() {
       .addProperties(
         {},
         ['title', 'author'],
-        (err, result) => rejectOrResolve(err, result, resolve, reject)
+        (err, result) => rejectOrResolve(err, result, reject, resolve)
       );
   });
 }
@@ -51,11 +51,11 @@ function addPost({ title, author }) {
 
 function readDirAsync(path) {
   return new Promise((resolve, reject) => {
-    fs.readdir(path, (err, data) => rejectOrResolve(err, data, resolve, reject));
+    fs.readdir(path, (err, data) => rejectOrResolve(err, data, reject, resolve));
   });
 }
 
-function rejectOrResolve(err, data, resolve, reject) {
+function rejectOrResolve(err, data, reject, resolve) {
   return err !== null ? reject(err) : resolve(data);
 }
 
