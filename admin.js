@@ -38,7 +38,7 @@ function configPost() {
       .addProperties(
         {},
         ['title', 'author'],
-        (err, result) => err !== null ? reject(err) : resolve(result)
+        (err, result) => rejectOrResolve(err, result, resolve, reject)
       );
   });
 }
@@ -51,8 +51,12 @@ function addPost({ title, author }) {
 
 function readDirAsync(path) {
   return new Promise((resolve, reject) => {
-    fs.readdir(path, (err, data) => err !== null ? reject(err) : resolve(data));
+    fs.readdir(path, (err, data) => rejectOrResolve(err, data, resolve, reject));
   });
+}
+
+function rejectOrResolve(err, data, resolve, reject) {
+  return err !== null ? reject(err) : resolve(data);
 }
 
 function exit() {
