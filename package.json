@@ -37,6 +37,10 @@
   },
   "homepage": "https://github.com/argshook/elm-experiments#readme",
   "dependencies": {
-    "highlight.js": "^9.5.0"
+    "highlight.js": "^9.5.0",
+    "prompt": "^1.0.0"
+  },
+  "bin": {
+    "admin": "./admin.js"
   }
 }
