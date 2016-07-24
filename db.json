@@ -1,3 +1,12 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "title": "Hello World!",
+      "author": "argshook",
+      "id": "44d986c7-155b-d2bd-73b6-877e92c28fe3",
+      "slug": "hello-world",
+      "dateCreated": 1469374759836,
+      "path": "hello-world.md"
+    }
+  ]
 }

@@ -1,0 +1,105 @@
+.page-wrapper {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.page-head {
+  position: relative;
+  padding: 2rem;
+  background: $color-light;
+  color: $color-dark;
+  box-shadow: 0 100px 200px 0 rgba(0,0,0,.1);
+
+  h1 {
+    margin: 0;
+  }
+
+  &__github {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    font-size: 1rem;
+
+    a {
+      color: $color-medium;
+      text-decoration: none;
+    }
+  }
+}
+
+.page-nav {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0;
+
+  &__btn {
+    margin: 0 .5rem;
+    padding: 1rem 2.5rem;
+  }
+}
+
+.page-content {
+  position: relative;
+  background: color($color-light alpha(-30%));
+  border-top: 5px solid $color-medium;
+  margin-bottom: 10vh;
+  box-shadow: 0 100px 200px 0 rgba(0,0,0,.1);
+
+  &__cog {
+    $num-cogs: 4;
+    $cog-size: 200px;
+    $cog-color: color($color-light l(-10%) alpha(-50%));
+
+    &:before,
+    &:after {
+      position: absolute;
+      display: block;
+      left: calc(-$cog-size / 2);
+      top: calc(-$cog-size / 2);
+      width: calc($cog-size);
+      height: calc($cog-size);
+      box-shadow: 0 0 0 calc($cog-size / 10) $cog-color inset;
+      border: calc($cog-size / 15) dotted $cog-color;
+      border-radius: 50%;
+      content: '';
+      transform: rotate(0deg);
+      animation: pageContentCog 120s linear infinite;
+      z-index: -1;
+    }
+
+    &:after {
+      width: calc($cog-size / 2);
+      height: calc($cog-size / 2);
+      top: calc(-$cog-size / 4);
+      border: 10px dotted $cog-color;
+      box-shadow: 0 0 0 calc($cog-size / 16) $cog-color inset;
+      animation-direction: reverse;
+      animation-delay: -5s;
+    }
+
+    @for $i from 0 to $num-cogs {
+      &--$i:before {
+        left: calc($cog-size * $i + $cog-size * $i / 2 - 25%);
+      }
+
+      &--$i:after {
+        left: calc($cog-size + $cog-size * $i + $cog-size * $i / 2 - 25%);
+      }
+    }
+
+    &--bottom:before {
+      top: auto;
+      bottom: calc(-$cog-size / 2);
+    }
+
+    &--bottom:after {
+      top: auto;
+      bottom: calc(-$cog-size / 4);
+    }
+  }
+}
+
+@keyframes pageContentCog {
+  to { transform: rotateZ(360deg); }
+}
+

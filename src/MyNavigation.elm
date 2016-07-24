@@ -11,6 +11,7 @@ import Task
 import Pages.PagesUpdate
 import Pages.PagesMessages
 import Pages.Blog.Post as Post
+import Pages.Blog.PostsList as PostsList
 
 
 init : Result String State -> ( Model, Cmd Msg )
@@ -51,11 +52,23 @@ toUrl state =
     Blog q -> "#blog/" ++ q
 
 
+-- TODO: too much login in here IMO, need to split somehow
+-- is this even the way to go? I'm "sending" initial
+-- message for pages here.
 urlUpdate : Result String State -> Model -> (Model, Cmd Msg)
 urlUpdate result model =
   case result of
     Ok newState ->
       case newState of
+        States.Home ->
+          let
+              (homeModel, homeCmd) =
+                Pages.PagesUpdate.update
+                  (Pages.PagesMessages.PostsListMsg (PostsList.LoadPosts))
+                  model.pagesModel
+          in
+              { model | state = newState } ! [ Cmd.map PagesMessages homeCmd ]
+
         States.Blog id ->
           let
               (pagesModel, pagesCmd) =

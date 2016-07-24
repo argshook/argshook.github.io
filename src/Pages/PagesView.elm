@@ -44,14 +44,14 @@ view model state =
             Html.App.map PagesMessages.MinesweeperMsg (Minesweeper.view model.minesweeperModel)
   in
     div
-      [ class "blog-content" ] <|
+      [ class "page-content" ] <|
       (cogBlock 0 3 Nothing) ++ (component :: (cogBlock 0 3 (Just "bottom")))
 
 cogBlock : Int -> Int -> Maybe String -> List (Html Msg)
 cogBlock start end modifier =
   let
       cssClass =
-        "blog-content__cog"
+        "page-content__cog"
 
       cssClassWithModifier =
         case modifier of

@@ -22,16 +22,16 @@ view model =
 
   in
       div
-        [ class "blog-wrapper" ]
+        [ class "page-wrapper" ]
         [ div
-            [ class "blog-head" ]
+            [ class "page-head" ]
             [ h1
               []
               [ text "Elm experiments" ]
             , p
               []
               [ text "merely a sandbox to play with elm. "
-              , div [ class "blog-head__github" ] [ githubLink ]
+              , div [ class "page-head__github" ] [ githubLink ]
               ]
             ]
         , stateMenu model
@@ -70,12 +70,12 @@ stateMenu model =
       menuItem (name, state) =
         button
           [ onClick (ChangeState state)
-          , class <| "blog-nav__btn btn btn--lg " ++ (activeClass state)
+          , class <| "page-nav__btn btn btn--lg " ++ (activeClass state)
           ]
           [ text name ]
 
   in
     div
-      [ class "blog-nav" ]
+      [ class "page-nav" ]
       (List.map menuItem states)
 
