@@ -2,7 +2,7 @@
 const prompt = require('prompt');
 
 const db = require('./db.js');
-const { readDirAsync, rejectOrResolve } = require('./common.js');
+const { readDirAsync, resolveOrReject } = require('./common.js');
 
 prompt.message = '';
 
@@ -20,7 +20,7 @@ function add() {
         {},
         ['title', 'author'],
         (err, result) =>
-        rejectOrResolve(err, result).then(resolve).catch(reject)
+        resolveOrReject(err, result).then(resolve).catch(reject)
       );
     });
   }

@@ -7,12 +7,12 @@ function readDirAsync(path) {
     fs.readdir(
       path,
       (err, data) =>
-      rejectOrResolve(err, data).then(resolve).catch(reject)
+      resolveOrReject(err, data).then(resolve).catch(reject)
     );
   });
 }
 
-function rejectOrResolve(err, data) {
+function resolveOrReject(err, data) {
   return err !== null ? Promise.reject(err) : Promise.resolve(data);
 }
 
@@ -21,5 +21,5 @@ function exit() {
   process.exit(0);
 }
 
-module.exports = { readDirAsync, rejectOrResolve, exit };
+module.exports = { readDirAsync, resolveOrReject, exit };
 
