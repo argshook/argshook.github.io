@@ -10,8 +10,8 @@ import Task
 
 import Pages.PagesUpdate
 import Pages.PagesMessages
-import Pages.Blog.Post as Post
-import Pages.Blog.PostsList as PostsList
+import Pages.Blog.PostMsg as PostMsg
+import Pages.Blog.PostsListMsg as PostsListMsg
 
 
 init : Result String State -> ( Model, Cmd Msg )
@@ -64,7 +64,7 @@ urlUpdate result model =
           let
               (homeModel, homeCmd) =
                 Pages.PagesUpdate.update
-                  (Pages.PagesMessages.PostsListMsg (PostsList.LoadPosts))
+                  (Pages.PagesMessages.PostsListMsg (PostsListMsg.LoadPosts))
                   model.pagesModel
           in
               { model | state = newState } ! [ Cmd.map PagesMessages homeCmd ]
@@ -73,7 +73,7 @@ urlUpdate result model =
           let
               (pagesModel, pagesCmd) =
                 Pages.PagesUpdate.update
-                  (Pages.PagesMessages.PostMsg (Post.LoadPost id))
+                  (Pages.PagesMessages.PostMsg (PostMsg.LoadPost id))
                   model.pagesModel
 
           in

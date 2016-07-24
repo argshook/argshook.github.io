@@ -9,58 +9,37 @@ import Http
 import Json.Decode as Json exposing ((:=))
 import String
 
-
-type alias Model =
-  { filter : String
-  , posts : List Post
-  }
-
-
-type alias Post =
-  { title : String
-  , author : String
-  , id : String
-  , slug : String
-  , path : String
-  , dateCreated : Maybe Int
-  , dateModified : Maybe Int
-  }
+import Pages.PagesMessages as PagesMessages
+import Pages.Blog.PostsListMsg exposing (..)
+import Pages.Blog.PostsListModel exposing (..)
+import Pages.Blog.PostModel exposing (Post)
+import Pages.Blog.PostMsg as PostMsg
 
 
-initialModel : Model
-initialModel =
-  { filter = ""
-  , posts = []
-  }
-
-
-type Msg
-  = Filter String
-  | OpenPost String
-  | LoadPosts
-  | LoadPostsSuccess (List Post)
-  | LoadPostFail Http.Error
-
-
-update : Msg -> Model -> (Model, Cmd Msg)
+update : Msg -> Model -> (Model, Cmd Msg, Cmd PagesMessages.Msg)
 update msg model =
   case msg of
     Filter newFilter ->
-      ({ model | filter = newFilter }, Cmd.none)
+      ({ model | filter = newFilter }, Cmd.none, Cmd.none)
 
-    OpenPost postId ->
-      (model, Navigation.newUrl ("#blog/" ++ postId))
+    OpenPost post ->
+      ( model
+      , Navigation.newUrl ("#blog/" ++ post.slug)
+      , Task.succeed (PostMsg.SetPostMeta post) |>
+          Task.perform PagesMessages.PostMsg PagesMessages.PostMsg
+      )
 
     LoadPosts ->
-      model ! [ loadPosts ]
+      (model, loadPosts, Cmd.none)
 
     LoadPostsSuccess posts ->
-      { model | posts = posts } ! []
+      ({ model | posts = posts }, Cmd.none, Cmd.none)
 
     LoadPostFail err ->
       let
           _ = Debug.log "failed to fetch all posts" err
-      in model ! []
+      in
+          (model, Cmd.none, Cmd.none)
 
 
 loadPosts : Cmd Msg
@@ -118,8 +97,7 @@ postCard : Post -> Html Msg
 postCard post =
   a
     [ class "blog-post-card"
-    , onClick (OpenPost post.slug)
-    , href ("#blog/" ++ post.slug)
+    , onClick (OpenPost post)
     ]
     [ text post.title ]
 

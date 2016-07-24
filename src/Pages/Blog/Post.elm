@@ -3,35 +3,13 @@ port module Pages.Blog.Post exposing (..)
 
 import Navigation
 import Html exposing (..)
-import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import Task
 import Http
 import Markdown
 
-type alias PostId = String
-
-type alias Model =
-  { postId : PostId
-  , postContent : String
-  , isPostLoading : Bool
-  }
-
-
-initialModel : Model
-initialModel =
-  { postId = ""
-  , postContent = ""
-  , isPostLoading = True
-  }
-
-
-type Msg
-  = FetchSuccess String
-  | FetchFail Http.Error
-  | LoadPost PostId
-  | Highlight
-  | GoBack
+import Pages.Blog.PostModel exposing (..)
+import Pages.Blog.PostMsg exposing (..)
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -67,8 +45,10 @@ update msg model =
           } ! []
 
     GoBack ->
-      --model ! [ Navigation.newUrl "#" ]
-      model ! []
+      model ! [ Navigation.back 1 ]
+
+    SetPostMeta postMeta ->
+      { model | postMeta = postMeta } ! []
 
 
 getPost : PostId -> Cmd Msg
@@ -91,6 +71,9 @@ view model =
         , href "#"
         ]
         [ text "Back" ]
+      , div
+          [ class "blog-post__author" ]
+          [ text <| "Author: " ++ model.postMeta.author ]
       ,  Markdown.toHtml [] model.postContent
       ]
 

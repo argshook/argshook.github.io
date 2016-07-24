@@ -5,8 +5,8 @@ import Pages.Minesweeper as Minesweeper
 import Pages.BinaryTree as BinaryTree
 import Pages.CategoryTree as CategoryTree
 import Pages.FizzBuzz as FizzBuzz
-import Pages.Blog.PostsList as PostsList
-import Pages.Blog.Post as Post
+import Pages.Blog.PostsListModel as PostsListModel
+import Pages.Blog.PostModel as PostModel
 
 
 type alias Model =
@@ -15,8 +15,8 @@ type alias Model =
   , binaryTreeModel : BinaryTree.Model
   , categoryTreeModel : CategoryTree.Model
   , fizzBuzzModel : FizzBuzz.Model
-  , postsListModel : PostsList.Model
-  , postModel : Post.Model
+  , postsListModel : PostsListModel.Model
+  , postModel : PostModel.Model
   }
 
 
@@ -27,8 +27,8 @@ initialModel =
   , binaryTreeModel = BinaryTree.initialModel
   , categoryTreeModel = CategoryTree.initialModel
   , fizzBuzzModel = FizzBuzz.initialModel
-  , postsListModel = PostsList.initialModel
-  , postModel = Post.initialModel
+  , postsListModel = PostsListModel.initialModel
+  , postModel = PostModel.initialModel
   }
 
 

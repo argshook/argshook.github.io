@@ -6,8 +6,8 @@ import Pages.Minesweeper as Minesweeper
 import Pages.BinaryTree as BinaryTree
 import Pages.CategoryTree as CategoryTree
 import Pages.FizzBuzz as FizzBuzz
-import Pages.Blog.PostsList as PostsList
-import Pages.Blog.Post as Post
+import Pages.Blog.PostsListMsg as PostsListMsg
+import Pages.Blog.PostMsg as PostMsg
 
 
 type Msg
@@ -16,6 +16,6 @@ type Msg
   | BinaryTreeMsg BinaryTree.Msg
   | CategoryTreeMsg CategoryTree.Msg
   | FizzBuzzMsg FizzBuzz.Msg
-  | PostsListMsg PostsList.Msg
-  | PostMsg Post.Msg
+  | PostsListMsg PostsListMsg.Msg
+  | PostMsg PostMsg.Msg
 
