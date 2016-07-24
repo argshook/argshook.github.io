@@ -8,8 +8,8 @@ import Pages.Blog.PostModel exposing (..)
 
 type Msg
   = Filter String
-  | OpenPost Post
+  | OpenPost PostMeta
   | LoadPosts
-  | LoadPostsSuccess (List Post)
+  | LoadPostsSuccess (List PostMeta)
   | LoadPostFail Http.Error
 

@@ -5,7 +5,7 @@ type alias PostId = String
 type alias Model =
   { postId : PostId
   , postContent : String
-  , postMeta : Post
+  , postMeta : PostMeta
   , isPostLoading : Bool
   }
 
@@ -19,7 +19,7 @@ initialModel =
   }
 
 
-type alias Post =
+type alias PostMeta =
   { title : String
   , author : String
   , id : String
@@ -29,7 +29,7 @@ type alias Post =
   , dateModified : Maybe Int
   }
 
-initialPostMeta : Post
+initialPostMeta : PostMeta
 initialPostMeta =
   { title = ""
   , author = ""

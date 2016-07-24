@@ -12,7 +12,7 @@ import String
 import Pages.PagesMessages as PagesMessages
 import Pages.Blog.PostsListMsg exposing (..)
 import Pages.Blog.PostsListModel exposing (..)
-import Pages.Blog.PostModel exposing (Post)
+import Pages.Blog.PostModel exposing (PostMeta)
 import Pages.Blog.PostMsg as PostMsg
 
 
@@ -48,11 +48,11 @@ loadPosts =
       url =
         "db.json"
 
-      responseDecoder : Json.Decoder (List Post)
+      responseDecoder : Json.Decoder (List PostMeta)
       responseDecoder =
         Json.at ["posts"]
           <| Json.list
-          <| Json.object7 Post
+          <| Json.object7 PostMeta
             ("title" := Json.string)
             ("author" := Json.string)
             ("id" := Json.string)
@@ -93,11 +93,13 @@ view model =
       ]
 
 
-postCard : Post -> Html Msg
+postCard : PostMeta -> Html Msg
 postCard post =
   a
     [ class "blog-post-card"
     , onClick (OpenPost post)
     ]
-    [ text post.title ]
+    [ div [ class "blog-post-card__title" ] [ text post.title ]
+    , div [ class "blog-post-card__date" ] [ text <| toString <| Maybe.withDefault 0 post.dateCreated ]
+    ]
 
