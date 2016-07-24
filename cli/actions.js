@@ -2,7 +2,13 @@
 const prompt = require('prompt');
 
 const db = require('./db.js');
-const { readDirAsync, resolveOrReject } = require('./common.js');
+const {
+  readDirAsync,
+  writeFileAsync,
+  resolveOrReject,
+  createGuid,
+  slugify
+} = require('./common.js');
 
 prompt.message = '';
 
@@ -34,6 +40,11 @@ function add() {
   }
 
   function editPost(post) {
+    console.log('Editing existing post');
+    console.log(post.title);
+
+    post.dateModified = new Date().getTime();
+
     db
       .get('posts')
       .find({ title: post.title })
@@ -44,14 +55,24 @@ function add() {
   }
 
   function newPost(post) {
-    console.log('saving %s', post.title);
+    console.log('Adding new post');
+    console.log(post.title);
 
-    const posts = db
-      .get('posts')
-      .push(post)
-      .value();
+    const newPost = {
+      id: createGuid(),
+      slug: slugify(post.title),
+      dateCreated: new Date().getTime(),
+    };
 
-    return Promise.resolve(posts);
+    newPost.path = `${newPost.slug}.md`;
+
+    return writeFileAsync(`./Posts/${newPost.path}`, `# ${post.title}`)
+      .then(() => {
+        db
+          .get('posts')
+          .push(Object.assign({}, post, newPost))
+          .value();
+      });
   }
 }
 
