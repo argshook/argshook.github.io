@@ -23,16 +23,15 @@ a { color: $color-darker; }
   color: $color-dark;
   text-decoration: none;
 
-  &:focus { outline: 0; }
+  &:focus {
+    outline: 0;
+    border-color: $color-complimentary;
+    box-shadow: 0 2px 15px color($color-medium l(+ 30%));
+  }
 }
 
 .select {
   padding: .625rem;
-}
-
-.input:focus {
-  border-color: $color-complimentary;
-  box-shadow: 0 2px 15px color($color-medium l(+ 30%));
 }
 
 .btn {

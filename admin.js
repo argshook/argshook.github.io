@@ -1,17 +1,15 @@
 #!/usr/bin/env node
 
 const actions = require('./cli/actions.js');
-const { exit } = require('./cli/common.js');
 
-const args = process.argv.slice(2);
+const [action] = process.argv.slice(2);
 
-
-switch (args[0]) {
+switch (action) {
   default:
   case 'list':
-    return actions.list().then(exit);
+    return actions.list().then(actions.exit);
 
   case 'add':
-    return actions.add().then(exit);
+    return actions.add().then(actions.exit);
 }
 

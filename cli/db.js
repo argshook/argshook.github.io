@@ -1,5 +1,5 @@
 const low = require('lowdb');
-const db = low('blogs-db.json');
+const db = low('db.json');
 
 db.defaults({
   posts: []
