@@ -2,6 +2,14 @@
 
 const fs = require('fs');
 
+module.exports = {
+  readDirAsync,
+  writeFileAsync,
+  resolveOrReject,
+  createGuid,
+  slugify
+};
+
 function readDirAsync(path) {
   return new Promise((resolve, reject) => {
     fs.readdir(
@@ -47,13 +55,4 @@ function slugify(string) {
     .replace(/^-+/, '')
     .replace(/-+$/, '');
 }
-
-
-module.exports = {
-  readDirAsync,
-  writeFileAsync,
-  resolveOrReject,
-  createGuid,
-  slugify
-};
 
