@@ -10,6 +10,7 @@ import Markdown
 
 import Pages.Blog.PostModel exposing (..)
 import Pages.Blog.PostMsg exposing (..)
+import Pages.Blog.PostsListModel exposing (postsResponseDecoder)
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -19,12 +20,15 @@ update msg model =
       { model
       | postId = postId
       , isPostLoading = True
-      } ! [ getPost postId ]
+      } !
+      [ getPost postId
+      , getPostMeta
+      ]
 
     Highlight ->
       model ! [ highlight "" ]
 
-    FetchSuccess data ->
+    PostFetchSuccess data ->
       let
           model' =
             { model
@@ -35,7 +39,7 @@ update msg model =
       in
          update Highlight model'
 
-    FetchFail error ->
+    PostFetchFail error ->
       let
           _ = Debug.log "fetch fail" error
       in
@@ -43,6 +47,18 @@ update msg model =
           | postContent = "Failed to fetch :("
           , isPostLoading = False
           } ! []
+
+    PostMetaFetchSuccess postsMeta ->
+      let
+          postMeta =
+            List.filter (\p -> p.slug == model.postId) postsMeta
+              |> List.head
+              |> Maybe.withDefault initialPostMeta
+      in
+          { model | postMeta = postMeta } ! []
+
+    PostMetaFetchFail err ->
+      model ! []
 
     GoBack ->
       model ! [ Navigation.back 1 ]
@@ -57,7 +73,14 @@ getPost postId =
       url =
         "Posts/" ++ postId ++ ".md"
   in
-      Task.perform FetchFail FetchSuccess (Http.getString url)
+      Task.perform PostFetchFail PostFetchSuccess (Http.getString url)
+
+
+getPostMeta : Cmd Msg
+getPostMeta =
+  Http.get postsResponseDecoder "db.json"
+    |> Task.perform PostMetaFetchFail PostMetaFetchSuccess
+
 
 
 view : Model -> Html Msg

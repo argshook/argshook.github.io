@@ -12,7 +12,7 @@ import String
 import Pages.PagesMessages as PagesMessages
 import Pages.Blog.PostsListMsg exposing (..)
 import Pages.Blog.PostsListModel exposing (..)
-import Pages.Blog.PostModel exposing (PostMeta)
+import Pages.Blog.PostModel exposing (PostMeta, initialPostMeta)
 import Pages.Blog.PostMsg as PostMsg
 
 
@@ -30,10 +30,16 @@ update msg model =
       )
 
     LoadPosts ->
-      (model, loadPosts, Cmd.none)
+      ( model
+      , loadPosts
+      , Cmd.none
+      )
 
     LoadPostsSuccess posts ->
-      ({ model | posts = posts }, Cmd.none, Cmd.none)
+      ( { model | posts = posts }
+      , Cmd.none
+      , Cmd.none
+      )
 
     LoadPostFail err ->
       let
@@ -44,24 +50,7 @@ update msg model =
 
 loadPosts : Cmd Msg
 loadPosts =
-  let
-      url =
-        "db.json"
-
-      responseDecoder : Json.Decoder (List PostMeta)
-      responseDecoder =
-        Json.at ["posts"]
-          <| Json.list
-          <| Json.object7 PostMeta
-            ("title" := Json.string)
-            ("author" := Json.string)
-            ("id" := Json.string)
-            ("slug" := Json.string)
-            ("path" := Json.string)
-            (Json.maybe ("dateCreated" := Json.int))
-            (Json.maybe ("dateModified" := Json.int))
-  in
-      Task.perform LoadPostFail LoadPostsSuccess (Http.get responseDecoder url)
+  Task.perform LoadPostFail LoadPostsSuccess (Http.get postsResponseDecoder "db.json")
 
 filteredPosts : Model-> List (Html Msg)
 filteredPosts model =

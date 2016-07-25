@@ -6,11 +6,11 @@ import Navigation
 import Model exposing (Model, initialModel)
 import States exposing (..)
 import Messages exposing (..)
-import Task
 
 import Pages.PagesUpdate
 import Pages.PagesMessages
 import Pages.Blog.PostMsg as PostMsg
+import Pages.Blog.PostModel as PostModel
 import Pages.Blog.PostsListMsg as PostsListMsg
 
 
@@ -55,6 +55,7 @@ toUrl state =
 -- TODO: too much login in here IMO, need to split somehow
 -- is this even the way to go? I'm "sending" initial
 -- message for pages here.
+-- there's something wrong goin on, dont think this is the way...
 urlUpdate : Result String State -> Model -> (Model, Cmd Msg)
 urlUpdate result model =
   case result of
@@ -62,20 +63,10 @@ urlUpdate result model =
       case newState of
         States.Home ->
           let
-              (homeModel, homeCmd) =
+              (pagesModel, pagesCmd) =
                 Pages.PagesUpdate.update
                   (Pages.PagesMessages.PostsListMsg (PostsListMsg.LoadPosts))
                   model.pagesModel
-          in
-              { model | state = newState } ! [ Cmd.map PagesMessages homeCmd ]
-
-        States.Blog id ->
-          let
-              (pagesModel, pagesCmd) =
-                Pages.PagesUpdate.update
-                  (Pages.PagesMessages.PostMsg (PostMsg.LoadPost id))
-                  model.pagesModel
-
           in
               { model
               | state = newState
@@ -83,10 +74,22 @@ urlUpdate result model =
               } !
               [ Cmd.map PagesMessages pagesCmd ]
 
+        States.Blog slug ->
+          let
+              (pagesPostModel, pagesPostCmd) =
+                Pages.PagesUpdate.update
+                  (Pages.PagesMessages.PostMsg (PostMsg.LoadPost slug))
+                  model.pagesModel
+          in
+              { model
+              | state = newState
+              , pagesModel = pagesPostModel
+              } !
+              [ Cmd.map PagesMessages pagesPostCmd ]
+
         _ ->
           { model | state = newState } ! []
 
     Err _ ->
       (model, Navigation.modifyUrl (toUrl model.state))
-
 

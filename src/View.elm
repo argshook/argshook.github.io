@@ -5,7 +5,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
-import Common exposing ((=>), colors, CSS)
 import Model exposing (..)
 import Messages exposing (..)
 import Pages.PagesView as PagesView
