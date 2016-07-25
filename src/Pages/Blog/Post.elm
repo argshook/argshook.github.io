@@ -6,6 +6,8 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Task
 import Http
+import Date
+import String
 import Markdown
 
 import Pages.Blog.PostModel exposing (..)
@@ -95,10 +97,42 @@ view model =
         ]
         [ text "Back" ]
       , div
-          [ class "blog-post__author" ]
-          [ text <| "Author: " ++ model.postMeta.author ]
-      ,  Markdown.toHtml [] model.postContent
+          [ class "blog-post-meta" ]
+          [ div
+              [ class "blog-post-meta__author" ]
+              [ text <| "By " ++ model.postMeta.author ]
+          , div
+              [ class "blog-post-meta__date" ]
+              [ Maybe.withDefault 0 model.postMeta.dateCreated
+                  |> timestampToString
+                  |> text
+              ]
+          ]
+      , Markdown.toHtml [ class "blog-post-content" ] model.postContent
       ]
+
+
+timestampToString : Int -> String
+timestampToString t =
+  let
+      date =
+        toFloat t
+          |> Date.fromTime
+
+      days =
+        [ toString <| Date.year date
+        , toString <| Date.month date
+        , toString <| Date.day date
+        ]
+          |> String.join " - "
+
+      hours =
+        [ toString <| Date.hour date
+        , toString <| Date.minute date
+        ]
+          |> String.join ":"
+  in
+      days ++ " " ++ hours
 
 
 port highlight : String -> Cmd msg

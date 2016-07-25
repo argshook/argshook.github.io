@@ -42,13 +42,15 @@
   position: relative;
   background: color($color-light alpha(-30%));
   border-top: 5px solid $color-medium;
-  margin-bottom: 10vh;
+  margin-bottom: 20vh;
   box-shadow: 0 100px 200px 0 rgba(0,0,0,.1);
 
   &__cog {
-    $num-cogs: 4;
+    $num-cogs: 3;
     $cog-size: 200px;
     $cog-color: color($color-light l(-10%) alpha(-50%));
+    position: relative;
+    left: 15px;
 
     &:before,
     &:after {
@@ -84,6 +86,10 @@
 
       &--$i:after {
         left: calc($cog-size + $cog-size * $i + $cog-size * $i / 2 - 25%);
+      }
+
+      @if $i == $num-cogs {
+        &--$i:after { display: none; }
       }
     }
 

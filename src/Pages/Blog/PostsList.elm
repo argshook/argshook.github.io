@@ -14,6 +14,7 @@ import Pages.Blog.PostsListMsg exposing (..)
 import Pages.Blog.PostsListModel exposing (..)
 import Pages.Blog.PostModel exposing (PostMeta, initialPostMeta)
 import Pages.Blog.PostMsg as PostMsg
+import Pages.Blog.Post as Post exposing (timestampToString)
 
 
 update : Msg -> Model -> (Model, Cmd Msg, Cmd PagesMessages.Msg)
@@ -89,6 +90,6 @@ postCard post =
     , onClick (OpenPost post)
     ]
     [ div [ class "blog-post-card__title" ] [ text post.title ]
-    , div [ class "blog-post-card__date" ] [ text <| toString <| Maybe.withDefault 0 post.dateCreated ]
+    , div [ class "blog-post-card__date" ] [ text <| timestampToString <| Maybe.withDefault 0 post.dateCreated ]
     ]
 
