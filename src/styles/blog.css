@@ -27,7 +27,7 @@
     cursor: pointer;
 
     &:hover {
-      background: $color-medium;
+      background: color($color-medium l(+50%));
       color: $color-light;
     }
 
