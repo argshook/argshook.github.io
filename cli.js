@@ -4,6 +4,12 @@ const actions = require('./cli/actions.js');
 
 const [action] = process.argv.slice(2);
 
+if (!action) {
+  return actions.menu().then(action => {
+    return actions[action]();
+  });
+}
+
 switch (action) {
   default:
   case 'list':
