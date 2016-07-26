@@ -11,47 +11,48 @@ const {
 } = require('../common.js');
 
 
-module.exports = () =>
-  createPost()
+module.exports = () => {
+  console.log('Create new post');
+  console.log('');
+
+  return createPost()
     .then(lookupPost)
-    .catch(editPost)
+    .catch((post) => {
+      console.log(`Post with this title already exists: ${post.title}`);
+      console.log('Please try another name');
+      console.log('');
+
+      return createPost();
+    })
     .then(newPost);
+};
 
 
 function createPost() {
-  console.log('create new post');
+  const promptSchema = {
+    properties: {
+      title: {
+        description: 'Post Title',
+        required: true
+      },
+      author: {
+        description: 'Post Author'
+      }
+    }
+  };
 
   prompt.start();
 
   return new Promise((resolve, reject) => {
-    prompt
-      .addProperties(
-        {},
-        ['title', 'author'],
-        (err, result) =>
-          resolveOrReject(err, result).then(resolve).catch(reject)
-      );
+    prompt.get(promptSchema, (err, result) =>
+      resolveOrReject(err, result).then(resolve).catch(reject)
+    );
   });
 }
 
 function lookupPost(post) {
   const dbPost = db.get('posts').find({ title: post.title }).value();
   return !!dbPost ? Promise.reject(post) : Promise.resolve(post);
-}
-
-function editPost(post) {
-  console.log('Editing existing post');
-  console.log(post.title);
-
-  post.dateModified = new Date().getTime();
-
-  db
-    .get('posts')
-    .find({ title: post.title })
-    .assign(post)
-    .value();
-
-  return Promise.reject();
 }
 
 function newPost(post) {
@@ -72,6 +73,13 @@ function newPost(post) {
         .get('posts')
         .push(Object.assign({}, post, newPost))
         .value();
+
+      logNewPost(newPost);
     });
 }
 
+function logNewPost(newPost) {
+  console.log('This was added to db.json:');
+  console.log('');
+  console.log(JSON.stringify(newPost, null, 2));
+}
