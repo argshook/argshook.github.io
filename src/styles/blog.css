@@ -12,11 +12,10 @@
     justify-content: space-between;
     flex-wrap: wrap;
     margin: 2em;
-
-    .blog-post-card { flex: 0 0 49%; }
   }
 
   &-post-card {
+    flex: 1 0 100%;
     position: relative;
     margin-bottom: 1em;
     padding: 1em;
@@ -89,15 +88,17 @@
     text-decoration: none;
     box-shadow: 0 -1px 0 0 $color-light inset,
                 0 -2px 0 0 $color-medium inset;
-    text-shadow: 1px 1px 0 $color-light,
-                 -1px -1px 0 $color-light,
-                 1px -1px 0 $color-light,
-                 -1px 1px 0 $color-light;
+    text-shadow: 1px 0 0 $color-light,
+                 2px 0 0 $color-light,
+                 -1px 0 0 $color-light,
+                 -2px 0 0 $color-light;
   }
 
   img {
     display: block;
     margin: 2em auto;
+    max-width: 100%;
+    height: auto;
   }
 }
 

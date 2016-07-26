@@ -44,19 +44,6 @@ view model state =
             Html.App.map PagesMessages.MinesweeperMsg (Minesweeper.view model.minesweeperModel)
   in
     div
-      [ class "page-content" ] <|
-      (cogBlock 0 3 Nothing) ++ (component :: (cogBlock 0 3 (Just "bottom")))
-
-cogBlock : Int -> Int -> Maybe String -> List (Html Msg)
-cogBlock start end modifier =
-  let
-      cssClass =
-        "page-content__cog"
-
-      cssClassWithModifier =
-        case modifier of
-          Just m -> cssClass ++ "--" ++ m ++ " "
-          Nothing -> cssClass ++ " "
-  in
-      List.map (\c -> div [ class (cssClass ++ " " ++ cssClassWithModifier ++ cssClass ++ "--" ++ toString c) ] [] ) [start..end]
+      [ class "page-content" ]
+      [ component ]
 
