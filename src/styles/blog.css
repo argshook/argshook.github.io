@@ -80,7 +80,7 @@
   }
 
   hr {
-    border: 3px dashed $color-medium;
+    border: 15px dashed color($color-light l(-5%));
     margin: 3em -2em;
   }
 

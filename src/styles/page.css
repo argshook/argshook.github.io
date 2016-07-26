@@ -9,9 +9,11 @@
   background: $color-light;
   color: $color-dark;
   box-shadow: 0 100px 200px 0 rgba(0,0,0,.1);
+  border-top: 5px solid $color-medium;
 
   h1 {
     margin: 0;
+    font-weight: 500;
   }
 
   &__github {

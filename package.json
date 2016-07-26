@@ -24,7 +24,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack -p --progress"
+    "build": "webpack -p --progress",
+    "cli": "node cli.js"
   },
   "repository": {
     "type": "git",
