@@ -4,18 +4,15 @@ const actions = require('./cli/actions.js');
 
 const [action] = process.argv.slice(2);
 
+const availableActions = ['list', 'add'];
+const defaultAction = 'list';
+
 if (!action) {
   return actions.menu().then(action => {
     return actions[action]();
   });
 }
 
-switch (action) {
-  default:
-  case 'list':
-    return actions.list().then(actions.exit);
-
-  case 'add':
-    return actions.add().then(actions.exit);
-}
+return actions[availableActions.includes(action) ? action : defaultAction]()
+  .then(actions.exit);
 
