@@ -1,4 +1,5 @@
 @import "vars.css";
+@import "mixins.css";
 @import "base.css";
 @import "page.css";
 @import "blog.css";

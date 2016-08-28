@@ -6,7 +6,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Task
 import Http
-import Json.Decode as Json exposing ((:=))
 import String
 
 import Pages.PagesMessages as PagesMessages
@@ -85,7 +84,7 @@ view model =
 
 postCard : PostMeta -> Html Msg
 postCard post =
-  a
+  button
     [ class "blog-post-card"
     , onClick (OpenPost post)
     ]

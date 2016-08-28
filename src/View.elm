@@ -12,30 +12,36 @@ import States exposing (..)
 
 view : Model -> Html Msg
 view model =
+  div
+    [ class "page-wrapper" ]
+    [ div
+        [ class "page-head" ]
+        [ h1
+          []
+          [ text "Elm experiments" ]
+        , p
+          []
+          [ text "merely a sandbox to play with elm. "
+          ]
+        ]
+    , stateMenu model
+    , Html.App.map PagesMessages (PagesView.view model.pagesModel model.state)
+    , footer model
+    ]
+
+footer : model -> Html Msg
+footer model =
   let
       githubLink =
         a
           [ href "https://github.com/argshook/elm-experiments"
-          , target "_blank" ]
+          , target "_blank"
+          ]
           [ text "github" ]
-
   in
       div
-        [ class "page-wrapper" ]
-        [ div
-            [ class "page-head" ]
-            [ h1
-              []
-              [ text "Elm experiments" ]
-            , p
-              []
-              [ text "merely a sandbox to play with elm. "
-              , div [ class "page-head__github" ] [ githubLink ]
-              ]
-            ]
-        , stateMenu model
-        , Html.App.map PagesMessages (PagesView.view model.pagesModel model.state)
-        ]
+        [ class "page-footer" ]
+        [ githubLink ]
 
 
 stateMenu : Model -> Html Msg
@@ -43,10 +49,8 @@ stateMenu model =
   let
       states =
         [ ("Home", Home)
-        , ("Minesweeper", Minesweeper)
-        , ("Binary", Binary)
-        , ("Category", Category)
-        , ("FizzBuzz", FizzBuzz)
+        , ("About", Blog "about")
+        , ("Hello World", Blog "hello-world")
         ]
 
       activeClass : State -> String
@@ -60,8 +64,15 @@ stateMenu model =
                 ""
         in
             case model.state of
-              Blog postId ->
+              Home ->
                 activeButtonClass (state == Home)
+
+              Blog postSlug ->
+                let
+                    postsInMenu =
+                      [ "about", "hello-world" ]
+                in
+                    activeButtonClass (state == model.state)
 
               _ ->
                 activeButtonClass (model.state == state)

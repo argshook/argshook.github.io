@@ -42,6 +42,7 @@ view model state =
 
           Minesweeper ->
             Html.App.map PagesMessages.MinesweeperMsg (Minesweeper.view model.minesweeperModel)
+
   in
     div
       [ class "page-content" ]

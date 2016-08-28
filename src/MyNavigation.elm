@@ -10,7 +10,6 @@ import Messages exposing (..)
 import Pages.PagesUpdate
 import Pages.PagesMessages
 import Pages.Blog.PostMsg as PostMsg
-import Pages.Blog.PostModel as PostModel
 import Pages.Blog.PostsListMsg as PostsListMsg
 
 

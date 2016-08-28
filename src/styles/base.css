@@ -14,10 +14,10 @@ a { color: $color-darker; }
 .input,
 .select,
 .btn {
-  padding: .7rem 1rem;
+  padding: .7em 1em;
   border: 1px solid $color-dark;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 1em;
   transition: .2s ease all;
   background: #fff;
   color: $color-dark;
@@ -31,7 +31,7 @@ a { color: $color-darker; }
 }
 
 .select {
-  padding: .625rem;
+  padding: .625em;
 }
 
 .btn {
@@ -47,13 +47,12 @@ a { color: $color-darker; }
   }
 
   &--lg {
-    padding: 1rem 2.5rem;
+    padding: 1em 2.5em;
     border-radius: 50px;
   }
 
-  &:hover {
-    background: $color-medium;
-    color: $color-light;
+  &:hover:not(&--active) {
+    background: color($color-medium l(+ 50%));
   }
 }
 
