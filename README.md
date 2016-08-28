@@ -1,8 +1,13 @@
 # Elm Experiments
 
-[Main.elm live](https://argshook.github.io/elm-experiments)
+[Main.elm live](https://arijus.net/elm-experiments)
 
-some things i do with elm when i should be outside.
+this should be my blog now
+
+## posting
+
+* `node cli list` - list posts
+* `node cli add` - add new post
 
 ## dev
 

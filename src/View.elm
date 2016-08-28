@@ -18,10 +18,10 @@ view model =
         [ class "page-head" ]
         [ h1
           []
-          [ text "Elm experiments" ]
+          [ text "@argshook" ]
         , p
           []
-          [ text "merely a sandbox to play with elm. "
+          [ text "probably frontend mostly"
           ]
         ]
     , stateMenu model
@@ -41,7 +41,10 @@ footer model =
   in
       div
         [ class "page-footer" ]
-        [ githubLink ]
+        [
+          text "This blog is written in Elm, check it out at "
+        , githubLink
+        ]
 
 
 stateMenu : Model -> Html Msg
