@@ -1,6 +1,14 @@
 {
   "posts": [
     {
+      "title": "About",
+      "author": "argshook",
+      "id": "65c247c9-6c09-a724-f3aa-1931707e3a93",
+      "slug": "about",
+      "dateCreated": 1472414620583,
+      "path": "about.md"
+    },
+    {
       "title": "Hello World!",
       "author": "argshook",
       "id": "44d986c7-155b-d2bd-73b6-877e92c28fe3",

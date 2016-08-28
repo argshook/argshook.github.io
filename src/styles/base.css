@@ -28,6 +28,10 @@ a { color: $color-darker; }
     border-color: $color-complimentary;
     box-shadow: 0 2px 15px color($color-medium l(+ 30%));
   }
+
+  @media screen and (max-width: 500px) {
+    font-size: .8em;
+  }
 }
 
 .select {

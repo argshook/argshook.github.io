@@ -13,7 +13,7 @@ import Pages.Blog.PostsListMsg exposing (..)
 import Pages.Blog.PostsListModel exposing (..)
 import Pages.Blog.PostModel exposing (PostMeta, initialPostMeta)
 import Pages.Blog.PostMsg as PostMsg
-import Pages.Blog.Post as Post exposing (timestampToString)
+import Pages.Blog.Post as Post exposing (postMeta)
 
 
 update : Msg -> Model -> (Model, Cmd Msg, Cmd PagesMessages.Msg)
@@ -72,7 +72,6 @@ view model =
         [ text "Filter posts "
         , input
             [ onInput Filter
-            , placeholder "Filter posts"
             , value model.filter
             , class "input"
             ]
@@ -89,6 +88,6 @@ postCard post =
     , onClick (OpenPost post)
     ]
     [ div [ class "blog-post-card__title" ] [ text post.title ]
-    , div [ class "blog-post-card__date" ] [ text <| timestampToString <| Maybe.withDefault 0 post.dateCreated ]
+    , postMeta post "blog-post-card-meta"
     ]
 

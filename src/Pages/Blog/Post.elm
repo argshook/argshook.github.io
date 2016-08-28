@@ -96,27 +96,17 @@ view model =
         , href "#"
         ]
         [ text "Back" ]
-      , div
-          [ class "blog-post-meta" ]
-          [ div
-              [ class "blog-post-meta__author" ]
-              [ text <| "By " ++ model.postMeta.author ]
-          , div
-              [ class "blog-post-meta__date" ]
-              [ Maybe.withDefault 0 model.postMeta.dateCreated
-                  |> timestampToString
-                  |> text
-              ]
-          ]
+      , postMeta model.postMeta "blog-post-meta"
       , Markdown.toHtml [ class "blog-post-content" ] model.postContent
       ]
 
 
-timestampToString : Int -> String
-timestampToString t =
+postMeta : PostMeta -> String -> Html msg
+postMeta postMeta className =
   let
       date =
-        toFloat t
+        Maybe.withDefault 0 postMeta.dateCreated
+          |> toFloat
           |> Date.fromTime
 
       days =
@@ -124,15 +114,23 @@ timestampToString t =
         , toString <| Date.month date
         , toString <| Date.day date
         ]
-          |> String.join " - "
+          |> String.join " / "
 
       hours =
-        [ toString <| Date.hour date
-        , toString <| Date.minute date
+        [ pad <| Date.hour date
+        , pad <| Date.minute date
         ]
           |> String.join ":"
+
+      pad n =
+        if n < 10 then "0" ++ (toString n) else toString n
+
   in
-      days ++ " " ++ hours
+      div
+        [ class className ]
+        [ span [ class <| className ++ "__date" ] [ text days ]
+        , span [ class <| className ++ "__time" ] [ text hours ]
+        ]
 
 
 port highlight : String -> Cmd msg

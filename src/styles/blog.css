@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin: 2em;
+    padding: 2em;
   }
 
   &-post-card {
@@ -36,11 +36,13 @@
       font-size: 2em;
       color: $color-dark;
     }
+  }
 
-    &__date {
-      color: color($color-medium alpha(-5%));
-      font-size: 1em;
-    }
+  &-post-card-meta {
+    color: color($color-medium alpha(-5%));
+    font-size: 1em;
+
+    &__date { margin-right: 10px; }
   }
 }
 
@@ -65,6 +67,10 @@
       content: "<";
       margin-right: 10px;
     }
+  }
+
+  @media screen and (max-width: 1000px) {
+    &__back-btn { transform: translate(0); }
   }
 }
 
@@ -101,9 +107,11 @@
   text-align: right;
 
   &__date,
-  &__author {
+  &__time {
     color: color($color-medium alpha(-50%));
     margin-bottom: .5em;
   }
+
+  &__date { margin-right: 15px; }
 }
 
