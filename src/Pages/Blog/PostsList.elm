@@ -77,7 +77,7 @@ view model =
             ]
             []
         ]
-      , div [ class "blog-posts-list" ] (filteredPosts model)
+      , div [ class "blog-posts-list" ] (List.reverse <| filteredPosts model)
       ]
 
 
