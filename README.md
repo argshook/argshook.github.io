@@ -1,10 +1,8 @@
-# Elm Experiments
+# [arijus.net](https://arijus.net)
 
-[Main.elm live](https://arijus.net/elm-experiments)
+my personal blog
 
-this should be my blog now
-
-## posting
+## cli
 
 * `node cli list` - list posts
 * `node cli add` - add new post
