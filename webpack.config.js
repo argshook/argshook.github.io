@@ -1,10 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
+const deepAssign = require('deep-assign');
 
 const excludes = ['/node_modules/', '/elm-stuff/'];
 
 
-module.exports = {
+const config = {
   entry: {
     bundle: path.resolve(__dirname, 'src', 'index.js')
   },
@@ -58,12 +59,13 @@ module.exports = {
       }),
       require('precss')
     ];
-  },
+  }
+};
 
-  plugins: [
-    new webpack.optimize.DedupePlugin(),
+const devConfig = {
+  plugins: (config.plugins || []).concat([
     new webpack.HotModuleReplacementPlugin()
-  ],
+  ]),
 
   devServer: {
     inline: true,
@@ -73,4 +75,23 @@ module.exports = {
     }
   }
 };
+
+const prodConfig = {
+  plugins: (config.plugins || []).concat([
+    new webpack.optimize.DedupePlugin()
+  ])
+};
+
+module.exports= makeConfig(config);
+
+function makeConfig(config) {
+  switch (process.env.NODE_ENV) {
+    case 'dev':
+    default:
+      return deepAssign({}, config, devConfig);
+
+    case 'prod':
+      return deepAssign({}, config, prodConfig);
+  }
+}
 
