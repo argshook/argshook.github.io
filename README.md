@@ -1,4 +1,4 @@
-# [arijus.net](http://arijus.net)
+# [arijus.net](https://arijus.net)
 
 my personal blog
 

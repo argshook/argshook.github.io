@@ -78,7 +78,24 @@ const devConfig = {
 
 const prodConfig = {
   plugins: (config.plugins || []).concat([
-    new webpack.optimize.DedupePlugin()
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        drop_console: true
+      },
+      minimize: true,
+      comments: false,
+      mangle: {
+        screw_ie8: true,
+        keep_fnames: true
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"production"'
+      }
+    })
   ])
 };
 
