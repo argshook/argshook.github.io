@@ -6,7 +6,7 @@ safer on my part as well.
 
 good candidate for such task was my subreddit tv toy app notoriously
 known as [orodarius](https://arijus.net/orodarius). Here's it's
-[source](github.com/argshook/orodarius) (**trigger warning:** it's angular 1.5!).
+[source](https://github.com/argshook/orodarius) (**trigger warning:** it's angular 1.5!).
 
 since i configured domain to be served through https, i had to make
 sure all requests from my toy app are also on https.
