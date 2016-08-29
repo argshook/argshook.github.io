@@ -34,8 +34,8 @@ i know what you're thinking: "but my sublime has a nice button to do
 this".
 
 
-well, yes, it does. but does your sublime have occasional ascii artifacts and doesn't
-scrolls really slow?
+well, yes, it does. but does your sublime have occasional ascii
+artifacts and scrolls really slow?
 
 didn't think so.
 
