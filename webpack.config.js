@@ -93,13 +93,11 @@ const prodConfig = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': '"production"'
+        NODE_ENV: '"production"'
       }
     })
   ])
 };
-
-module.exports= makeConfig(config);
 
 function makeConfig(config) {
   switch (process.env.NODE_ENV) {
@@ -112,3 +110,4 @@ function makeConfig(config) {
   }
 }
 
+module.exports = makeConfig(config);

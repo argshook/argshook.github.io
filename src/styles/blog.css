@@ -85,6 +85,31 @@
     margin-bottom: 2em;
   }
 
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 1em;
+    margin-bottom: .5em;
+    line-height: 2em;
+    background: color($color-light l(-5%));
+
+    &:nth-child(2n) {
+      background: color($color-light l(-7%));
+    }
+  }
+
+  code {
+    padding: .2em .5em;
+    border: 1px solid $color-light;
+    border-radius: 4px;
+    background: color($color-light l(-9%));
+    font-family: monospace;
+    font-size: .9em;
+  }
+
   hr {
     border: 15px dashed color($color-light l(-5%));
     margin: 3em -2em;
