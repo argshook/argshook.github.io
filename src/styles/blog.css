@@ -55,7 +55,7 @@
   &__back-btn {
     position: absolute;
     left: 0;
-    top: 3em;
+    top: 1em;
     perspective-origin: right;
     transform: translate(-100%);
     padding: 1em;
@@ -75,9 +75,12 @@
 }
 
 .blog-post-content {
+  color: $color-darker;
+
   h1 {
-    font-weight: 400;
-    font-size: 3em;
+    margin: 1.5em 0;
+    font-weight: 300;
+    font-size: 2.5em;
   }
 
   p {
