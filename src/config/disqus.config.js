@@ -40,11 +40,13 @@ export default class Disqus {
 
   resetDisqus() {
     let slug = this.currentSlug;
+
     DISQUS.reset({
       reload: true,
       config: function () {
-        this.page.identifier = slug;
         this.page.url = window.location.href;
+        this.page.identifier = slug;
+        this.page.title = slug;
       }
     });
   }
