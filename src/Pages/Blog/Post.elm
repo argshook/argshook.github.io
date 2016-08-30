@@ -27,8 +27,12 @@ update msg model =
       , getPostMeta
       ]
 
-    Highlight ->
-      model ! [ highlight "" ]
+    PostLoaded ->
+      model
+      !
+      [ highlight ""
+      , blogPostLoaded model.postMeta.slug
+      ]
 
     PostFetchSuccess data ->
       let
@@ -39,7 +43,7 @@ update msg model =
             }
 
       in
-         update Highlight model'
+         update PostLoaded model'
 
     PostFetchFail error ->
       let
@@ -98,6 +102,7 @@ view model =
         [ text "Back" ]
       , postMeta model.postMeta "blog-post-meta"
       , Markdown.toHtml [ class "blog-post-content" ] model.postContent
+      , div [ id "disqus_thread" ] []
       ]
 
 
@@ -134,4 +139,5 @@ postMeta postMeta className =
 
 
 port highlight : String -> Cmd msg
+port blogPostLoaded : String -> Cmd msg
 

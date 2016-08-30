@@ -9,7 +9,7 @@ type Msg
   = PostFetchSuccess String
   | PostFetchFail Http.Error
   | LoadPost PostId
-  | Highlight
+  | PostLoaded
   | GoBack
   | SetPostMeta PostMeta
   | PostMetaFetchSuccess (List PostMeta)
