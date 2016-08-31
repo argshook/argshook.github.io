@@ -14,7 +14,7 @@ app
 
 app
   .ports
-  .blogPostLoaded
+  .blogPostCommentsEnabled
   .subscribe(slug => disqus.setup(slug));
 
 function highlight() {

@@ -3,11 +3,16 @@
 export default class Disqus {
   constructor() {
     this.isScriptLoading = false;
-    this.currentSlug = "";
+    this.currentIdentifier = "";
   }
 
-  setup(slug) {
-    this.currentSlug = slug;
+  setup(identifier) {
+    this.currentIdentifier = identifier;
+
+    window.disqus_shortname = 'argshood';
+    window.disqus_identifier = this.currentIdentifier;
+    window.disqus_url = window.location.href;
+    window.disqus_title = document.title;
 
     if (!this.ready()) { return; }
 
@@ -31,7 +36,7 @@ export default class Disqus {
     s.src = '//argshood.disqus.com/embed.js';
 
     s.onload = () => {
-      this.setup(this.currentSlug);
+      this.setup(this.currentIdentifier);
     }
 
     s.setAttribute('data-timestamp', +new Date());
@@ -39,14 +44,14 @@ export default class Disqus {
   }
 
   resetDisqus() {
-    let slug = this.currentSlug;
+    let identifier = this.currentIdentifier;
 
     DISQUS.reset({
       reload: true,
       config: function () {
+        this.page.identifier = identifier;
         this.page.url = window.location.href;
-        this.page.identifier = slug;
-        this.page.title = slug;
+        this.page.title = document.title;
       }
     });
   }

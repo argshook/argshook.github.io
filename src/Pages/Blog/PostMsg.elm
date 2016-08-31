@@ -14,4 +14,5 @@ type Msg
   | SetPostMeta PostMeta
   | PostMetaFetchSuccess (List PostMeta)
   | PostMetaFetchFail Http.Error
+  | ShowComments
 

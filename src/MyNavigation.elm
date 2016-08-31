@@ -25,7 +25,7 @@ urlParser =
 
 fromUrl : String -> Result String State
 fromUrl hash =
-  UrlParser.parse identity pageParser (String.dropLeft 1 hash)
+  UrlParser.parse identity pageParser (String.dropLeft 2 hash)
 
 
 pageParser : Parser (State -> a) a
@@ -43,12 +43,12 @@ pageParser =
 toUrl : State -> String
 toUrl state =
   case state of
-    Home -> "#"
-    Binary -> "#binary"
-    Minesweeper -> "#minesweeper"
-    Category -> "#category"
-    FizzBuzz -> "#fizz-buzz"
-    Blog q -> "#blog/" ++ q
+    Home -> "#!"
+    Binary -> "#!binary"
+    Minesweeper -> "#!minesweeper"
+    Category -> "#!category"
+    FizzBuzz -> "#!fizz-buzz"
+    Blog q -> "#!blog/" ++ q
 
 
 -- TODO: too much login in here IMO, need to split somehow

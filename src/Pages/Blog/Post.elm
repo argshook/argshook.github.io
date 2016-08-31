@@ -3,6 +3,7 @@ port module Pages.Blog.Post exposing (..)
 
 import Navigation
 import Html exposing (..)
+import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import Task
 import Http
@@ -19,9 +20,8 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     LoadPost postId ->
-      { model
+      { initialModel
       | postId = postId
-      , isPostLoading = True
       } !
       [ getPost postId
       , getPostMeta
@@ -30,9 +30,12 @@ update msg model =
     PostLoaded ->
       model
       !
-      [ highlight ""
-      , blogPostLoaded model.postMeta.slug
-      ]
+      [ highlight "" ]
+
+    ShowComments ->
+      { model | isCommentsShown = True }
+      !
+      [ blogPostCommentsEnabled model.postMeta.id ]
 
     PostFetchSuccess data ->
       let
@@ -94,7 +97,7 @@ view model =
   if model.isPostLoading then
     div [] [ text "Loading..." ]
   else
-    div [ class "blog-post" ]
+    div [ class "blog-post" ] <|
       [ a
         [ class "blog-post__back-btn btn"
         , href "#"
@@ -102,8 +105,17 @@ view model =
         [ text "Back" ]
       , postMeta model.postMeta "blog-post-meta"
       , Markdown.toHtml [ class "blog-post-content" ] model.postContent
-      , div [ id "disqus_thread" ] []
-      ]
+      ] ++ [ (showCommentsBlock model.isCommentsShown) ]
+
+
+showCommentsBlock : Bool -> Html Msg
+showCommentsBlock isShown =
+  if isShown then
+    div [ id "disqus_thread" ] []
+  else
+    button
+      [ onClick ShowComments ]
+      [ text "Show Comments" ]
 
 
 postMeta : PostMeta -> String -> Html msg
@@ -139,5 +151,5 @@ postMeta postMeta className =
 
 
 port highlight : String -> Cmd msg
-port blogPostLoaded : String -> Cmd msg
+port blogPostCommentsEnabled : String -> Cmd msg
 

@@ -7,6 +7,7 @@ type alias Model =
   , postContent : String
   , postMeta : PostMeta
   , isPostLoading : Bool
+  , isCommentsShown : Bool
   }
 
 
@@ -16,6 +17,7 @@ initialModel =
   , postContent = ""
   , postMeta = initialPostMeta
   , isPostLoading = True
+  , isCommentsShown = False
   }
 
 
