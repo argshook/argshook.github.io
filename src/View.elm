@@ -16,9 +16,9 @@ view model =
     [ class "page-wrapper" ]
     [ div
         [ class "page-head" ]
-        [ h1
-          []
-          [ text "@argshook" ]
+        [ a
+          [ href "https://arijus.net" ]
+          [ h1 [] [ text "@argshook" ] ]
         , p
           []
           [ text "probably frontend mostly"

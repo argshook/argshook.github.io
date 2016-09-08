@@ -131,7 +131,7 @@ postMeta postMeta className =
         , toString <| Date.month date
         , toString <| Date.day date
         ]
-          |> String.join " / "
+          |> String.join " "
 
       hours =
         [ pad <| Date.hour date

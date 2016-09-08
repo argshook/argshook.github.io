@@ -20,7 +20,7 @@
     min-height: 120px;
     margin-bottom: 1em;
     background: transparent;
-    padding: 1em;
+    padding: 1em 4em;
     border: 1px solid $color-medium;
     transition: .1s ease all;
     text-decoration: none;
@@ -34,6 +34,7 @@
 
     &__title {
       display: block;
+      margin-bottom: 1em;
       font-size: 2em;
       color: $color-dark;
     }
