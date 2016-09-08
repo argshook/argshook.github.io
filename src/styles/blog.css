@@ -17,6 +17,7 @@
   &-post-card {
     flex: 1 0 100%;
     position: relative;
+    min-height: 120px;
     margin-bottom: 1em;
     background: transparent;
     padding: 1em;
@@ -118,7 +119,7 @@
     margin: 3em -2em;
   }
 
-  a {
+  a:not(::selected) {
     @mixin text-shadow $color-medium, $color-light;
   }
 
