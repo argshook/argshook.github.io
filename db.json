@@ -23,6 +23,14 @@
       "slug": "search-replace-everywhere-with-vim-and-ag",
       "dateCreated": 1472492485672,
       "path": "search-replace-everywhere-with-vim-and-ag.md"
+    },
+    {
+      "title": "Vim: easily split long lines",
+      "author": "argshook",
+      "id": "e7a1e66f-75bc-68bf-e03c-25a8027ef672",
+      "slug": "vim-easily-split-long-lines",
+      "dateCreated": 1473350877366,
+      "path": "vim-easily-split-long-lines.md"
     }
   ]
 }
