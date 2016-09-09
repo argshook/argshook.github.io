@@ -34,7 +34,7 @@ footer model =
   let
       githubLink =
         a
-          [ href "https://github.com/argshook/elm-experiments"
+          [ href "https://github.com/argshook/argshook.github.io"
           , target "_blank"
           ]
           [ text "github" ]
