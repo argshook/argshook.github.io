@@ -3,6 +3,7 @@ module MyNavigation exposing (..)
 import String
 import UrlParser exposing (Parser, (</>), format, int, oneOf, s, string)
 import Navigation
+import Regex
 import Model exposing (Model, initialModel)
 import States exposing (..)
 import Messages exposing (..)
@@ -25,7 +26,19 @@ urlParser =
 
 fromUrl : String -> Result String State
 fromUrl hash =
-  UrlParser.parse identity pageParser (String.dropLeft 2 hash)
+  let
+      normalizeHash : String -> String
+      normalizeHash hash' =
+        let
+            withoutPrefix =
+              String.dropLeft 2 hash'
+        in
+            if String.contains "#" withoutPrefix then
+              Regex.replace Regex.All (Regex.regex "#.*$") (\_ -> "") withoutPrefix
+            else
+              withoutPrefix
+  in
+      UrlParser.parse identity pageParser <| normalizeHash hash
 
 
 pageParser : Parser (State -> a) a
