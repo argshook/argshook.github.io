@@ -14,32 +14,6 @@
     padding: 2em;
   }
 
-  &-post-card {
-    flex: 1 0 100%;
-    position: relative;
-    min-height: 120px;
-    margin-bottom: 1em;
-    background: transparent;
-    padding: 1em 4em;
-    border: 1px solid $color-medium;
-    transition: .1s ease all;
-    text-decoration: none;
-    border-radius: 3px;
-    cursor: pointer;
-
-    &:hover {
-      background: color($color-medium l(+50%));
-      color: $color-light;
-    }
-
-    &__title {
-      display: block;
-      margin-bottom: 1em;
-      font-size: 2em;
-      color: $color-dark;
-    }
-  }
-
   &-post-card-meta {
     color: color($color-medium alpha(-5%));
     font-size: 1em;
@@ -58,7 +32,6 @@
     position: absolute;
     left: 0;
     top: 1em;
-    perspective-origin: right;
     transform: translate(-100%);
     padding: 1em;
     border-radius: 50px 0 0 50px;
@@ -72,7 +45,15 @@
   }
 
   @media screen and (max-width: 1000px) {
-    &__back-btn { transform: translate(0); }
+    &__back-btn {
+      transform: translate(0);
+      border-radius: 0 50px 50px 0;
+    }
+  }
+
+  hr {
+    border: 15px dashed color($color-light l(-5%));
+    margin: 3em -2em;
   }
 }
 
@@ -115,12 +96,7 @@
     font-size: .9em;
   }
 
-  hr {
-    border: 15px dashed color($color-light l(-5%));
-    margin: 3em -2em;
-  }
-
-  a:not(::selected) {
+  a {
     @mixin text-shadow $color-medium, $color-light;
   }
 

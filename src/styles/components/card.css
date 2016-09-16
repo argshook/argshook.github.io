@@ -1,0 +1,37 @@
+.card {
+  display: flex;
+  width: 100%;
+  flex: 1 0 100%;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  min-height: 120px;
+  margin-bottom: 1em;
+  background: transparent;
+  padding: 1em 4em;
+  border: 1px solid $color-medium;
+  transition: .1s ease all;
+  text-decoration: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: $color-dark;
+
+  &:hover,
+  &:focus {
+    background: color($color-medium l(+50%));
+    color: color($color-medium l(-20%));
+  }
+
+  &__title {
+    display: block;
+    flex: 1 0 100%;
+    margin-bottom: 1em;
+  }
+}
+
+.card-meta {
+  font-size: .5em;
+}
+

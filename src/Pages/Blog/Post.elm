@@ -105,6 +105,7 @@ view model =
         [ text "Back" ]
       , postMeta model.postMeta "blog-post-meta"
       , Markdown.toHtml [ class "blog-post-content" ] model.postContent
+      , hr [] []
       ] ++ [ (showCommentsBlock model.isCommentsShown) ]
 
 
@@ -114,7 +115,9 @@ showCommentsBlock isShown =
     div [ id "disqus_thread" ] []
   else
     button
-      [ onClick ShowComments ]
+      [ onClick ShowComments
+      , class "card"
+      ]
       [ text "Show Comments" ]
 
 

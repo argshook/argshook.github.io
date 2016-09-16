@@ -10,7 +10,7 @@ body {
 }
 
 a {
-  color: $color-darker; 
+  color: $color-darker;
   text-decoration: none;
 }
 

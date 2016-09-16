@@ -84,10 +84,10 @@ view model =
 postCard : PostMeta -> Html Msg
 postCard post =
   button
-    [ class "blog-post-card"
+    [ class "card"
     , onClick (OpenPost post)
     ]
-    [ div [ class "blog-post-card__title" ] [ text post.title ]
-    , postMeta post "blog-post-card-meta"
+    [ div [ class "card__title" ] [ text post.title ]
+    , postMeta post "card-meta"
     ]
 

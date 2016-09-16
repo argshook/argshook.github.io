@@ -1,6 +1,8 @@
-@import "vars.css";
-@import "mixins.css";
-@import "base.css";
-@import "page.css";
-@import "blog.css";
+@import "vars";
+@import "mixins";
+@import "base";
+@import "page";
+@import "blog";
+
+@import "components/card";
 
