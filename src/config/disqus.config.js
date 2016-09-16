@@ -46,12 +46,15 @@ export default class Disqus {
   resetDisqus() {
     let identifier = this.currentIdentifier;
 
+    window.disqus_config = function() {
+      this.page.identifier = identifier;
+    };
+
+    console.log(this.currentIdentifier);
     DISQUS.reset({
       reload: true,
       config: function () {
         this.page.identifier = identifier;
-        this.page.url = window.location.href;
-        this.page.title = document.title;
       }
     });
   }
