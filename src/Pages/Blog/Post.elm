@@ -105,26 +105,35 @@ view model =
         [ text "Back" ]
       , postMeta model.postMeta "blog-post-meta"
       , Markdown.toHtml [ class "blog-post-content" ] model.postContent
-      ] ++ (
-        if model.postMeta /= initialPostMeta then
-          [ hr [] []
-          , showCommentsBlock model.isCommentsShown
-          ]
+      ] ++ (showCommentsBlock model)
+
+
+showCommentsBlock : Model -> List ( Html Msg )
+showCommentsBlock model =
+  let
+      commentsBlock : Bool -> Html Msg
+      commentsBlock isShown =
+        if isShown then
+          div [ id "disqus_thread" ] []
         else
-          []
-      )
+          button
+            [ onClick ShowComments
+            , class "card card--small"
+            ]
+              [ text "Show Comments" ]
 
 
-showCommentsBlock : Bool -> Html Msg
-showCommentsBlock isShown =
-  if isShown then
-    div [ id "disqus_thread" ] []
-  else
-    button
-      [ onClick ShowComments
-      , class "card card--small"
-      ]
-      [ text "Show Comments" ]
+      conditions =
+        [ model.postMeta /= initialPostMeta
+        , List.all (\s -> model.postMeta.slug /= s) [ "about", "projects" ]
+        ]
+  in
+      if List.all (\c -> c) conditions then
+        [ hr [] []
+        , commentsBlock model.isCommentsShown
+        ]
+      else
+        []
 
 
 postMeta : PostMeta -> String -> Html msg
