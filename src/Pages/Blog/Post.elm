@@ -95,7 +95,7 @@ getPostMeta =
 view : Model -> Html Msg
 view model =
   if model.isPostLoading then
-    div [] [ text "Loading..." ]
+    div [ class "blog-post blog-post--loading" ] [ text "Loading..." ]
   else
     div [ class "blog-post" ] <|
       [ a
