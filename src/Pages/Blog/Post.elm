@@ -98,9 +98,9 @@ view model =
     div [ class "blog-post blog-post--loading" ] [ text "Loading..." ]
   else
     div [ class "blog-post" ] <|
-      [ a
+      [ button
         [ class "blog-post__back-btn btn"
-        , href "#"
+        , onClick GoBack
         ]
         [ text "Back" ]
       , postMeta model.postMeta "blog-post-meta"
