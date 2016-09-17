@@ -53,6 +53,7 @@ stateMenu model =
       states =
         [ ("Home", Home)
         , ("About", Blog "about")
+        , ("Projects", Blog "projects")
         ]
 
       activeClass : State -> String
