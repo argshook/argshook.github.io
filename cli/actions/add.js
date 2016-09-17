@@ -83,3 +83,4 @@ function logNewPost(newPost) {
   console.log('');
   console.log(JSON.stringify(newPost, null, 2));
 }
+
