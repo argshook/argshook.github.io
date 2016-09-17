@@ -6,19 +6,23 @@
     .input { margin-left: .5em; }
   }
 
-  &-posts-list {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 2em;
-  }
-
   &-post-card-meta {
     color: color($color-medium alpha(-5%));
     font-size: 1em;
 
     &__date { margin-right: 10px; }
+  }
+}
+
+.blog-posts-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 2em;
+
+  .card {
+    margin-bottom: 1.5em;
   }
 }
 
@@ -67,8 +71,9 @@
   }
 
   p {
-    line-height: 2em;
     margin-bottom: 2em;
+    text-align: justify;
+    line-height: 2em;
   }
 
   ul {

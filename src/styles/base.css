@@ -19,7 +19,7 @@ a {
 .btn {
   padding: .7em 1em;
   border: 1px solid $color-dark;
-  border-radius: 6px;
+  border-radius: 3px;
   font-size: 1em;
   transition: .2s ease all;
   background: #fff;

@@ -116,7 +116,7 @@ showCommentsBlock isShown =
   else
     button
       [ onClick ShowComments
-      , class "card"
+      , class "card card--small"
       ]
       [ text "Show Comments" ]
 

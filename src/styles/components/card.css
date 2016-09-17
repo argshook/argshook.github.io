@@ -6,10 +6,9 @@
   justify-content: center;
   flex-wrap: wrap;
   position: relative;
-  min-height: 120px;
   margin-bottom: 1em;
-  background: transparent;
-  padding: 1em 4em;
+  background: #fff;
+  padding: 1.5rem 2em;
   border: 1px solid $color-medium;
   transition: .1s ease all;
   text-decoration: none;
@@ -18,16 +17,51 @@
   font-size: 1.5rem;
   color: $color-dark;
 
+  &:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 0;
+    bottom: -30%;
+    left: 0;
+    transition: .3s ease background-position;
+    background-image: radial-gradient(rgba(0, 0, 0, .2) 30%, transparent 70%);
+    background-repeat: no-repeat;
+    background-size: 100% 50%;
+    background-position: 50% -50%;
+    pointer-events: none;
+  }
+
+  &:active,
+  &:hover,
+  &:focus { outline: 0; }
+
   &:hover,
   &:focus {
     background: color($color-medium l(+50%));
     color: color($color-medium l(-20%));
   }
 
+  &:active {
+    transform: translateY(4px);
+    outline: 0;
+
+    &:after { background-position: 50% -100%; }
+  }
+
   &__title {
     display: block;
     flex: 1 0 100%;
     margin-bottom: 1em;
+    line-height: 1.4;
+  }
+
+  &--small {
+    font-size: 1.2rem;
+
+    &:after {
+      bottom: -50%;
+    }
   }
 }
 
