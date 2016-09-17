@@ -105,8 +105,14 @@ view model =
         [ text "Back" ]
       , postMeta model.postMeta "blog-post-meta"
       , Markdown.toHtml [ class "blog-post-content" ] model.postContent
-      , hr [] []
-      ] ++ [ (showCommentsBlock model.isCommentsShown) ]
+      ] ++ (
+        if model.postMeta /= initialPostMeta then
+          [ hr [] []
+          , showCommentsBlock model.isCommentsShown
+          ]
+        else
+          []
+      )
 
 
 showCommentsBlock : Bool -> Html Msg
