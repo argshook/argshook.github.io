@@ -17,6 +17,13 @@ const config = {
   },
 
   module: {
+    preLoaders: [
+      {
+        test: /\.json/,
+        exclude: excludes,
+        loader: 'json'
+      }
+    ],
     loaders: [
       {
         test: /\.html$/,
