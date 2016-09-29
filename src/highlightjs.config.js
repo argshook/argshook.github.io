@@ -9,5 +9,9 @@ hljs.registerLanguage('elm',
 hljs.registerLanguage('javascript',
   require('../node_modules/highlight.js/lib/languages/javascript.js'));
 
+hljs.registerLanguage('html',
+  require('../node_modules/highlight.js/lib/languages/xml.js'));
+
+
 module.exports = hljs;
 

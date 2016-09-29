@@ -39,6 +39,14 @@
       "slug": "projects",
       "dateCreated": 1474133446968,
       "path": "projects.md"
+    },
+    {
+      "title": "ng-directive-compiler-helper for angular 1.5 unit testing to the rescue!",
+      "author": "argshook",
+      "id": "bdd45479-f4be-fe07-2a1c-45beaddb3864",
+      "slug": "ng-directive-compiler-helper-for-angular-15-unit-testing-to-the-rescue",
+      "dateCreated": 1475168559681,
+      "path": "ng-directive-compiler-helper-for-angular-15-unit-testing-to-the-rescue.md"
     }
   ]
 }

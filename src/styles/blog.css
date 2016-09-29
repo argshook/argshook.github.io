@@ -28,7 +28,7 @@
 
 .blog-post {
   position: relative;
-  padding: 1em 2em;
+  padding: 1em 2rem;
   font-size: 1em;
   color: $color-darker;
 
@@ -100,26 +100,59 @@
     font-size: 2.5em;
   }
 
+  h2 {
+    font-weight: 400;
+    font-size: 1.8em;
+  }
+
   p {
     margin-bottom: 2em;
     text-align: justify;
     line-height: 2em;
   }
 
-  ul {
+  ul,
+  ol {
     padding: 0;
     list-style: none;
+
+    li {
+      padding: 1em;
+      margin-bottom: .5em;
+      line-height: 2em;
+      background: color($color-light l(-5%));
+
+      &:nth-child(2n) {
+        background: color($color-light l(-7%));
+      }
+    }
   }
 
-  li {
-    padding: 1em;
-    margin-bottom: .5em;
-    line-height: 2em;
-    background: color($color-light l(-5%));
+  ol {
+    padding: 0 0 0 2em;
+    counter-reset: post-ol-counter;
 
-    &:nth-child(2n) {
-      background: color($color-light l(-7%));
+    li {
+      position: relative;
+
+      &:before {
+        position: absolute;
+        content: counter(post-ol-counter, upper-latin);
+        counter-increment: post-ol-counter;
+        left: -45px;
+        font-size: 2em;
+        color: color($color-light l(-15%));
+      }
     }
+  }
+
+  pre {
+    display: block;
+    margin: 2rem -2rem;
+    padding: 2rem;
+    background: color($color-light l(-9%));
+
+    code { border: 0; }
   }
 
   code {
@@ -128,7 +161,8 @@
     border-radius: 4px;
     background: color($color-light l(-9%));
     font-family: monospace;
-    font-size: .9em;
+    font-size: .8em;
+    line-height: 1.7;
   }
 
   a {
