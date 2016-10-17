@@ -12,6 +12,8 @@ hljs.registerLanguage('javascript',
 hljs.registerLanguage('html',
   require('../node_modules/highlight.js/lib/languages/xml.js'));
 
+hljs.registerLanguage('vim',
+  require('../node_modules/highlight.js/lib/languages/vim.js'));
 
 module.exports = hljs;
 
