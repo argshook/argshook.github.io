@@ -10,7 +10,7 @@ install with your favorite plugin manager, by following instructions on [github]
 NeoBundle 'vimwiki/vimwiki'
 
 " or most probably this
-Plugin 'tpope/vim-fugitive'
+Plugin 'vimwiki/vimwiki'
 ```
 
 set some paths
@@ -46,8 +46,7 @@ once you're at some vimwiki page:
    It looks like `[[this]]`
 4. `enter` again will follow that link
 4. `backspace` will go back to previous page
-5. line starting with `1.`, `*` or `-` will make consecutive lines
-   follow initial pattern, as a list
+5. line starting with `1.`, `*` or `-` will start a list
 6. `ctrl + space` while on such list, will attach check mark to list
    item
 7. `ctrl + space` again will toggle that checkmark
@@ -62,7 +61,7 @@ to write code blocks wrap code with `{{{` and `}}}`:
 
 memorize this command:
 
-{{{sh
+{{{
 cd ~
 }}}
 
@@ -70,7 +69,7 @@ cd ~
 
 ---
 
-Essentially, whenever i need to save text in a little more organized
+whenever i need to save text in a little more organized
 manner, hit `,ww`, nagivate or create new link for that text,
 paste/type.
 
