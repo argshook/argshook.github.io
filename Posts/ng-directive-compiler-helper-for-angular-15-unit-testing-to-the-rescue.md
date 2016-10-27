@@ -177,7 +177,7 @@ describe('Directive: pupperLeggies', () => {
   beforeEach(module('yourModule'));
 
   beforeEach(inject(($compile, $rootScope) => {
-    compile = createCompiler('<doggo-leggies count="4" />', $rootScope, $compile, {
+    compile = createCompiler('<pupper-leggies count="4" />', $rootScope, $compile, {
       text: () => this.$.text()
     });
   }));
@@ -206,23 +206,26 @@ const driver = {
   text: () => this.$.find(this.textClass).text()
 };
 
-let compile = createCompiler('<doggo-leggies count="4" />', $rootScope, $compile, driver);
+let compile = createCompiler('<pupper-leggies count="4" />', $rootScope, $compile, driver);
 
 compile((scope, element, driver) {
   expect(driver.text()).toBe('whatever .component-text-child text is');
 });
 ```
 
-you probably wonder dafuq is `this.$`. it's simply reference to root
+you probably wonder dafuq is `this.$`. it's simply a reference to root
 component element. Hopefully this speaks for itself:
 
 ```js
 const driver = {
-  text: element => element.find('.text-element').text()
-  text2: selector => this.$.find(selector).text()
+  // receives element as argument:
+  text: element => element.find('.text-element').text(),
+
+  // uses this.$ to reach same element:
+  nestedText: selector => this.$.find(selector).text(),
 };
 
-let compile = createCompiler('<doggo-leggies count="4" />', $rootScope, $compile, driver);
+let compile = createCompiler('<pupper-leggies count="4" />', $rootScope, $compile, driver);
 
 compile((scope, element, driver) {
   expect(driver.text(element)).toBe('text from .text-element');
@@ -256,6 +259,38 @@ compile((scope, element, driver) => {
   ];
 
   expect(driver.validateAttrs(attrsAndValues)).toBe(true);
+});
+```
+
+---
+
+in order not to bore myself rewriting same `createCompiler` preparations
+for each test suite, i made a snippet that lays out the scaffold. It
+basically renders this:
+
+```js
+describe('Component: pupperLeggies', () => {
+  const compile;
+
+  const parentScopeMock = {};
+
+  const elementAttrsMock = {};
+
+  const driver = {
+    root: () => this.$.find('.pupper-root')
+  };
+
+  beforeEach(module('butcher'));
+
+  beforeEach(inject(($compile, $rootScope) => {
+    compile = createCompiler('<pupper-leggies />', $rootScope, $compile, driver);
+  }));
+
+  it('should exist', () => {
+    compile(parentScopeMock, elementAttrsMock, (scope, element, driver) => {
+      expect(driver.root().length).toBe(1);
+    });
+  });
 });
 ```
 
