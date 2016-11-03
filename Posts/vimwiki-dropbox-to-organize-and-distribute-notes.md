@@ -1,4 +1,4 @@
-# wimviki & dropbox to organize and distribute notes with vim
+# vimwiki & dropbox to organize and distribute notes with vim
 
 Vimwiki is a personal wiki for Vim -- a number of linked text files that have
 their own syntax highlighting.
