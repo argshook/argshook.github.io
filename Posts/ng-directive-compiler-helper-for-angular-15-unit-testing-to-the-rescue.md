@@ -93,7 +93,7 @@ you could use this component inside other components like so:
 </div>
 ```
 
-to create same environment and put `<pupper-leggies />` in it with `compile`:
+to mimic same environment for `<pupper-leggies />` in tests using `compile`:
 
 ```js
 it('display pupper leg count', () =>
@@ -129,9 +129,10 @@ second argument: `compile({ scopeProperty: 4 }, (scope, element) => ... )`
 
 ## why all this?
 
-yeah it may look like boilerplate to solve boilerplate.
-however, this helps tremendously when testing many components under many
-different scenarios.
+yeah it may look like boilerplate to solve boilerplate. however, this
+helps tremendously when testing many components under many different
+scenarios. it also DRYs up code quite a bit since you don't need to
+write custom compile functions anymore (i know i did that a lot)
 
 by compiling components this way you're free to supply all parameters to
 `compile` function programatically. just one way to do this:
@@ -203,7 +204,7 @@ through `this`:
 ```js
 const driver = {
   textClass: '.component-text-child'
-  text: () => this.$.find(this.textClass).text()
+  text: function() { return this.$.find(this.textClass).text(); }
 };
 
 let compile = createCompiler('<pupper-leggies count="4" />', $rootScope, $compile, driver);
@@ -222,7 +223,7 @@ const driver = {
   text: element => element.find('.text-element').text(),
 
   // uses this.$ to reach same element:
-  nestedText: selector => this.$.find(selector).text(),
+  nestedText: function(selector) { return this.$.find(selector).text(); },
 };
 
 let compile = createCompiler('<pupper-leggies count="4" />', $rootScope, $compile, driver);
@@ -277,7 +278,7 @@ describe('Component: pupperLeggies', () => {
   const elementAttrsMock = {};
 
   const driver = {
-    root: () => this.$.find('.pupper-root')
+    root: function() { return this.$.find('.pupper-root'); }
   };
 
   beforeEach(module('butcher'));
