@@ -3,11 +3,11 @@ module Main exposing (..)
 import Navigation
 
 import View exposing (view)
-import Messages exposing (Msg)
 import Update exposing (update)
 import MyNavigation exposing (init)
 
 
+main : Program Never
 main =
   Navigation.program MyNavigation.urlParser
     { init = init

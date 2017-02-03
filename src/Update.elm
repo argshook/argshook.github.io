@@ -5,10 +5,8 @@ import Navigation
 import Messages exposing (..)
 import Model exposing (..)
 import MyNavigation exposing (..)
-import States exposing (..)
 
 import Pages.PagesUpdate exposing (..)
-import Pages.PagesMessages exposing (..)
 
 
 update : Messages.Msg -> Model -> (Model, Cmd Messages.Msg)
