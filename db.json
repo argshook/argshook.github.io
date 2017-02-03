@@ -55,6 +55,14 @@
       "slug": "vimwiki-dropbox-to-organize-and-distribute-notes",
       "dateCreated": 1476736431182,
       "path": "vimwiki-dropbox-to-organize-and-distribute-notes.md"
+    },
+    {
+      "title": "vim - jump to middle of paragraph",
+      "author": "argshook",
+      "id": "c4209daf-3a77-ce54-b3b1-aaf04f62f0ce",
+      "slug": "vim-jump-to-middle-of-paragraph",
+      "dateCreated": 1486128286386,
+      "path": "vim-jump-to-middle-of-paragraph.md"
     }
   ]
 }
