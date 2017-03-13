@@ -1,6 +1,6 @@
 module Pages.Chat exposing (..)
 
-import Html.App
+import Html
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -9,7 +9,7 @@ import WebSocket
 
 
 main =
-  Html.App.program
+  Html.program
     { init = init
     , view = view
     , update = update

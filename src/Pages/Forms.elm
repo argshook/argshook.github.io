@@ -4,7 +4,7 @@ import String
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Html.App exposing (..)
+import Html exposing (..)
 
 type alias Model =
   { name : String
@@ -106,5 +106,5 @@ validationView model =
     ]
 
 main =
-  Html.App.beginnerProgram { model = initialModel, view = view, update = update }
+  Html.beginnerProgram { model = initialModel, view = view, update = update }
 

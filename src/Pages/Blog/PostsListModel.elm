@@ -1,6 +1,6 @@
 module Pages.Blog.PostsListModel exposing (..)
 
-import Json.Decode as Json exposing ((:=))
+import Json.Decode as Json exposing (field)
 
 import Pages.Blog.PostModel exposing (..)
 
@@ -22,12 +22,12 @@ postsResponseDecoder : Json.Decoder (List PostMeta)
 postsResponseDecoder =
   Json.at ["posts"]
     <| Json.list
-    <| Json.object7 PostMeta
-      ("title" := Json.string)
-      ("author" := Json.string)
-      ("id" := Json.string)
-      ("slug" := Json.string)
-      ("path" := Json.string)
-      (Json.maybe ("dateCreated" := Json.int))
-      (Json.maybe ("dateModified" := Json.int))
+    <| Json.map7 PostMeta
+      (field "title" Json.string)
+      (field "author" Json.string)
+      (field "id" Json.string)
+      (field "slug" Json.string)
+      (field "path" Json.string)
+      (Json.maybe (field "dateCreated" Json.int))
+      (Json.maybe (field "dateModified" Json.int))
 

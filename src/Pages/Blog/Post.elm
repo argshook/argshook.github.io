@@ -5,7 +5,6 @@ import Navigation
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
-import Task
 import Http
 import Date
 import String
@@ -37,37 +36,39 @@ update msg model =
       !
       [ blogPostCommentsEnabled model.postMeta.id ]
 
-    PostFetchSuccess data ->
-      let
-          model' =
-            { model
-            | postContent = data
-            , isPostLoading = False
-            }
+    PostFetch data ->
+      case data of
+        Ok post ->
+          let
+              model_ =
+                { model
+                | postContent = post
+                , isPostLoading = False
+                }
+          in
+              update PostLoaded model_
 
-      in
-         update PostLoaded model'
+        Err error ->
+          let
+              _ = Debug.log "fetch fail" error
+          in
+              { model
+              | postContent = "Failed to fetch :("
+              , isPostLoading = False
+              } ! []
 
-    PostFetchFail error ->
-      let
-          _ = Debug.log "fetch fail" error
-      in
-          { model
-          | postContent = "Failed to fetch :("
-          , isPostLoading = False
-          } ! []
-
-    PostMetaFetchSuccess postsMeta ->
-      let
-          postMeta =
-            List.filter (\p -> p.slug == model.postId) postsMeta
-              |> List.head
-              |> Maybe.withDefault initialPostMeta
-      in
-          { model | postMeta = postMeta } ! []
-
-    PostMetaFetchFail err ->
-      model ! []
+    PostMetaFetch postsMeta ->
+      case postsMeta of
+        Ok metas ->
+          let
+              postMeta =
+                List.filter (\p -> p.slug == model.postId) metas
+                  |> List.head
+                  |> Maybe.withDefault initialPostMeta
+          in
+              { model | postMeta = postMeta } ! []
+        Err error ->
+          model ! []
 
     GoBack ->
       model ! [ Navigation.back 1 ]
@@ -82,13 +83,14 @@ getPost postId =
       url =
         "Posts/" ++ postId ++ ".md"
   in
-      Task.perform PostFetchFail PostFetchSuccess (Http.getString url)
+      Http.send PostFetch
+        (Http.getString url)
 
 
 getPostMeta : Cmd Msg
 getPostMeta =
-  Http.get postsResponseDecoder "db.json"
-    |> Task.perform PostMetaFetchFail PostMetaFetchSuccess
+  Http.send PostMetaFetch
+    (Http.get "db.json" postsResponseDecoder)
 
 
 

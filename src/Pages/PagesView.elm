@@ -1,7 +1,7 @@
 module Pages.PagesView exposing (..)
 
 
-import Html.App
+import Html
 import Html exposing (..)
 import Html.Attributes exposing (..)
 
@@ -26,22 +26,22 @@ view model state =
       component =
         case state of
           Home ->
-            Html.App.map PostsListMsg (PostsList.view model.postsListModel)
+            Html.map PostsListMsg (PostsList.view model.postsListModel)
 
           Binary ->
-            Html.App.map PagesMessages.BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
+            Html.map PagesMessages.BinaryTreeMsg (BinaryTree.view model.binaryTreeModel)
 
           Category ->
-            Html.App.map PagesMessages.CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
+            Html.map PagesMessages.CategoryTreeMsg (CategoryTree.view model.categoryTreeModel)
 
           FizzBuzz ->
-            Html.App.map PagesMessages.FizzBuzzMsg (FizzBuzz.view model.fizzBuzzModel)
+            Html.map PagesMessages.FizzBuzzMsg (FizzBuzz.view model.fizzBuzzModel)
 
           Blog _ ->
-            Html.App.map PostMsg (Post.view model.postModel)
+            Html.map PostMsg (Post.view model.postModel)
 
           Minesweeper ->
-            Html.App.map PagesMessages.MinesweeperMsg (Minesweeper.view model.minesweeperModel)
+            Html.map PagesMessages.MinesweeperMsg (Minesweeper.view model.minesweeperModel)
 
   in
     div

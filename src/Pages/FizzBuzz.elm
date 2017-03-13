@@ -1,6 +1,6 @@
 module Pages.FizzBuzz exposing (..)
 
-import Html.App exposing (..)
+import Html exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -60,7 +60,7 @@ fizzBuzzList count =
             else toString num
 
   in
-      List.map counter [1..count]
+      List.map counter (List.range 1 count)
 
 
 view : Model -> Html Msg
@@ -87,7 +87,7 @@ view model =
 
 
 main =
-  Html.App.program
+  Html.program
     { init = (initialModel, Cmd.none)
     , view = view
     , update = update

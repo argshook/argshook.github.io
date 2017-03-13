@@ -1,6 +1,6 @@
 module Pages.CategoryTree exposing (..)
 
-import Html.App exposing (..)
+import Html exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -159,7 +159,7 @@ view model =
         ]
 
 main =
-  Html.App.program
+  Html.program
     { init = (initialModel, Cmd.none)
     , view = view
     , update = update

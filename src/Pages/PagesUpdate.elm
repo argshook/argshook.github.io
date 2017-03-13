@@ -18,15 +18,15 @@ update msg model =
   case msg of
     AgeMsg msg ->
       let
-          (model', cmd) = Age.update msg model.ageModel
+          (model_, cmd) = Age.update msg model.ageModel
       in
-          ({ model | ageModel = model' }, Cmd.map AgeMsg cmd)
+          ({ model | ageModel = model_ }, Cmd.map AgeMsg cmd)
 
     MinesweeperMsg msg ->
       let
-          (model', cmd) = Minesweeper.update msg model.minesweeperModel
+          (model_, cmd) = Minesweeper.update msg model.minesweeperModel
       in
-          ({ model | minesweeperModel = model' }, Cmd.map MinesweeperMsg cmd)
+          ({ model | minesweeperModel = model_ }, Cmd.map MinesweeperMsg cmd)
 
     BinaryTreeMsg msg ->
       let

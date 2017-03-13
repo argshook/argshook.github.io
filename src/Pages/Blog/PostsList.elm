@@ -25,32 +25,34 @@ update msg model =
     OpenPost post ->
       ( model
       , Navigation.newUrl ("#!blog/" ++ post.slug) -- TOOD: dont directly change url here
-      , Task.succeed (PostMsg.SetPostMeta post) |>
-          Task.perform PagesMessages.PostMsg PagesMessages.PostMsg
+      , Task.perform PagesMessages.PostMsg
+          (Task.succeed (PostMsg.SetPostMeta post))
       )
 
-    LoadPosts ->
+    InitializeLoadPosts ->
       ( model
       , loadPosts
       , Cmd.none
       )
 
-    LoadPostsSuccess posts ->
-      ( { model | posts = posts }
-      , Cmd.none
-      , Cmd.none
-      )
-
-    LoadPostFail err ->
-      let
-          _ = Debug.log "failed to fetch all posts" err
-      in
-          (model, Cmd.none, Cmd.none)
+    LoadPosts result ->
+      case result of
+        Ok posts ->
+          ( { model | posts = posts }
+          , Cmd.none
+          , Cmd.none
+          )
+        Err error ->
+          let
+              _ = Debug.log "failed to fetch all posts" error
+          in
+              (model, Cmd.none, Cmd.none)
 
 
 loadPosts : Cmd Msg
 loadPosts =
-  Task.perform LoadPostFail LoadPostsSuccess (Http.get postsResponseDecoder "db.json")
+  Http.send LoadPosts
+    (Http.get "db.json" postsResponseDecoder)
 
 filteredPosts : Model-> List (Html Msg)
 filteredPosts model =

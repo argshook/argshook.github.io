@@ -1,7 +1,7 @@
 module Pages.Dice exposing (..)
 
 
-import Html.App
+import Html
 import Html exposing(..)
 import Html.Events exposing(..)
 import Html.Attributes exposing(..)
@@ -68,7 +68,7 @@ view model =
         []
         ( dies ++ [ (button [ onClick Roll ] [ text "Roll" ]) ])
 main =
-  Html.App.program
+  Html.program
     { init = initialModel
     , update = update
     , view = view

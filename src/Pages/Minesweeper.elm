@@ -1,5 +1,6 @@
 module Pages.Minesweeper exposing (..)
 
+import Tuple exposing (first)
 import Array exposing (Array, fromList)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -68,7 +69,7 @@ view model =
       cell : (Int, Cell) -> Html Msg
       cell (id, c) =
         let
-            text' =
+            text_ =
               case c of
                 Marked -> "?"
                 Closed c -> "x"
@@ -98,7 +99,7 @@ view model =
               ]
               [ button
                 [ onClick <| RevealCell (id, c) ]
-                [ text text' ]
+                [ text text_ ]
               ]
 
 
@@ -148,19 +149,19 @@ newBoard oldBoard (revealedId, revealedCell) =
         else
           (id, c)
 
-      boardWidth' =
+      boardWidth_ =
         boardWidth oldBoard
 
       (x, y) =
-        (revealedId % boardWidth', revealedId // boardWidth oldBoard)
+        (revealedId % boardWidth_, revealedId // boardWidth oldBoard)
 
       filledBoard : Board
       filledBoard =
         let
             nextCellCoords : (Int, Int)
             nextCellCoords =
-              ( ((revealedId + 1) % (boardWidth' * List.length oldBoard)) % boardWidth'
-              , revealedId // boardWidth'
+              ( ((revealedId + 1) % (boardWidth_ * List.length oldBoard)) % boardWidth_
+              , revealedId // boardWidth_
               )
 
             nextCell =
@@ -182,8 +183,8 @@ floodFill (x, y) targetCell board =
             _ ->
               if (id, cell) /= targetCell then
                 let
-                    board' = setCellInBoard (x, y) targetCell board
-                    boardN = floodFill (x, y - 1) (id, cell) board'
+                    board_ = setCellInBoard (x, y) targetCell board
+                    boardN = floodFill (x, y - 1) (id, cell) board_
                     boardNE = floodFill (x + 1, y - 1) (id, cell) boardN
 
                     boardE = floodFill (x + 1, y) (id, cell) boardNE
@@ -237,7 +238,7 @@ setCellInBoard (x, y) targetCell board =
         List.map setCell r
 
       setCell (id, cell) =
-        if (fst targetCell) == id then
+        if (first targetCell) == id then
           case cell of
             Closed content ->
               case content of

@@ -1,6 +1,5 @@
 module View exposing (view)
 
-import Html.App
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -25,7 +24,7 @@ view model =
           ]
         ]
     , stateMenu model
-    , Html.App.map PagesMessages (PagesView.view model.pagesModel model.state)
+    , Html.map PagesMessages (PagesView.view model.pagesModel model.state)
     , footer model
     ]
 

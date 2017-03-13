@@ -1,6 +1,6 @@
 module Pages.Age exposing (Model, Msg, initialModel, view, update)
 
-import Html.App exposing (..)
+import Html exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -60,7 +60,7 @@ ageValidator model =
 
 
 main =
-  Html.App.program
+  Html.program
     { init = (initialModel, Cmd.none)
     , view = view
     , update = update

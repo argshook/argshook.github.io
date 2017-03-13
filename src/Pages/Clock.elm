@@ -1,14 +1,14 @@
 module Pages.Clock exposing (..)
 
 import Html exposing (..)
-import Html.App
+import Html
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
 import Time exposing (Time, second)
 
 
 main =
-  Html.App.program
+  Html.program
     { init = init
     , view = view
     , update = update

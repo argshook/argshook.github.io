@@ -1,6 +1,6 @@
 module Pages.HttpEffect exposing (..)
 
-import Html.App
+import Html
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
@@ -85,7 +85,7 @@ view model =
 
 
 main =
-  Html.App.program
+  Html.program
     { init = initialModel
     , view = view
     , update = update

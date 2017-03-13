@@ -6,13 +6,11 @@ import Http
 
 
 type Msg
-  = PostFetchSuccess String
-  | PostFetchFail Http.Error
+  = PostFetch (Result Http.Error String)
   | LoadPost PostId
   | PostLoaded
   | GoBack
   | SetPostMeta PostMeta
-  | PostMetaFetchSuccess (List PostMeta)
-  | PostMetaFetchFail Http.Error
+  | PostMetaFetch (Result Http.Error (List PostMeta))
   | ShowComments
 
