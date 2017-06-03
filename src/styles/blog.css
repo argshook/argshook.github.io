@@ -1,9 +1,28 @@
 .blog {
   &-posts-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 2em;
     text-align: right;
+    font-size: .9em;
+    color: $color-medium;
+    font-family: monospace;
 
-    .input { margin-left: .5em; }
+    input {
+      padding: .2em;
+      background: color($color-light l(-8%));
+      text-align: center;
+      border: 0;
+      font-size: inherit;
+      font-family: inherit;
+      transition: .1s ease-out width;
+
+      &:focus {
+        outline: 0;
+        background: color($color-light l(-12%));
+      }
+    }
   }
 
   &-post-card-meta {
@@ -22,7 +41,7 @@
   padding: 2em;
 
   .card {
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
   }
 }
 
@@ -34,11 +53,9 @@
 
   &__back-btn {
     position: absolute;
-    left: 0;
+    left: 1em;
     top: 1em;
-    transform: translate(-100%);
-    padding: 1em;
-    border-radius: 50px 0 0 50px;
+    padding: .5em 1em;
     border: 0;
     color: color($color-dark l(+10%));
 
@@ -48,18 +65,12 @@
     }
   }
 
-  @media screen and (max-width: 1000px) {
-    &__back-btn {
-      transform: translate(0);
-      border-radius: 0 50px 50px 0;
-    }
-  }
-
   &--loading {
     position: relative;
     display: flex;
     justify-content: center;
     align-content: center;
+    min-height: 600px;
     padding: 3em 0;
     font-size: 2em;
     font-weight: 300;
@@ -178,7 +189,7 @@
 }
 
 .blog-post-meta {
-  margin: 1em 0 2em;
+  margin: .6em 0 2em;
   text-align: right;
 
   &__date,

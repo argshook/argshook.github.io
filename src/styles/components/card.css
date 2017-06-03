@@ -1,21 +1,17 @@
 .card {
-  display: flex;
   width: 100%;
-  flex: 1 0 100%;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
   position: relative;
   margin-bottom: 1em;
-  background: #fff;
-  padding: 1.5rem 2em;
-  border: 1px solid $color-medium;
+  background: rgba(255, 255, 255, .9);
+  padding: 1.5rem 1.5em;
+  border: none;
   transition: .1s ease all;
   text-decoration: none;
   border-radius: 3px;
   cursor: pointer;
   font-size: 1.5rem;
   color: $color-dark;
+  text-align: left;
 
   &:after {
     content: '';
@@ -27,8 +23,8 @@
     transition: .3s ease background-position;
     background-image: radial-gradient(rgba(0, 0, 0, .2) 30%, transparent 70%);
     background-repeat: no-repeat;
-    background-size: 100% 50%;
-    background-position: 50% -50%;
+    background-size: 130% 50%;
+    background-position: 50% -65%;
     pointer-events: none;
   }
 
@@ -38,12 +34,12 @@
 
   &:hover,
   &:focus {
-    background: color($color-medium l(+50%));
+    background: color($color-medium l(+55%));
     color: color($color-medium l(-20%));
   }
 
   &:active {
-    transform: translateY(4px);
+    transform: translateY(2px);
     outline: 0;
 
     &:after { background-position: 50% -100%; }
@@ -51,8 +47,7 @@
 
   &__title {
     display: block;
-    flex: 1 0 100%;
-    margin-bottom: 1em;
+    margin-bottom: .6em;
     line-height: 1.4;
   }
 

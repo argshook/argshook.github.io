@@ -4,11 +4,7 @@ import String
 import UrlParser exposing (Parser, (</>), map, int, oneOf, s, string)
 import Regex
 import States exposing (..)
-import Messages exposing (..)
 
-import Pages.PagesUpdate
-import Pages.PagesMessages
-import Pages.Blog.PostMsg as PostMsg
 import Pages.Blog.PostsListMsg as PostsListMsg
 
 
@@ -45,43 +41,3 @@ toUrl state =
     Category -> "#category"
     FizzBuzz -> "#fizz-buzz"
     Blog q -> "#blog/" ++ q
-
-
---update : Msg -> Model -> (Model, Cmd Msg)
---update msg model =
-  --case msg of
-    --Ok newState ->
-      --case newState of
-
-        --States.Home ->
-          --let
-              --(pagesModel, pagesCmd) =
-                --Pages.PagesUpdate.update
-                  --(Pages.PagesMessages.PostsListMsg (PostsListMsg.InitializeLoadPosts))
-                  --model.pagesModel
-          --in
-              --{ model
-              --| state = newState
-              --, pagesModel = pagesModel
-              --} !
-              --[ Cmd.map PagesMessages pagesCmd ]
-
-        --States.Blog slug ->
-          --let
-              --(pagesPostModel, pagesPostCmd) =
-                --Pages.PagesUpdate.update
-                  --(Pages.PagesMessages.PostMsg (PostMsg.LoadPost slug))
-                  --model.pagesModel
-          --in
-              --{ model
-              --| state = newState
-              --, pagesModel = pagesPostModel
-              --} !
-              --[ Cmd.map PagesMessages pagesPostCmd ]
-
-        --_ ->
-          --{ model | state = newState } ! []
-
-    --Err _ ->
-      --(model, Navigation.modifyUrl (toUrl model.state))
-

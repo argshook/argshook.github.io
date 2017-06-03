@@ -11,22 +11,29 @@ import States exposing (..)
 
 view : Model -> Html Msg
 view model =
-  div
-    [ class "page-wrapper" ]
-    [ div
-        [ class "page-head" ]
-        [ a
-          [ href "https://arijus.net" ]
-          [ h2 [] [ text "@argshook" ] ]
-        , p
-          []
-          [ text "probably frontend mostly"
+  let
+      pageTitle =
+        div
+          [ class "page-title" ]
+          [ a
+            [ href "https://arijus.net" ]
+            [ h2 [] [ text "argshook blog" ] ]
+          , p
+            []
+            [ text "probably frontend mostly" ]
           ]
+
+  in
+      div
+        [ class "page-wrapper" ]
+        [ div
+          [ class "page-head" ]
+          [ pageTitle
+          , stateMenu model
+          ]
+        , Html.map PagesMessages (PagesView.view model.pagesModel model.state)
+        , footer model
         ]
-    , stateMenu model
-    , Html.map PagesMessages (PagesView.view model.pagesModel model.state)
-    , footer model
-    ]
 
 footer : model -> Html Msg
 footer model =
@@ -50,7 +57,7 @@ stateMenu : Model -> Html Msg
 stateMenu model =
   let
       states =
-        [ ("Home", Home)
+        [ ("Blog", Home)
         , ("About", Blog "about")
         , ("Projects", Blog "projects")
         ]
@@ -82,7 +89,7 @@ stateMenu model =
       menuItem (name, state) =
         button
           [ onClick (ChangeState state)
-          , class <| "page-nav__btn btn btn--lg " ++ (activeClass state)
+          , class <| "page-nav__btn btn " ++ (activeClass state)
           ]
           [ text name ]
 

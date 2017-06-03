@@ -1,16 +1,20 @@
 .page-wrapper {
-  max-width: 850px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .page-head {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 2em;
   background: $color-light;
   color: $color-dark;
-  box-shadow: 0 100px 200px 0 rgba(0,0,0,.1);
-  border-bottom: 5px solid $color-medium;
+  box-shadow: 0 40px 100px 0px rgba(0,0,0,.2);
+}
 
+.page-title {
   h2 {
     margin: 0;
     font-weight: 500;
@@ -19,14 +23,11 @@
 }
 
 .page-nav {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 1em 0;
-
   &__btn {
-    margin: .5em;
-    padding: .9em 2.1em;
+    display: block;
+    margin: 0 0 .5em auto;
+    padding: .4em 1em;
+    border-radius: 9px;
 
     @media screen and (max-width: 500px) {
       font-size: .8em;

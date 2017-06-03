@@ -57,12 +57,12 @@ loadPosts =
 filteredPosts : Model-> List (Html Msg)
 filteredPosts model =
   List.map (\p -> postCard p )
-    <| if String.length model.filter /= 0 then
+    <| if String.length model.filter == 0 then
+         model.posts
+       else
         List.filter
           (\p -> String.contains (String.toLower model.filter) (String.toLower p.title))
           model.posts
-       else
-         model.posts
 
 
 view : Model -> Html Msg
@@ -71,13 +71,18 @@ view model =
       [ class "blog" ]
       [ div
         [ class "blog-posts-filter" ]
-        [ text "Filter posts "
+        [ text "List.filter (\\p -> String.contains \""
         , input
             [ onInput Filter
             , value model.filter
-            , class "input"
+            , style [
+              ( "width"
+              , (toString ((String.length model.filter) * 10 + 40)) ++ "px"
+              )
+              ]
             ]
             []
+        , text "\" p.title) posts"
         ]
       , div [ class "blog-posts-list" ] (List.reverse <| filteredPosts model)
       ]
