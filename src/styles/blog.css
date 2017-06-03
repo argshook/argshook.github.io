@@ -43,10 +43,6 @@
 }
 
 .blog-posts-list {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
   padding: 2em;
 
   @mixin media-query $break-xs {

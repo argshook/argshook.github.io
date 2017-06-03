@@ -134,8 +134,14 @@ view model =
                   [ option [ value (toString id) ] [ text (dropdownRowName depth ++ " " ++ name ++ " id: " ++ (toString id)) ] ]
 
                 CategoryList (id, name) list ->
-                  List.foldl (\c a -> a ++ (dropdownRow (depth + 1) c) ) [ option [value (toString id)] [text (dropdownRowName
-                  depth ++ " " ++ name ++ " id: " ++ (toString id))] ] list
+                  List.foldl
+                  (\c a -> a ++ (dropdownRow (depth + 1) c) )
+                  [ option
+                    [value (toString id)]
+                    [text (dropdownRowName depth ++ " " ++ name ++ " id: " ++ (toString id))
+                    ]
+                  ]
+                  list
 
             dropdownRowName : Int -> String
             dropdownRowName depth =

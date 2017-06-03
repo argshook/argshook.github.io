@@ -56,13 +56,19 @@ loadPosts =
 
 filteredPosts : Model-> List (Html Msg)
 filteredPosts model =
-  List.map (\p -> postCard p )
-    <| if String.length model.filter == 0 then
-         model.posts
-       else
-        List.filter
-          (\p -> String.contains (String.toLower model.filter) (String.toLower p.title))
-          model.posts
+  let
+      preparePostCard post =
+        if String.length model.filter == 0 then
+          postCard True post
+        else
+          if (String.contains (String.toLower model.filter) (String.toLower post.title))
+          then
+            postCard True post
+          else
+            postCard False post
+
+  in
+      List.map (\p -> preparePostCard p ) model.posts
 
 
 view : Model -> Html Msg
@@ -87,11 +93,16 @@ view model =
       , div [ class "blog-posts-list" ] (List.reverse <| filteredPosts model)
       ]
 
+classnames : List ( (String, Bool) ) -> String
+classnames names =
+  names
+    |> List.filter (\(name, shouldAdd) -> shouldAdd)
+    |> List.foldl (\(name, _) names -> names ++ " " ++ name) ""
 
-postCard : PostMeta -> Html Msg
-postCard post =
+postCard : Bool -> PostMeta -> Html Msg
+postCard isVisible post =
   button
-    [ class "card"
+    [ class <| classnames [ ("card", True), ("card--hidden", not isVisible) ]
     , onClick (OpenPost post)
     ]
     [ div [ class "card__title" ] [ text post.title ]
