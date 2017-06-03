@@ -68,7 +68,8 @@ filteredPosts model =
             postCard False post
 
   in
-      List.map (\p -> preparePostCard p ) model.posts
+      List.reverse model.posts
+        |> List.map (\p -> preparePostCard p )
 
 
 view : Model -> Html Msg
@@ -90,19 +91,19 @@ view model =
             []
         , text "\" p.title) posts"
         ]
-      , div [ class "blog-posts-list" ] (List.reverse <| filteredPosts model)
+      , div [ class "blog-posts-list" ] (filteredPosts model)
       ]
 
 classnames : List ( (String, Bool) ) -> String
 classnames names =
   names
     |> List.filter (\(name, shouldAdd) -> shouldAdd)
-    |> List.foldl (\(name, _) names -> names ++ " " ++ name) ""
+    |> List.foldl (\(name, _) names -> names ++ name ++ " ") ""
 
 postCard : Bool -> PostMeta -> Html Msg
 postCard isVisible post =
   button
-    [ class <| classnames [ ("card", True), ("card--hidden", not isVisible) ]
+    [ classList [ ("card", True), ("card--hidden", not isVisible) ]
     , onClick (OpenPost post)
     ]
     [ div [ class "card__title" ] [ text post.title ]
