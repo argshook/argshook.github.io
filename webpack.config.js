@@ -33,7 +33,7 @@ const config = {
       {
         test: /\.elm$/,
         exclude: excludes,
-        loader: 'elm-hot!elm-webpack?verbose=true&warn=true'
+        loader: 'elm-hot!elm-webpack?verbose=true&warn=true&debug=true'
       },
       {
         test: /\.js/,

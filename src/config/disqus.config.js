@@ -1,9 +1,9 @@
-/*global DISQUS*/
+/* global DISQUS */
 
 export default class Disqus {
   constructor() {
     this.isScriptLoading = false;
-    this.currentIdentifier = "";
+    this.currentIdentifier = '';
   }
 
   setup(identifier) {
@@ -14,13 +14,15 @@ export default class Disqus {
     window.disqus_url = window.location.href;
     window.disqus_title = document.title;
 
-    if (!this.ready()) { return; }
+    if (!this.ready()) {
+      return;
+    }
 
     setTimeout(this.resetDisqus.bind(this), 80);
   }
 
   ready() {
-    if(!this.isScriptLoading) {
+    if (!this.isScriptLoading) {
       this.isScriptLoading = true;
       this.loadDisqus();
       return false;
@@ -30,14 +32,12 @@ export default class Disqus {
   }
 
   loadDisqus() {
-    var d = document,
-        s = d.createElement('script');
+    const d = document;
+    const s = d.createElement('script');
 
     s.src = '//argshood.disqus.com/embed.js';
 
-    s.onload = () => {
-      this.setup(this.currentIdentifier);
-    }
+    s.onload = () => this.setup(this.currentIdentifier);
 
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
@@ -53,10 +53,9 @@ export default class Disqus {
     console.log(this.currentIdentifier);
     DISQUS.reset({
       reload: true,
-      config: function () {
+      config: function() {
         this.page.identifier = identifier;
       }
     });
   }
 }
-

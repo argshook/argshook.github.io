@@ -4,9 +4,16 @@ import Navigation
 
 import View exposing (view)
 import Update exposing (update)
-import MyNavigation exposing (init)
 import Messages
+import Model
+import Navigation
 
+init : Navigation.Location -> ( Model.Model, Cmd Messages.Msg )
+init location =
+  update (Messages.UrlChange location) Model.initialModel
+
+
+main : Program Never Model.Model Messages.Msg
 main =
   Navigation.program Messages.UrlChange
     { init = init

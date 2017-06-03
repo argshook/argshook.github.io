@@ -24,7 +24,7 @@ update msg model =
 
     OpenPost post ->
       ( model
-      , Navigation.newUrl ("#!blog/" ++ post.slug) -- TOOD: dont directly change url here
+      , Navigation.newUrl ("#blog/" ++ post.slug) -- TOOD: dont directly change url here
       , Task.perform PagesMessages.PostMsg
           (Task.succeed (PostMsg.SetPostMeta post))
       )

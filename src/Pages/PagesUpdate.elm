@@ -48,7 +48,8 @@ update msg model =
 
     PostsListMsg msg ->
       let
-          (postsListModel, postsListCmd, mainCmd) = PostsList.update msg model.postsListModel
+          (postsListModel, postsListCmd, mainCmd) =
+            PostsList.update msg model.postsListModel
       in
           { model | postsListModel = postsListModel } !
           [ Cmd.map PostsListMsg postsListCmd

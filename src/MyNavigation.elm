@@ -2,9 +2,7 @@ module MyNavigation exposing (..)
 
 import String
 import UrlParser exposing (Parser, (</>), map, int, oneOf, s, string)
-import Navigation
 import Regex
-import Model exposing (Model, initialModel)
 import States exposing (..)
 import Messages exposing (..)
 
@@ -12,11 +10,6 @@ import Pages.PagesUpdate
 import Pages.PagesMessages
 import Pages.Blog.PostMsg as PostMsg
 import Pages.Blog.PostsListMsg as PostsListMsg
-
-
-init : Navigation.Location -> ( Model, Cmd Msg )
-init location =
-  ({ initialModel | history = [ location ] }, Cmd.none)
 
 
 fromUrl : String -> String
@@ -46,12 +39,12 @@ pageParser =
 toUrl : State -> String
 toUrl state =
   case state of
-    Home -> "#!"
-    Binary -> "#!binary"
-    Minesweeper -> "#!minesweeper"
-    Category -> "#!category"
-    FizzBuzz -> "#!fizz-buzz"
-    Blog q -> "#!blog/" ++ q
+    Home -> "#"
+    Binary -> "#binary"
+    Minesweeper -> "#minesweeper"
+    Category -> "#category"
+    FizzBuzz -> "#fizz-buzz"
+    Blog q -> "#blog/" ++ q
 
 
 --update : Msg -> Model -> (Model, Cmd Msg)
@@ -59,6 +52,7 @@ toUrl state =
   --case msg of
     --Ok newState ->
       --case newState of
+
         --States.Home ->
           --let
               --(pagesModel, pagesCmd) =
