@@ -9,3 +9,8 @@
                -2px 0 0 $shadow-color;
 }
 
+@define-mixin media-query $breakpoint {
+  @media screen and (max-width: $breakpoint) {
+    @mixin-content;
+  }
+}
