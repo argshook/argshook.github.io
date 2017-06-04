@@ -110,6 +110,10 @@
   align-items: center;
   justify-content: space-between;
   margin: 0 1rem 4rem;
+
+  @mixin min-width $break-md {
+    margin: 0 2rem 4rem;
+  }
 }
 
 .blog-post-header-meta {
@@ -169,8 +173,13 @@
   }
 
   ol {
+    margin-right: 0;
     padding: 0 0 0 3rem;
     counter-reset: post-ol-counter;
+
+    @mixin min-width $break-md {
+      margin-right: -1rem;
+    }
 
     li {
       position: relative;

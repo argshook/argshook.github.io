@@ -55,8 +55,13 @@
     border-radius: 9px;
     font-size: .9rem;
 
-    @mixin min-width $break-md {
+    @mixin min-width $break-xs {
+      display: inline-block;
+      margin: 0 1rem 0 0;
       padding: .7rem 1.2rem;
+    }
+
+    @mixin min-width $break-md {
       font-size: 1rem;
     }
 
