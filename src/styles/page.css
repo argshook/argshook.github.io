@@ -7,25 +7,21 @@
 }
 
 .page-head {
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2em;
+  padding: 1rem;
   background: $color-light;
   color: $color-dark;
   box-shadow: 0 40px 100px 0px rgba(0,0,0,.2);
-
-  @mixin media-query $break-xs {
-    padding: 2em 1em;
-    font-size: .7em;
-  }
 }
 
 .page-title {
+  font-size: 1rem;
+
   h2 {
     margin: 0;
-    font-weight: 500;
+    font-weight: 400;
     color: $color-dark;
   }
 }
@@ -33,23 +29,19 @@
 .page-nav {
   &__btn {
     display: block;
-    margin: 0 0 .8em auto;
-    padding: .4em 1em;
+    margin: 0 0 .8rem auto;
+    padding: .5rem 1rem;
     border-radius: 9px;
+    font-size: .9rem;
 
     &:last-child {
       margin-bottom: 0;
-    }
-
-    @media screen and (max-width: 500px) {
-      font-size: .8em;
     }
   }
 }
 
 .page-content,
 .page-footer {
-  position: relative;
   background: color($color-light alpha(-30%));
   border-top: 5px solid $color-medium;
   box-shadow: 0 100px 200px 0 rgba(0,0,0,.1);
@@ -60,10 +52,10 @@
 .page-footer {
   padding: 2em;
   text-align: center;
-  margin-bottom: 100px;
+  margin-bottom: 3rem;
   font-size: .9em;
   color: $color-medium;
-  opacity: .5;
+  opacity: .8;
 
   a:not(::selected) {
     @mixin text-shadow $color-medium, $color-light;

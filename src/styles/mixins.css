@@ -9,8 +9,21 @@
                -2px 0 0 $shadow-color;
 }
 
-@define-mixin media-query $breakpoint {
-  @media screen and (max-width: $breakpoint) {
+@define-mixin media-query $query {
+  @media only screen and $query {
     @mixin-content;
   }
 }
+
+@define-mixin min-width $breakpoint {
+  @mixin media-query (min-width: $breakpoint) {
+    @mixin-content;
+  }
+}
+
+@define-mixin max-width $breakpoint {
+  @mixin media-query (max-width: $breakpoint) {
+    @mixin-content;
+  }
+}
+

@@ -117,7 +117,9 @@ this time i give three arguments to `compile`:
 
 by doing this i'm essentially creating an element that looks like this:
 
-`<pupper-leggies count="countFromParent" />`
+```js
+<pupper-leggies count="countFromParent" />
+```
 
 the surrounding `$scope` for it is `{ countFromParent: 4 }`, so i can
 assign its properties on the element.

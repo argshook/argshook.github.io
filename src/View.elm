@@ -17,10 +17,10 @@ view model =
                 [ class "page-title" ]
                 [ a
                     [ href "https://arijus.net" ]
-                    [ h2 [] [ text "argshook blog" ] ]
+                    [ h2 [] [ text "arijus.net" ] ]
                 , p
                     []
-                    [ text "probably frontend mostly" ]
+                    [ text "my personal blog" ]
                 ]
     in
     div
@@ -56,7 +56,7 @@ stateMenu : Model -> Html Msg
 stateMenu model =
     let
         states =
-            [ ( "Blog", Home )
+            [ ( "Posts", Home )
             , ( "About", Blog "about" )
             , ( "Projects", Blog "projects" )
             ]

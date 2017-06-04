@@ -5,7 +5,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
 import Navigation
-import Pages.Blog.Post as Post exposing (postMeta)
 import Pages.Blog.PostModel exposing (PostMeta, initialPostMeta)
 import Pages.Blog.PostMsg as PostMsg
 import Pages.Blog.PostsListModel exposing (..)
@@ -109,5 +108,4 @@ postCard isVisible post =
         , onClick (OpenPost post)
         ]
         [ div [ class "card__title" ] [ text post.title ]
-        , postMeta post "card-meta"
         ]

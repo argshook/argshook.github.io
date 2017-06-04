@@ -4,5 +4,8 @@ $color-medium: #5a7840;
 $color-light: #e9f1f4;
 $color-complimentary: #c0ad76;
 
-
-$break-xs: 500px;
+$break-xs: 567px;
+$break-sm: 567px;
+$break-md: 768px;
+$break-lg: 992px;
+$break-xl: 1200px;
