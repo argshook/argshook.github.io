@@ -4,6 +4,10 @@
 .page-wrapper {
   max-width: 900px;
   margin: 0 auto;
+
+  @mixin min-width $break-md {
+    margin: 5rem auto;
+  }
 }
 
 .page-head {
@@ -11,18 +15,35 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: $color-light;
-  color: $color-dark;
-  box-shadow: 0 40px 100px 0px rgba(0,0,0,.2);
+  border-radius: 9px 9px 0 0;
+  border-bottom: 10px solid $color-highlight;
+  background: $color-content;
+  box-shadow:
+    0 5px 150px 0 rgba(0,0,0,.2);
+
+  @mixin min-width $break-md {
+    padding: 2rem;
+  }
 }
 
 .page-title {
   font-size: 1rem;
 
+  @mixin min-width $break-sm {
+    font-size: 1.2rem;
+  }
+
+  @mixin min-width $break-md {
+    font-size: 1.4rem;
+  }
+
   h2 {
     margin: 0;
     font-weight: 400;
-    color: $color-dark;
+  }
+
+  p {
+    font-size: .8em;
   }
 }
 
@@ -34,6 +55,11 @@
     border-radius: 9px;
     font-size: .9rem;
 
+    @mixin min-width $break-md {
+      padding: .7rem 1.2rem;
+      font-size: 1rem;
+    }
+
     &:last-child {
       margin-bottom: 0;
     }
@@ -42,12 +68,15 @@
 
 .page-content,
 .page-footer {
-  background: color($color-light alpha(-30%));
-  border-top: 5px solid $color-medium;
-  box-shadow: 0 100px 200px 0 rgba(0,0,0,.1);
+  color: $color-text;
+  background: $color-content;
+  box-shadow: 0 100px 400px 0 color($color-background l(+5%));
 }
 
-.page-content { margin-bottom: 5em; }
+.page-content {
+  margin-bottom: 4em;
+  border-radius: 0 0 9px 9px;
+}
 
 .page-footer {
   padding: 2em;
@@ -55,10 +84,11 @@
   margin-bottom: 3rem;
   font-size: .9em;
   color: $color-medium;
+  border-radius: 9px;
   opacity: .8;
 
   a:not(::selected) {
-    @mixin text-shadow $color-medium, $color-light;
+    @mixin text-shadow $color-medium, $color-medium;
   }
 }
 

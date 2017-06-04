@@ -27,15 +27,3 @@ here's the whole process:
 * `:cdo s/http:/https:/g` - substitute `http:` with `https:` in all
 locations found by Ag
 * `:bufdo w` - write all buffers (probably pretty much same as `:wa`)
-
----
-
-i know what you're thinking: "but my sublime has a nice button to do
-this".
-
-
-well, yes, it does. but does your sublime have occasional ascii
-artifacts and scrolls really slow?
-
-didn't think so.
-

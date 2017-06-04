@@ -1,5 +1,5 @@
 import hljs from '../node_modules/highlight.js/lib/highlight.js';
-import '../node_modules/highlight.js/styles/solarized-light.css';
+import '../node_modules/highlight.js/styles/zenburn.css';
 
 // if i were to call require inside a loop (e.g. ['lang1', 'lang2'].forEach(() => require(...)) )
 // then webpack for some reason includes all the languages

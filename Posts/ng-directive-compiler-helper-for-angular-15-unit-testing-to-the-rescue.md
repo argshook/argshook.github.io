@@ -125,7 +125,10 @@ the surrounding `$scope` for it is `{ countFromParent: 4 }`, so i can
 assign its properties on the element.
 
 > **Note**: if you don't care about element attributes, just skip the
-second argument: `compile({ scopeProperty: 4 }, (scope, element) => ... )`
+second argument:
+```js
+compile({ scopeProperty: 4 }, (scope, element) => /* ... */ )`
+```
 
 ---
 

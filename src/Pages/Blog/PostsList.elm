@@ -5,6 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
 import Navigation
+import Pages.Blog.Date exposing (postDate)
 import Pages.Blog.PostModel exposing (PostMeta, initialPostMeta)
 import Pages.Blog.PostMsg as PostMsg
 import Pages.Blog.PostsListModel exposing (..)
@@ -73,39 +74,54 @@ filteredPosts model =
 
 view : Model -> Html Msg
 view model =
+    let
+        posts : List (Html Msg)
+        posts =
+            filteredPosts model
+    in
     div
         [ class "blog" ]
-        [ div
-            [ class "blog-posts-filter" ]
-            [ text "List.filter (\\p -> String.contains \""
-            , input
-                [ onInput Filter
-                , value model.filter
-                , style
-                    [ ( "width"
-                      , toString (String.length model.filter * 10 + 40) ++ "px"
-                      )
+    <|
+        [ filterBlock model.filter ]
+            ++ (if List.length posts == 0 then
+                    [ div
+                        [ class "blog-posts-empty-list" ]
+                        [ text "No posts found :(" ]
                     ]
+                else
+                    [ div [ class "blog-posts-list" ] posts ]
+               )
+
+
+filterBlock : String -> Html Msg
+filterBlock query =
+    div
+        [ class "blog-posts-filter" ]
+        [ text "List.filter (\\p -> String.contains \""
+        , input
+            [ onInput Filter
+            , value query
+            , style
+                [ ( "width"
+                  , toString (String.length query * 10 + 30) ++ "px"
+                  )
                 ]
-                []
-            , text "\" p.title) posts"
             ]
-        , div [ class "blog-posts-list" ] (filteredPosts model)
+            []
+        , text "\" p.title) posts"
         ]
-
-
-classnames : List ( String, Bool ) -> String
-classnames names =
-    names
-        |> List.filter (\( name, shouldAdd ) -> shouldAdd)
-        |> List.foldl (\( name, _ ) names -> names ++ name ++ " ") ""
 
 
 postCard : Bool -> PostMeta -> Html Msg
 postCard isVisible post =
+    let
+        { date, time } =
+            postDate post.dateCreated
+    in
     button
         [ classList [ ( "card", True ), ( "card--hidden", not isVisible ) ]
         , onClick (OpenPost post)
         ]
         [ div [ class "card__title" ] [ text post.title ]
+        , div [ class "card__date" ] [ text (date ++ " " ++ time) ]
         ]

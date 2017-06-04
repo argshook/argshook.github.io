@@ -13,7 +13,7 @@ body {
     font-size: 19px;
   }
 
-  background: $color-light;
+  background: $color-background;
 }
 
 a {
@@ -24,19 +24,24 @@ a {
 .input,
 .select,
 .btn {
-  padding: .7rem 1rem;
+  padding: .5rem 1rem;
+  font-size: .9rem;
+
+  @mixin min-width $break-md {
+    padding: .7rem 1.2rem;
+    font-size: 1rem;
+  }
+
   border: 1px solid $color-dark;
-  border-radius: 3px;
-  font-size: 1rem;
+  border-radius: 9px;
   transition: .2s ease all;
-  background: #fff;
-  color: $color-dark;
+  background: $color-btn-background;
+  color: $color-btn-text;
   text-decoration: none;
 
   &:focus {
     outline: 0;
-    border-color: $color-complimentary;
-    box-shadow: 0 1px 1px 0 color($color-medium l(+ 10%));
+    border-color: $color-btn-text--active;
   }
 }
 
@@ -45,16 +50,16 @@ a {
 }
 
 .btn {
-  background: $color-light;
-  border: 1px solid $color-medium;
+  background: $color-btn-background;
+  color: $color-btn-text;
+  border: 1px solid $color-btn-border;
   border-radius: 6px;
-  color: $color-medium;
   cursor: pointer;
 
   &--active {
-    background: $color-medium;
-    color: $color-light;
-    border-color: $color-medium;
+    background: $color-btn-background--active;
+    color: $color-btn-text--active;
+    border-color: $color-btn-border--active;
   }
 
   &--lg {
@@ -66,4 +71,3 @@ a {
     background: color($color-medium l(+ 50%));
   }
 }
-

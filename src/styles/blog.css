@@ -4,19 +4,24 @@
 .blog {
   &-posts-filter {
     display: flex;
-9   align-items: center;
+    align-items: center;
     justify-content: center;
-    padding: 2em;
+    padding: 2rem;
     text-align: right;
-    font-size: .9em;
-    color: $color-medium;
+    font-size: .8rem;
+    color: color($color-text l(+30%));
     font-family: monospace;
     white-space: nowrap;
     overflow: hidden;
 
+    @mixin min-width $break-md {
+      padding: 3rem 2rem 2rem;
+      font-size: 1rem;
+    }
+
     input {
       padding: .2em;
-      background: color($color-light l(-8%));
+      background: $color-btn-background--active;
       text-align: center;
       border: 0;
       font-size: inherit;
@@ -25,22 +30,35 @@
 
       &:focus {
         outline: 0;
-        background: color($color-light l(-12%));
+        background: color($color-btn-background--active l(+10%));
       }
     }
   }
 }
 
 .blog-posts-list {
-  padding: 1em;
+  padding: 1rem;
+
+  @mixin min-width $break-md {
+    padding: 2rem;
+  }
 
   .card {
     margin-bottom: 1em;
+
+    @mixin min-width $break-md {
+      margin-bottom: 3rem;
+      font-size: 1.5rem;
+    }
   }
 }
 
 .blog-post {
-  padding-bottom: 1rem;
+  padding: 1rem 0;
+
+  @mixin min-width $break-md {
+    padding: 2rem 0;
+  }
 
   &--loading {
     position: relative;
@@ -51,7 +69,7 @@
     padding: 3em 0;
     font-size: 2em;
     font-weight: 300;
-    color: $color-medium;
+    color: $color-text;
 
     @at-root {
       @keyframes blogPostLoading {
@@ -66,19 +84,24 @@
       right: 10%;
       bottom: 0;
       left: 10%;
-      background-image: linear-gradient(90deg, transparent, color($color-light alpha(-30%)) 50%, transparent 100%);
+      background-image: linear-gradient(90deg, transparent, color($color-content alpha(-30%)) 50%, transparent 100%);
       background-position: 0 0;
       background-size: 50% 100%;
       background-repeat: no-repeat;
-      animation: blogPostLoading 1s ease-out infinite;
+      animation: blogPostLoading 1s ease-out infinite alternate;
       pointer-events: none;
     }
   }
 
   hr {
     border: 0;
-    border-bottom: 10px dashed color($color-light l(-10%));
+    border-bottom: 10px solid $color-highlight;
     margin: 3rem 0;
+
+    @mixin min-width $break-md {
+      margin: 3rem -1rem;
+    }
+
   }
 }
 
@@ -86,30 +109,33 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 2rem 1rem;
-
-  &__back-btn {
-    border: 0;
-    color: color($color-dark l(+10%));
-  }
+  margin: 0 1rem 4rem;
 }
 
 .blog-post-header-meta {
   display: flex;
   justify-content: space-between;
-  color: color($color-medium alpha(-30%));
+  color: color($color-text alpha(-30%));
 
   &__date { margin-right: .8rem; }
 }
 
 .blog-post-content {
-  color: $color-dark;
+  color: $color-text;
+
+  @mixin min-width $break-md {
+    padding: 0 1rem;
+  }
 
   h1 {
-    margin: 2rem 1rem;
+    margin: 2.5rem 1rem;
     font-weight: 300;
     font-size: 2rem;
     line-height: 1.5;
+
+    @mixin min-width $break-md {
+      font-size: 2.5rem;
+    }
   }
 
   h2 {
@@ -119,9 +145,9 @@
   }
 
   p {
-    margin: 2rem 1rem;
+    margin: 2.5rem 1rem;
     text-align: justify;
-    line-height: 1.7;
+    line-height: 1.9;
   }
 
   ul,
@@ -134,7 +160,11 @@
       padding: 1rem;
       margin-bottom: .5em;
       line-height: 1.7;
-      background: color($color-light l(-5%));
+      background: $color-li-background;
+
+      a {
+        @mixin text-shadow $color-link, $color-li-background;
+      }
     }
   }
 
@@ -150,13 +180,13 @@
         position: absolute;
         top: 0;
         left: -35px;
-        padding-top: 1rem;
+        padding-top: 1.2rem;
         height: 100%;
         content: counter(post-ol-counter, decimal);
         counter-increment: post-ol-counter;
         font-size: 1.5rem;
         line-height: 1;
-        color: color($color-light l(-15%));
+        color: $color-li-counter;
       }
     }
   }
@@ -166,21 +196,31 @@
     margin: 0;
     padding: 1rem;
     overflow: auto;
-    background: color($color-light l(-9%));
+    color: $color-code-text;
+    background: $color-code-background;
 
-    code { line-height: 1.5; }
+    @mixin min-width $break-md {
+      margin: 0 -1rem;
+      padding: 1rem 2rem;
+    }
+
+    code {
+      padding: 0;
+      line-height: 1.5;
+    }
   }
 
   code {
     border-radius: 4px;
     padding: .3rem .4rem;
-    background: color($color-light l(-9%));
+    color: $color-code-text;
+    background: $color-code-background;
     font-family: monospace;
     font-size: .9rem;
   }
 
   a {
-    @mixin text-shadow $color-medium, $color-light;
+    @mixin text-shadow $color-link, $color-content;
   }
 
   img {
@@ -190,13 +230,30 @@
   }
 
   blockquote {
-    padding: 1rem;
-    margin: 0;
-    opacity: .7;
-    background: color($color-light l(+5%));
+    padding: 1rem 1rem 1rem 1.5rem;
+    margin: 0 0 0 1rem;
+    border-left: 10px solid $color-code-background;
+    background: color($color-content l(-10%));
+
+    @mixin min-width $break-md {
+      margin-right: -1rem;
+    }
+
+    pre {
+      margin: 1rem -1rem 1rem 0;
+      padding: 1rem;
+    }
 
     p {
       margin: 0
     }
+  }
+}
+
+.blog-post-comments {
+  margin: 5rem 1rem 1rem;
+
+  @mixin min-width $break-md {
+    margin: 5rem 2rem 2rem;
   }
 }

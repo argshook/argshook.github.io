@@ -1,17 +1,26 @@
+@import '../vars.css';
+@import '../mixins.css';
+
 .card {
-  display: block;
   position: relative;
+  display: block;
   width: 100%;
-  background: rgba(255, 255, 255, .9);
   padding: 1rem;
-  border: none;
-  transition: .1s ease all;
-  text-decoration: none;
   border-radius: 3px;
-  cursor: pointer;
+  border: none;
+  background: color($color-light alpha(-50%));
+  color: $color-text;
+
+  text-decoration: none;
   font-size: 1.2rem;
-  color: $color-dark;
   text-align: left;
+
+  transition: .1s ease all;
+  cursor: pointer;
+
+  @mixin min-width $break-md {
+    padding: 2rem;
+  }
 
   &:after {
     content: '';
@@ -34,7 +43,7 @@
 
   &:hover,
   &:focus {
-    background: color($color-medium l(+59%));
+    background: color($color-light alpha(-10%));
     color: color($color-medium l(-20%));
   }
 
@@ -54,12 +63,21 @@
     opacity: 0;
     padding: 0;
     transform: scale(0);
-    transition-duration: .3s;
+    transition-duration: .4s;
   }
 
   &__title {
     display: block;
     line-height: 1.4;
+    margin-bottom: .5rem;
+  }
+
+  &__date {
+    font-size: .7rem;
+
+    @mixin min-width $break-md {
+      font-size: .9rem;
+    }
   }
 
   &--small {
@@ -70,11 +88,3 @@
     }
   }
 }
-
-.card-meta {
-  font-size: .5em;
-
-  &__date { margin-right: 10px; }
-  &__time {}
-}
-

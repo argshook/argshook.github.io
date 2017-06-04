@@ -1,16 +1,15 @@
 port module Pages.Blog.Post exposing (..)
 
-import Date
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
 import Markdown
 import Navigation
+import Pages.Blog.Date exposing (postDate)
 import Pages.Blog.PostModel exposing (..)
 import Pages.Blog.PostMsg exposing (..)
 import Pages.Blog.PostsListModel exposing (postsResponseDecoder)
-import String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -124,8 +123,9 @@ showCommentsBlock model =
             ]
     in
     if List.all (\c -> c) conditions then
-        [ hr [] []
-        , commentsBlock model.isCommentsShown
+        [ div
+            [ class "blog-post-comments" ]
+            [ commentsBlock model.isCommentsShown ]
         ]
     else
         []
@@ -134,29 +134,8 @@ showCommentsBlock model =
 postHeader : PostMeta -> Html Msg
 postHeader postMeta =
     let
-        date =
-            Maybe.withDefault 0 postMeta.dateCreated
-                |> toFloat
-                |> Date.fromTime
-
-        days =
-            [ toString <| Date.year date
-            , toString <| Date.month date
-            , toString <| Date.day date
-            ]
-                |> String.join " "
-
-        hours =
-            [ pad <| Date.hour date
-            , pad <| Date.minute date
-            ]
-                |> String.join ":"
-
-        pad n =
-            if n < 10 then
-                "0" ++ toString n
-            else
-                toString n
+        { date, time } =
+            postDate postMeta.dateCreated
     in
     div
         [ class "blog-post-header" ]
@@ -167,8 +146,8 @@ postHeader postMeta =
             [ text "< Back" ]
         , div
             [ class "blog-post-header-meta" ]
-            [ span [ class "blog-post-header-meta__date" ] [ text days ]
-            , span [ class "blog-post-header-meta__time" ] [ text hours ]
+            [ span [ class "blog-post-header-meta__date" ] [ text date ]
+            , span [ class "blog-post-header-meta__time" ] [ text time ]
             ]
         ]
 

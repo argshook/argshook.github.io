@@ -20,7 +20,7 @@ view model =
                     [ h2 [] [ text "arijus.net" ] ]
                 , p
                     []
-                    [ text "my personal blog" ]
+                    [ text "personal blog" ]
                 ]
     in
     div
