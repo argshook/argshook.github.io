@@ -140,10 +140,10 @@ postHeader postMeta =
     div
         [ class "blog-post-header" ]
         [ button
-            [ class "blog-post-header__back-btn btn"
+            [ class "btn btn--as-link"
             , onClick GoBack
             ]
-            [ text "< Back" ]
+            [ text "« Back" ]
         , div
             [ class "blog-post-header-meta" ]
             [ span [ class "blog-post-header-meta__date" ] [ text date ]

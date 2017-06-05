@@ -10,9 +10,7 @@
   border: none;
   background: color($color-light alpha(-50%));
   color: $color-text;
-
-  text-decoration: none;
-  font-size: 1.2rem;
+  font-family: inherit;
   text-align: left;
 
   transition: .1s ease all;
@@ -70,6 +68,12 @@
     display: block;
     line-height: 1.4;
     margin-bottom: .5rem;
+    font-size: 1.1rem;
+
+    @mixin min-width $break-md {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
   }
 
   &__date {

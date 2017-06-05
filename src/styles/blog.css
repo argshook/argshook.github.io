@@ -21,7 +21,7 @@
 
     input {
       padding: .2em;
-      background: $color-btn-background--active;
+      background: color($color-bg alpha(-60%));
       text-align: center;
       border: 0;
       font-size: inherit;
@@ -30,7 +30,7 @@
 
       &:focus {
         outline: 0;
-        background: color($color-btn-background--active l(+10%));
+        background: color($color-bg alpha(-50%));
       }
     }
   }
@@ -68,7 +68,7 @@
     min-height: 600px;
     padding: 3em 0;
     font-size: 2em;
-    font-weight: 300;
+    font-weight: 400;
     color: $color-text;
 
     @at-root {
@@ -95,7 +95,7 @@
 
   hr {
     border: 0;
-    border-bottom: 10px solid $color-highlight;
+    border-bottom: 10px solid $color-bg;
     margin: 3rem 0;
 
     @mixin min-width $break-md {
@@ -109,17 +109,31 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 1rem 4rem;
+  padding: 1rem;
+  opacity: .5;
+  font-size: .8rem;
+  text-transform: uppercase;
 
   @mixin min-width $break-md {
-    margin: 0 2rem 4rem;
+    font-size: 1rem;
+    padding: 1rem 2rem 1rem;
+  }
+
+  .btn {
+    font-size: .8rem;
+    text-transform: uppercase;
+    color: $color-text;
+
+    @mixin min-width $break-md {
+      font-size: 1rem;
+    }
   }
 }
 
 .blog-post-header-meta {
   display: flex;
   justify-content: space-between;
-  color: color($color-text alpha(-30%));
+  color: $color-text;
 
   &__date { margin-right: .8rem; }
 }
@@ -133,9 +147,10 @@
 
   h1 {
     margin: 2.5rem 1rem;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 2rem;
     line-height: 1.5;
+    color: color($color-text alpha(-10%));
 
     @mixin min-width $break-md {
       font-size: 2.5rem;
@@ -144,7 +159,7 @@
 
   h2 {
     margin: 2rem 1rem;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 1.5em;
   }
 
@@ -162,7 +177,7 @@
 
     li {
       padding: 1rem;
-      margin-bottom: .5em;
+      margin-bottom: 1rem;
       line-height: 1.7;
       background: $color-li-background;
 
@@ -189,11 +204,12 @@
         position: absolute;
         top: 0;
         left: -35px;
-        padding-top: 1.2rem;
+        padding-top: 1.45rem;
         height: 100%;
         content: counter(post-ol-counter, decimal);
         counter-increment: post-ol-counter;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+        font-weight: 700;
         line-height: 1;
         color: $color-li-counter;
       }
@@ -240,7 +256,7 @@
 
   blockquote {
     padding: 1rem 1rem 1rem 1.5rem;
-    margin: 0 0 0 1rem;
+    margin: 0 0 1rem 1rem;
     border-left: 10px solid $color-code-background;
     background: color($color-content l(-10%));
 
@@ -260,7 +276,7 @@
 }
 
 .blog-post-comments {
-  margin: 5rem 1rem 1rem;
+  margin: 2rem 1rem 1rem;
 
   @mixin min-width $break-md {
     margin: 5rem 2rem 2rem;

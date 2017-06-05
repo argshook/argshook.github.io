@@ -11,23 +11,59 @@
 }
 
 .page-head {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-radius: 9px 9px 0 0;
-  border-bottom: 10px solid $color-highlight;
-  background: $color-content;
-  box-shadow:
-    0 5px 150px 0 rgba(0,0,0,.2);
+  margin: 0 5px;
+  border-radius: $border-radius $border-radius 0 0;
+  background-image: radial-gradient(
+    color($color-content l(-20%) s(-20%)),
+    color($color-content l(-0%))
+  );
+  background-size: 100% 800%;
+  border-bottom: 1px solid color($color-content alpha(-20%));
+  transition: .2s ease-out all;
+
 
   @mixin min-width $break-md {
-    padding: 2rem;
+    opacity: .9;
+    padding: 1.5rem 2rem;
   }
+
+  &:hover {
+    opacity: 1;
+
+    &:after {
+      background-position: 0 40px;
+    }
+  }
+
+  &:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(
+      transparent 60%,
+      color($color-bg alpha(-90%))
+    );
+    background-size: 100% 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    content: ' ';
+    transition: .2s ease-out all;
+  }
+
+  p { margin-bottom: 0; }
 }
 
 .page-title {
   font-size: 1rem;
+  font-weight: 400;
 
   @mixin min-width $break-sm {
     font-size: 1.2rem;
@@ -39,11 +75,14 @@
 
   h2 {
     margin: 0;
-    font-weight: 400;
+    font-weight: 600;
+    color: color($color-text alpha(-20%));
   }
 
   p {
     font-size: .8em;
+    color: $color-text;
+    font-weight: 400;
   }
 }
 
@@ -52,13 +91,13 @@
     display: block;
     margin: 0 0 .8rem auto;
     padding: .5rem 1rem;
-    border-radius: 9px;
-    font-size: .9rem;
+    border-radius: $border-radius; 
+    font-size: .8rem;
 
     @mixin min-width $break-xs {
       display: inline-block;
       margin: 0 1rem 0 0;
-      padding: .7rem 1.2rem;
+      padding: .7rem 1.4rem;
     }
 
     @mixin min-width $break-md {
@@ -71,29 +110,25 @@
   }
 }
 
-.page-content,
+.page-content {
+  background: $color-content;
+  border-radius: $border-radius $border-radius;
+}
+
 .page-footer {
+  padding: 1rem;
+  margin: 0 5px;
+  margin-bottom: 3rem;
+  font-size: .8rem;
   color: $color-text;
   background: $color-content;
-  box-shadow: 0 100px 400px 0 color($color-background l(+5%));
-}
+  border-radius: 0 0 $border-radius $border-radius;
+  opacity: .5;
 
-.page-content {
-  margin-bottom: 4em;
-  border-radius: 0 0 9px 9px;
-}
-
-.page-footer {
-  padding: 2em;
-  text-align: center;
-  margin-bottom: 3rem;
-  font-size: .9em;
-  color: $color-medium;
-  border-radius: 9px;
-  opacity: .8;
-
-  a:not(::selected) {
-    @mixin text-shadow $color-medium, $color-medium;
+  @mixin min-width $break-md {
+    padding: 1rem 2rem;
+    text-align: right;
+    font-size: .9rem;
   }
 }
 

@@ -6,7 +6,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: Roboto, Tahoma, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 17px;
 
   @mixin min-width $break-sm {
@@ -26,14 +26,15 @@ a {
 .btn {
   padding: .5rem 1rem;
   font-size: .9rem;
+  font-family: inherit;
 
   @mixin min-width $break-md {
-    padding: .7rem 1.2rem;
-    font-size: 1rem;
+    padding: .6rem 1.2rem;
+    font-size: .9rem;
   }
 
   border: 1px solid $color-dark;
-  border-radius: 9px;
+  border-radius: $border-radius;
   transition: .2s ease all;
   background: $color-btn-background;
   color: $color-btn-text;
@@ -41,7 +42,6 @@ a {
 
   &:focus {
     outline: 0;
-    border-color: $color-btn-text--active;
   }
 }
 
@@ -55,6 +55,7 @@ a {
   border: 1px solid $color-btn-border;
   border-radius: 6px;
   cursor: pointer;
+  text-transform: uppercase;
 
   &--active {
     background: $color-btn-background--active;
@@ -67,7 +68,20 @@ a {
     border-radius: 50px;
   }
 
+  &--as-link,
+  &--as-link:hover {
+    padding: .2rem;
+    border: 0;
+    color: $color-text;
+    text-transform: none;
+    font-size: 1rem;
+  }
+
+  &:focus {
+    background: color($color-btn-background--active alpha(-40%) l(+20%));
+  }
+
   &:hover:not(&--active) {
-    background: color($color-medium l(+ 50%));
+    background: color($color-btn-background--active alpha(-80%));
   }
 }

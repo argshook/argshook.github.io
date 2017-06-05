@@ -4,9 +4,13 @@
   box-shadow: 0 -2px 0 0 $shadow-color inset,
               0 -3px 0 0 $text-color inset;
   text-shadow: 1px 0 0 $shadow-color,
+               2px 0 0 $shadow-color,
                3px 0 0 $shadow-color,
+               4px 0 0 $shadow-color,
                -1px 0 0 $shadow-color,
-               -3px 0 0 $shadow-color;
+               -2px 0 0 $shadow-color,
+               -3px 0 0 $shadow-color,
+               -4px 0 0 $shadow-color;
 }
 
 @define-mixin media-query $query {
