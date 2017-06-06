@@ -18,17 +18,8 @@
   padding: 1rem;
   margin: 0 5px;
   border-radius: $border-radius $border-radius 0 0;
-  background-image: radial-gradient(
-    color($color-content l(-20%) s(-20%)),
-    color($color-content l(-0%))
-  );
-  background-size: 100% 800%;
-  border-bottom: 1px solid color($color-content alpha(-20%));
-  transition: .2s ease-out all;
-
 
   @mixin min-width $break-md {
-    opacity: .9;
     padding: 1.5rem 2rem;
   }
 
@@ -40,62 +31,42 @@
     }
   }
 
-  &:after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(
-      transparent 60%,
-      color($color-bg alpha(-90%))
-    );
-    background-size: 100% 100%;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    pointer-events: none;
-    content: ' ';
-    transition: .2s ease-out all;
-  }
-
   p { margin-bottom: 0; }
 }
 
 .page-title {
-  font-size: 1rem;
+  font-size: .9rem;
   font-weight: 400;
 
   @mixin min-width $break-sm {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   @mixin min-width $break-md {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   h2 {
     margin: 0;
     font-weight: 600;
-    color: color($color-text alpha(-20%));
+    color: $color-fg;
   }
 
   p {
     font-size: .8em;
-    color: $color-text;
     font-weight: 400;
+    color: $color-fg;
   }
 }
 
 .page-nav {
   &__btn {
-    display: block;
-    margin: 0 0 .8rem auto;
     padding: .5rem 1rem;
     border-radius: $border-radius; 
+    color: $color-fg;
     font-size: .8rem;
 
     @mixin min-width $break-xs {
-      display: inline-block;
       margin: 0 1rem 0 0;
       padding: .7rem 1.4rem;
     }
@@ -107,6 +78,10 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  .btn--active {
+    background: color($color-btn-background--active alpha(-40%) l(+20%));
   }
 }
 

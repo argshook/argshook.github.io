@@ -9,6 +9,8 @@ my personal blog
 
 ## dev
 
+* `npm i`
+* `npm i -g elm`
 * `npm start` [localhost:8080](http://localhost:8000)
 
 ## prod
