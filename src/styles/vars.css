@@ -15,7 +15,7 @@ $color-btn-text--active: color($color-btn-text l(+70%) s(-40%));
 $color-btn-border--active: $color-btn-border;
 
 $color-li-background: color($color-content l(-3%));
-$color-li-counter: color($color-content l(-20%));
+$color-li-counter: color($color-content l(-30%));
 
 $color-code-text: color($color-text l(+65%) s(-20%));
 $color-code-background: color($color-bg l(+10%));

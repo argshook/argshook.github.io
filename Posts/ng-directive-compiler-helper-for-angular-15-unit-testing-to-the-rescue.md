@@ -1,15 +1,11 @@
 # ng-directive-compiler-helper for angular 1.5 unit testing to the rescue!
 
-angular is not dying okay? 1.5 is pretty nice to work
-with. yes, there's react and aurelia or whatever, i know and still
-kinda like angular.
-
-one sort of pain points in angular is testing its directives (aka
+one of pain points in angular testing is compilation of directives (aka
 components). to do that, you normally have to `$inject` `$compiler` into your `$scope` and then `$digest` that ugh grose
 
-this rather sucks especially writing many tests for different components. it quickly becomes boilerplate.
+when writing many unit tests for different components, compilation setup code quickly piles up as boilerplate.
 
-here comes [ng-directive-compiler-helper](https://github.com/argshook/ng-directive-compiler-helper) to, guess what, help you compile angular directives. i know, great name thanks.
+here comes [ng-directive-compiler-helper](https://github.com/argshook/ng-directive-compiler-helper) to, guess what, help you compile angular directives. i know, great name, thanks.
 
 ## installing
 
@@ -28,8 +24,8 @@ files: [
 ```
 
 this file contains `createCompiler` function just floating there. So in
-karma it's available on global scope. it's good enough for me right
-now so excuse my immodularity. maybe one day.
+karma it's available on global scope. good enough for me to use with
+karma now so excuse my immodularity. maybe one day.
 
 ## simple usage
 
@@ -299,11 +295,3 @@ describe('Component: pupperLeggies', () => {
   });
 });
 ```
-
----
-
-nothing really ecstatic though i find it very useful. the compilation
-setup is simplified a lot both for directives (isolate scope or not)
-and components. what used to be tedious work is quick and easy now
-which allows to focus on tests more.
-
