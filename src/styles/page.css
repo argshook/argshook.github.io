@@ -4,10 +4,6 @@
 .page-wrapper {
   max-width: 900px;
   margin: 0 auto;
-
-  @mixin min-width $break-md {
-    margin: 5rem auto;
-  }
 }
 
 .page-head {
@@ -15,12 +11,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  margin: 0 5px;
+  padding: 1.5rem .5rem;
+  margin-left: .5rem;
   border-radius: $border-radius $border-radius 0 0;
 
+  @mixin min-width $break-xs {
+    margin-left: 0;
+    padding: 1rem 2rem 1.5rem;
+  }
+
   @mixin min-width $break-md {
-    padding: 1.5rem 2rem;
+    padding: 4rem 2rem;
   }
 
   &:hover {
@@ -35,7 +36,7 @@
 }
 
 .page-title {
-  font-size: .9rem;
+  font-size: .8rem;
   font-weight: 400;
 
   @mixin min-width $break-sm {
@@ -64,7 +65,7 @@
     padding: .5rem 1rem;
     border-radius: $border-radius; 
     color: $color-fg;
-    font-size: .8rem;
+    font-size: .7rem;
 
     @mixin min-width $break-xs {
       margin: 0 1rem 0 0;
@@ -86,13 +87,18 @@
 }
 
 .page-content {
+  margin: 0 .5rem;
   background: $color-content;
   border-radius: $border-radius $border-radius;
+
+  @mixin min-width $break-md {
+    margin: 0;
+  }
 }
 
 .page-footer {
-  padding: 1rem;
-  margin: 0 5px;
+  padding: .8rem;
+  margin: 0 15px;
   margin-bottom: 3rem;
   font-size: .8rem;
   color: $color-text;
