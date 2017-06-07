@@ -42,12 +42,13 @@
   }
 
   .card {
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
 
     @mixin min-width $break-md {
-      margin-bottom: 3rem;
-      font-size: 1.5rem;
+      margin-bottom: 2rem;
     }
+
+    &:last-child { margin-bottom: 0; }
   }
 }
 

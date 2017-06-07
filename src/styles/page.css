@@ -96,7 +96,7 @@
   background: $color-content;
   border-radius: $border-radius $border-radius;
 
-  @mixin min-width $break-md {
+  @mixin min-width $break-lg {
     margin: 0;
   }
 }

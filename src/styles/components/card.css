@@ -8,7 +8,7 @@
   padding: 1rem;
   border-radius: 3px;
   border: none;
-  background: color($color-light alpha(-50%));
+  background: color($color-light alpha(-70%));
   color: $color-text;
   font-family: inherit;
   text-align: left;
@@ -41,7 +41,7 @@
 
   &:hover,
   &:focus {
-    background: color($color-light alpha(-10%));
+    background: color($color-light alpha(-20%));
     color: color($color-medium l(-20%));
   }
 
@@ -68,16 +68,16 @@
     display: block;
     line-height: 1.4;
     margin-bottom: .5rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
 
     @mixin min-width $break-md {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       margin-bottom: 1rem;
     }
   }
 
   &__date {
-    font-size: .7rem;
+    font-size: .6rem;
 
     @mixin min-width $break-md {
       font-size: .9rem;
