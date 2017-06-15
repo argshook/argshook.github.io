@@ -157,6 +157,14 @@
 
     @mixin min-width $break-md {
       font-size: 2.5rem;
+
+      code {
+        font-size: 2.5rem;
+      }
+    }
+
+    code {
+      font-size: 1.8rem;
     }
   }
 
@@ -197,6 +205,9 @@
       a {
         @mixin text-shadow $color-link, $color-li-background;
       }
+
+      p { margin: 0 0 1rem 0; }
+      p:last-child { margin: 0; }
     }
   }
 

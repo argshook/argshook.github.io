@@ -1,29 +1,20 @@
-# Search & Replace everywhere with Vim and Ag
+# Search & Replace everywhere with Vim and `ag`
 
-i somehow decided recently to move my domain associated with github to
-https. [CloudFlare](https://www.cloudflare.com/ssl/) gives such thing away for free so why not make the web
-safer on my part as well.
+say you need to change `http://` to `https://` in a lot of files. you can use `ag` within vim to achieve that.
 
-good candidate for such task was my subreddit tv toy app notoriously
-known as [orodarius](https://arijus.net/orodarius). Here's it's
-[source](https://github.com/argshook/orodarius) (**trigger warning:** it's angular 1.5!).
+1. if you don't yet have, setup `ag` by following their readme.md on [github](https://github.com/ggreer/the_silver_searcher)
+1. `NeoBundle 'rking/ag.vim'` or other kind of vundle to install [Ag](https://github.com/rking/ag.vim) plugin in vim
 
-since i configured domain to be served through https, i had to make
-sure all requests from my toy app are also on https.
+now in vim you can do this:
 
-in essence this meant a big search throughout project files and a
-replace each `http` occurrence with `https`.
+```
+:Ag http://
+:cdo s/http:/https:/g
+:bufdo w
+```
 
-some might say i could've removed `http:` part and leave urls schemaless
-but according to [Paul Irish](http://www.paulirish.com/2010/the-protocol-relative-url/)
-it's an anti-pattern and who am i not to trust him.
+same, with explanation:
 
-having vim with [Ag](https://github.com/ggreer/the_silver_searcher)
-certainly helped though you could go away without it i guess.
-
-here's the whole process:
-
-* `:Ag http://` search for all `http://` occurrences in the project
-* `:cdo s/http:/https:/g` - substitute `http:` with `https:` in all
-locations found by Ag
-* `:bufdo w` - write all buffers (probably pretty much same as `:wa`)
+1. `:Ag http://` will search for all `http://` occurrences in the project recursively and opens a location window with results
+1. `:cdo s/http:/https:/g` substitutes `http:` with `https:` in all locations
+1. `:bufdo w` will save all changes to files

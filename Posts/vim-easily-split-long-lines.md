@@ -1,29 +1,39 @@
 # Vim: easily split long lines
 
-i like to see many vim and terminal splits at once. this way i avoid
-switching contexts (read: alt-tabbing) and have all i need right in
-front of me.
+long lines usually is not a good thing, especially in code.
 
-however, this means that text i'm reading must be either wrapped to fit
-screen or be written in rather short columns.
+to split long lines into column of some width, use `:set textwidth=72`
 
-this is where `textwidth` comes in. If you do `:set textwidth=72` then
-type a long line of text, vim will automatically add line breaks where
-needed and wont let you type lines longer than 72 characters.
+this will limit your typing to 72 and add line breaks automatically.
 
-well that's nice but what if you already have written text which is
-longer than 72 (or whatever) characters long?
+sufficient for new text but what if you want to edit and format existing one?
 
-i'm glad you asked.
+answer is `gq`:
 
-an easy way to split already written lines is to use `gq` command:
+> `gq{motion}` - Format the lines that `{motion}` moves over.
 
-* `set textwidth=72` - define desired length of lines
-* `ggvG` - do a visual selection on all file (or only on lines you want to split)
-* `gq` - magic
+## Usage
 
-if you're like me, `textwidth` is of course too long to type. Use
-`tw=72` instead.
+1. `set textwidth=72` define max num of chars to allow in one line
+1. type new text, wow vim adds line break past 72nd char.
 
-as always, `:help textwidth` or `:help gq` will shed more light on this.
+   or
+
+   `gqap` to wrap **A** **P**aragraph under cursor
+
+   or
+
+   `vap` to **V**isually select **A** **P**aragraph, and then wrap with `gq`.
+
+## Tips
+
+a shorter version of `textwidth=72` is `tw=72`
+
+goes well with `autocmd`, you can prevent yourself from long lines in markdown readmes or git commit messages:
+
+```vim
+autocmd Filetype gitcommit,markdown setlocal textwidth=72
+```
+
+look at `:help textwidth` and `:help gq` to know more
 

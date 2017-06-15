@@ -16,40 +16,45 @@ Plugin 'vimwiki/vimwiki'
 set some paths
 
 ```vim
-let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'path_html': '~/Public/html/vimwiki/'}]
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/' }]
 ```
 
-here i set `~/Dropbox/vimwiki` to keep notes on le cloud and
-`~/Public/html/vimwiki/` for saving them transformed to html. vimwiki
-can do that easily so why not.
-
-note that it's a list, meaning you may have multiple *wiki*s
+here i set `~/Dropbox/vimwiki` to keep notes on le cloud. note that it's a list, you can have multiple *wiki*s, say one personal, one work, one very secret encrypted where you save your poetry
 
 
-## Quick workfow
+## All you need
 
-> *Note*: for brevity below i use `,` as a `<leader>`.
+for brevity below i use `,` as a `<leader>`.
 
-1. `,ww` - access vimwiki index. sort of like home page. first time it
-   will ask you if you want to create one.
-2. `,w,w` - open diary page for today. this is great for when you need a
-   scratchpad
-3. `,wi` - open diary index. you need to regenerate it manually with
-   `:VimwikiDiaryGenerateLinks`. automate that if diary index is something
-   you need daily
+* `,ww` access vimwiki index, a home page. first time it
+  will ask if you want to create one
+* `,w,w` open diary page with todays date
+* `,wi` open diary index, a list of all diary entries
 
-once you're at some vimwiki page:
+you have to regenerate diary index manually with
+`:VimwikiDiaryGenerateLinks`. possible to automate with `autocmd`,
+though i never needed that
 
-1. `=` in **n**ormal mode increases heading size
-2. `-` decreases it
-3. `enter` key will make a link out of a word under cursor or selection.
-   It looks like `[[this]]`
-4. `enter` again will follow that link
-4. `backspace` will go back to previous page
-5. line starting with `1.`, `*` or `-` will start a list
-6. `ctrl + space` while on such list, will attach check mark to list
-   item
-7. `ctrl + space` again will toggle that checkmark
+## Navigate
+
+* `enter` key creates a link out of a word under cursor or selection.
+  looks like `[[this]]`
+* `enter` again will follow that link
+* `backspace` will go back
+* `tab` jumps cursor to next link, `shift + tab`  jumps to previous
+
+## Fancy Format
+
+* `=` in **n**ormal mode increases heading size
+
+  `-` decreases it
+
+  it goes from `= this =` up to `====== this ======`
+* lines starting with `1.`, `*` or `-` will start a list
+
+  `ctrl + space`, will attach check mark to `* [ ] list item`
+
+  `ctrl + space` again will toggle that `* [X] check mark`
 
 to write code blocks wrap code with `{{{` and `}}}`:
 
@@ -61,22 +66,22 @@ to write code blocks wrap code with `{{{` and `}}}`:
 
 memorize this command:
 
-{{{
+{{{sh
 cd ~
 }}}
 
 ```
 
----
+## Tips
 
-whenever i need to save text in a little more organized
-manner, hit `,ww`, nagivate or create new link for that text,
-paste/type.
+save something that you can find later? it's `,ww`
 
-if i'm in need of a clean notepad, hit `,w,w` and there it is.
+empty notepad? it's `,w,w`
 
-dropbox automatically syncs through different machines, cool and fun and
-all that
+same actions for other wikis (if you set more than one in `g:vimwiki_list`):
+`2,ww`, `2,w,w`, `3,ww`, `3,w,w` etc.
 
-there's plenty more vimwiki can do, consult `:h vimwiki`
+dropbox automatically syncs different machines and im not littering
+system with tiny notes everywhere.
 
+see `:h vimwiki` for more.

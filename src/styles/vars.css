@@ -18,7 +18,7 @@ $color-li-background: color($color-content l(-3%));
 $color-li-counter: color($color-content l(-30%));
 
 $color-code-text: color($color-text l(+65%) s(-20%));
-$color-code-background: color($color-bg l(+10%));
+$color-code-background: color($color-bg l(+10%) s(-2%));
 
 $color-dark: #1f4504;
 $color-darker: #001d06;
