@@ -94,6 +94,7 @@
 .page-content {
   margin: 0 .5rem;
   background: $color-content;
+  border-top: 5px solid color($color-bg l(+20%));
   border-radius: $border-radius $border-radius;
 
   @mixin min-width $break-lg {

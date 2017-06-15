@@ -6,7 +6,7 @@
   display: block;
   width: 100%;
   padding: 1rem;
-  border-radius: 3px;
+  border-radius: $border-radius;
   border: none;
   background: color($color-light alpha(-70%));
   color: $color-text;

@@ -1,4 +1,4 @@
-$color-bg: #3b3137;
+$color-bg: color(#3b3137 l(-6%));
 $color-fg: #c6c2ba;
 
 $color-background: $color-bg;
@@ -18,7 +18,7 @@ $color-li-background: color($color-content l(-3%));
 $color-li-counter: color($color-content l(-30%));
 
 $color-code-text: color($color-text l(+65%) s(-20%));
-$color-code-background: color($color-bg l(+10%) s(-2%));
+$color-code-background: color($color-bg l(+20%) s(-5%));
 
 $color-dark: #1f4504;
 $color-darker: #001d06;
@@ -32,7 +32,7 @@ $break-md: 768px;
 $break-lg: 992px;
 $break-xl: 1200px;
 
-$border-radius: 4px;
+$border-radius: 5px;
 
 /*
  *#F5F3E6
