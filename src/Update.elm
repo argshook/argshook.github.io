@@ -50,9 +50,6 @@ update msg model =
                         States.Home ->
                             updatePostsListMsg
 
-                        _ ->
-                            updatePostsListMsg
-
                 ( pagesModel, pagesCmd ) =
                     Pages.PagesUpdate.update pagesUpdateMsg model.pagesModel
             in

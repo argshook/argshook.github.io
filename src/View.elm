@@ -82,9 +82,6 @@ stateMenu model =
                     in
                     activeButtonClass (state == model.state)
 
-                _ ->
-                    activeButtonClass (model.state == state)
-
         menuItem ( name, state ) =
             button
                 [ onClick (ChangeState state)

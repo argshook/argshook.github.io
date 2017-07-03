@@ -77,6 +77,7 @@ const devConfig = {
   devServer: {
     inline: true,
     hot: true,
+    noInfo: true,
     stats: {
       colors: true
     }

@@ -22,10 +22,6 @@ pageParser : Parser (State -> a) a
 pageParser =
     oneOf
         [ map Home (s "")
-        , map Binary (s "binary")
-        , map Minesweeper (s "minesweeper")
-        , map Category (s "category")
-        , map FizzBuzz (s "fizz-buzz")
         , map Blog (s "blog" </> string)
         ]
 
@@ -35,18 +31,6 @@ toUrl state =
     case state of
         Home ->
             "#"
-
-        Binary ->
-            "#binary"
-
-        Minesweeper ->
-            "#minesweeper"
-
-        Category ->
-            "#category"
-
-        FizzBuzz ->
-            "#fizz-buzz"
 
         Blog q ->
             "#blog/" ++ q
