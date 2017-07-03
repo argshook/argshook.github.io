@@ -1,4 +1,4 @@
-# [arijus.net](https://arijus.net)
+# [arijus.net](https://arijus.net) ![build status](https://travis-ci.org/argshook/argshook.github.io.svg?branch=master)
 
 my personal blog
 
