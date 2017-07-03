@@ -1,0 +1,8 @@
+language: node_js
+install:
+  - npm i
+  - npm i -g elm
+  - elm package install
+script:
+  - npm test
+  - npm run build

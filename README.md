@@ -11,7 +11,9 @@ my personal blog
 
 * `npm i`
 * `npm i -g elm`
+* `elm package install`
 * `npm start` [localhost:8080](http://localhost:8000)
+* `npm test`
 
 ## prod
 
