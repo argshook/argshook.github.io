@@ -1,6 +1,5 @@
 elm-stuff/
 node_modules
-yarn.lock
 elm.js
 !elm.min.js
 *.vim

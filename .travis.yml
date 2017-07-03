@@ -1,8 +1,12 @@
 language: node_js
+cache:
+  - yarn
+  - directories:
+    - tests/elm-stuff/build-artifacts
 install:
-  - npm i
-  - npm i -g elm
-  - elm package install
+  - yarn
+  - yarn global add elm
+  - elm package install --yes
 script:
-  - npm test
-  - npm run build
+  - ./node_modules/.bin/elm-test
+  - yarn run build
