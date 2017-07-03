@@ -1,12 +1,27 @@
 language: node_js
 cache:
-  - yarn
-  - directories:
+  directories:
+    - node_modules
     - tests/elm-stuff/build-artifacts
+    - sysconfcpus
+os:
+  - linux
+before_install:
+  if [ ! -d sysconfcpus/bin ];
+  then
+    git clone https://github.com/obmarg/libsysconfcpus.git;
+    cd libsysconfcpus;
+    ./configure --prefix=$TRAVIS_BUILD_DIR/sysconfcpus;
+    make && make install;
+    cd ..;
+  fi
 install:
-  - yarn
-  - yarn global add elm
+  - npm i -g elm@0.18.0 elm-test
+  - mv $(npm config get prefix)/bin/elm-make $(npm config get prefix)/bin/elm-make-old
+  - echo "#\!/bin/bash\\n\\necho \"Running elm-make with sysconfcpus -n 2\"\\n\\n$TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 elm-make-old \"\$@\"" > $(npm config get prefix)/bin/elm-make
+  - chmod +x $(npm config get prefix)/bin/elm-make
+  - npm i
   - elm package install --yes
 script:
   - ./node_modules/.bin/elm-test
-  - yarn run build
+  - npm run build
