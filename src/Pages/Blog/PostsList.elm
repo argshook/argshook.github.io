@@ -1,5 +1,6 @@
 module Pages.Blog.PostsList exposing (..)
 
+import Css
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -13,6 +14,15 @@ import Pages.Blog.PostsListMsg exposing (..)
 import Pages.PagesMessages as PagesMessages
 import String
 import Task
+
+
+emptyListStyles : Attribute msg
+emptyListStyles =
+    [ Css.padding <| Css.rem 2
+    , Css.textAlign Css.center
+    ]
+        |> Css.asPairs
+        |> Html.Attributes.style
 
 
 update : Msg -> Model -> ( Model, Cmd Msg, Cmd PagesMessages.Msg )
@@ -85,7 +95,7 @@ view model =
         [ filterBlock model.filter ]
             ++ (if List.length posts == 0 then
                     [ div
-                        [ class "blog-posts-empty-list" ]
+                        [ class "blog-posts-empty-list", emptyListStyles ]
                         [ text "No posts found :(" ]
                     ]
                 else
