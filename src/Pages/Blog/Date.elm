@@ -9,6 +9,14 @@ type alias DateInterface =
     }
 
 
+pad : Int -> String
+pad n =
+    if n < 10 then
+        "0" ++ toString n
+    else
+        toString n
+
+
 postDate : Maybe Int -> DateInterface
 postDate timestamp =
     let
@@ -29,11 +37,5 @@ postDate timestamp =
             , pad <| Date.minute fromTime
             ]
                 |> String.join ":"
-
-        pad n =
-            if n < 10 then
-                "0" ++ toString n
-            else
-                toString n
     in
     DateInterface date time

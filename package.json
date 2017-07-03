@@ -28,6 +28,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "NODE_ENV=prod webpack -p --progress",
+    "test": "elm-test",
     "cli": "node cli.js"
   },
   "repository": {
