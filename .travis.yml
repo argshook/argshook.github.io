@@ -23,5 +23,5 @@ install:
   - npm i
   - elm package install --yes
 script:
-  - ./node_modules/.bin/elm-test
+  - elm-test
   - npm run build
