@@ -14,14 +14,14 @@ update msg model =
                 ( postsListModel, postsListCmd, mainCmd ) =
                     PostsList.update msg model.postsListModel
             in
-            { model | postsListModel = postsListModel }
-                ! [ Cmd.map PostsListMsg postsListCmd
-                  , mainCmd
-                  ]
+                { model | postsListModel = postsListModel }
+                    ! [ Cmd.map PostsListMsg postsListCmd
+                      , mainCmd
+                      ]
 
         PostMsg msg ->
             let
                 ( postModel, postCmd ) =
                     Post.update msg model.postModel
             in
-            ( { model | postModel = postModel }, Cmd.map PostMsg postCmd )
+                ( { model | postModel = postModel }, Cmd.map PostMsg postCmd )

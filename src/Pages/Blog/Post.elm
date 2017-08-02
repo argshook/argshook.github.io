@@ -41,18 +41,18 @@ update msg model =
                                 , isPostLoading = False
                             }
                     in
-                    update PostLoaded model_
+                        update PostLoaded model_
 
                 Err error ->
                     let
                         _ =
                             Debug.log "fetch fail" error
                     in
-                    { model
-                        | postContent = "Failed to fetch :("
-                        , isPostLoading = False
-                    }
-                        ! []
+                        { model
+                            | postContent = "Failed to fetch :("
+                            , isPostLoading = False
+                        }
+                            ! []
 
         PostMetaFetch postsMeta ->
             case postsMeta of
@@ -63,7 +63,7 @@ update msg model =
                                 |> List.head
                                 |> Maybe.withDefault initialPostMeta
                     in
-                    { model | postMeta = postMeta } ! []
+                        { model | postMeta = postMeta } ! []
 
                 Err error ->
                     model ! []
@@ -81,8 +81,8 @@ getPost postId =
         url =
             "Posts/" ++ postId ++ ".md"
     in
-    Http.send PostFetch
-        (Http.getString url)
+        Http.send PostFetch
+            (Http.getString url)
 
 
 getPostMeta : Cmd Msg
@@ -122,13 +122,13 @@ showCommentsBlock model =
             , List.all (\s -> model.postMeta.slug /= s) [ "about", "projects" ]
             ]
     in
-    if List.all (\c -> c) conditions then
-        [ div
-            [ class "blog-post-comments" ]
-            [ commentsBlock model.isCommentsShown ]
-        ]
-    else
-        []
+        if List.all (\c -> c) conditions then
+            [ div
+                [ class "blog-post-comments" ]
+                [ commentsBlock model.isCommentsShown ]
+            ]
+        else
+            []
 
 
 postHeader : PostMeta -> Html Msg
@@ -137,19 +137,19 @@ postHeader postMeta =
         { date, time } =
             postDate postMeta.dateCreated
     in
-    div
-        [ class "blog-post-header" ]
-        [ button
-            [ class "btn btn--as-link"
-            , onClick GoBack
+        div
+            [ class "blog-post-header" ]
+            [ button
+                [ class "btn btn--as-link"
+                , onClick GoBack
+                ]
+                [ text "« Back" ]
+            , div
+                [ class "blog-post-header-meta" ]
+                [ span [ class "blog-post-header-meta__date" ] [ text date ]
+                , span [ class "blog-post-header-meta__time" ] [ text time ]
+                ]
             ]
-            [ text "« Back" ]
-        , div
-            [ class "blog-post-header-meta" ]
-            [ span [ class "blog-post-header-meta__date" ] [ text date ]
-            , span [ class "blog-post-header-meta__time" ] [ text time ]
-            ]
-        ]
 
 
 port highlight : String -> Cmd msg

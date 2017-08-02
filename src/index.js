@@ -3,6 +3,7 @@ import Disqus from './config/disqus.config.js';
 
 import './styles/main.css';
 import Elm from './Main.elm';
+import { posts } from '!json-loader!../db.json';
 
 const app = Elm.Main.embed(document.getElementById('app'));
 const disqus = new Disqus();
@@ -17,3 +18,8 @@ app
   .ports
   .blogPostCommentsEnabled
   .subscribe(slug => disqus.setup(slug));
+
+app
+  .ports
+  .posts
+  .send(posts);

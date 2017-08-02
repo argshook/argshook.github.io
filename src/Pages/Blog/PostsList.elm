@@ -1,10 +1,9 @@
-module Pages.Blog.PostsList exposing (..)
+port module Pages.Blog.PostsList exposing (..)
 
 import Css
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Http
 import Navigation
 import Pages.Blog.Date exposing (postDate)
 import Pages.Blog.PostModel exposing (PostMeta, initialPostMeta)
@@ -39,32 +38,15 @@ update msg model =
                 (Task.succeed (PostMsg.SetPostMeta post))
             )
 
-        InitializeLoadPosts ->
-            ( model
-            , loadPosts
-            , Cmd.none
-            )
-
-        LoadPosts result ->
-            case result of
-                Ok posts ->
-                    ( { model | posts = posts }
-                    , Cmd.none
-                    , Cmd.none
-                    )
-
-                Err error ->
-                    let
-                        _ =
-                            Debug.log "failed to fetch all posts" error
-                    in
-                    ( model, Cmd.none, Cmd.none )
-
-
-loadPosts : Cmd Msg
-loadPosts =
-    Http.send LoadPosts
-        (Http.get "db.json" postsResponseDecoder)
+        LoadPosts posts ->
+            let
+                _ =
+                    Debug.log "posts" posts
+            in
+                ( { model | posts = posts }
+                , Cmd.none
+                , Cmd.none
+                )
 
 
 filteredPosts : Model -> List (Html Msg)
@@ -78,8 +60,8 @@ filteredPosts model =
             else
                 postCard False post
     in
-    List.reverse model.posts
-        |> List.map (\p -> preparePostCard p)
+        List.reverse model.posts
+            |> List.map (\p -> preparePostCard p)
 
 
 view : Model -> Html Msg
@@ -89,18 +71,18 @@ view model =
         posts =
             filteredPosts model
     in
-    div
-        [ class "blog" ]
-    <|
-        [ filterBlock model.filter ]
-            ++ (if List.length posts == 0 then
-                    [ div
-                        [ class "blog-posts-empty-list", emptyListStyles ]
-                        [ text "No posts found :(" ]
-                    ]
-                else
-                    [ div [ class "blog-posts-list" ] posts ]
-               )
+        div
+            [ class "blog" ]
+        <|
+            [ filterBlock model.filter ]
+                ++ (if List.length posts == 0 then
+                        [ div
+                            [ class "blog-posts-empty-list", emptyListStyles ]
+                            [ text "No posts found :(" ]
+                        ]
+                    else
+                        [ div [ class "blog-posts-list" ] posts ]
+                   )
 
 
 filterBlock : String -> Html Msg
@@ -128,10 +110,10 @@ postCard isVisible post =
         { date, time } =
             postDate post.dateCreated
     in
-    button
-        [ classList [ ( "card", True ), ( "card--hidden", not isVisible ) ]
-        , onClick (OpenPost post)
-        ]
-        [ div [ class "card__title" ] [ text post.title ]
-        , div [ class "card__date" ] [ text (date ++ " " ++ time) ]
-        ]
+        button
+            [ classList [ ( "card", True ), ( "card--hidden", not isVisible ) ]
+            , onClick (OpenPost post)
+            ]
+            [ div [ class "card__title" ] [ text post.title ]
+            , div [ class "card__date" ] [ text (date ++ " " ++ time) ]
+            ]

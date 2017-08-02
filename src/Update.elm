@@ -20,7 +20,7 @@ update msg model =
                 ( model_, cmd ) =
                     Pages.PagesUpdate.update msg model.pagesModel
             in
-            ( { model | pagesModel = model_ }, Cmd.map PagesMessages cmd )
+                ( { model | pagesModel = model_ }, Cmd.map PagesMessages cmd )
 
         ChangeState newState ->
             { model | state = newState } ! [ Navigation.newUrl (toUrl newState) ]
@@ -31,31 +31,20 @@ update msg model =
                     UrlParser.parseHash MyNavigation.pageParser location
                         |> Maybe.withDefault States.Home
 
-                updatePostsListMsg =
-                    Pages.PagesMessages.PostsListMsg Pages.Blog.PostsListMsg.InitializeLoadPosts
-
                 openPostMsg slug =
                     Pages.PagesMessages.PostMsg (Pages.Blog.PostMsg.LoadPost slug)
 
-                pagesUpdateMsg : Pages.PagesMessages.Msg
-                pagesUpdateMsg =
+                ( pagesModel, pagesCmd ) =
                     case stateCandidate of
                         States.Blog slug ->
-                            let
-                                _ =
-                                    Debug.log "slug" slug
-                            in
-                            openPostMsg slug
+                            Pages.PagesUpdate.update (openPostMsg slug) model.pagesModel
 
-                        States.Home ->
-                            updatePostsListMsg
-
-                ( pagesModel, pagesCmd ) =
-                    Pages.PagesUpdate.update pagesUpdateMsg model.pagesModel
+                        _ ->
+                            ( model.pagesModel, Cmd.none )
             in
-            { model
-                | history = location :: model.history
-                , pagesModel = pagesModel
-                , state = stateCandidate
-            }
-                ! [ Cmd.map PagesMessages pagesCmd ]
+                { model
+                    | history = location :: model.history
+                    , pagesModel = pagesModel
+                    , state = stateCandidate
+                }
+                    ! [ Cmd.map PagesMessages pagesCmd ]
