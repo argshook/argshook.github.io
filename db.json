@@ -6,6 +6,7 @@
       "id": "65c247c9-6c09-a724-f3aa-1931707e3a93",
       "slug": "about",
       "dateCreated": 1472414620583,
+      "dateModified": 1472414620583,
       "path": "about.md"
     },
     {
@@ -14,6 +15,7 @@
       "id": "44d986c7-155b-d2bd-73b6-877e92c28fe3",
       "slug": "hello-world",
       "dateCreated": 1469374759836,
+      "dateModified": 1469374759836,
       "path": "hello-world.md"
     },
     {
@@ -22,6 +24,7 @@
       "id": "3f161dac-c937-1ed4-6999-dab5e47cd452",
       "slug": "search-replace-everywhere-with-vim-and-ag",
       "dateCreated": 1472492485672,
+      "dateModified": 1472492485672,
       "path": "search-replace-everywhere-with-vim-and-ag.md"
     },
     {
@@ -30,6 +33,7 @@
       "id": "e7a1e66f-75bc-68bf-e03c-25a8027ef672",
       "slug": "vim-easily-split-long-lines",
       "dateCreated": 1473350877366,
+      "dateModified": 1473350877366,
       "path": "vim-easily-split-long-lines.md"
     },
     {
@@ -38,6 +42,7 @@
       "id": "ccd45576-b1f6-2609-a4b6-6e28f9d62d3d",
       "slug": "projects",
       "dateCreated": 1474133446968,
+      "dateModified": 1474133446968,
       "path": "projects.md"
     },
     {
@@ -46,6 +51,7 @@
       "id": "bdd45479-f4be-fe07-2a1c-45beaddb3864",
       "slug": "ng-directive-compiler-helper-for-angular-15-unit-testing-to-the-rescue",
       "dateCreated": 1475168559681,
+      "dateModified": 1475168559681,
       "path": "ng-directive-compiler-helper-for-angular-15-unit-testing-to-the-rescue.md"
     },
     {
@@ -54,6 +60,7 @@
       "id": "d2a86628-eed1-e743-51bd-c23dad5968a3",
       "slug": "vimwiki-dropbox-to-organize-and-distribute-notes",
       "dateCreated": 1476736431182,
+      "dateModified": 1476736431182,
       "path": "vimwiki-dropbox-to-organize-and-distribute-notes.md"
     },
     {
@@ -62,6 +69,7 @@
       "id": "c4209daf-3a77-ce54-b3b1-aaf04f62f0ce",
       "slug": "vim-jump-to-middle-of-paragraph",
       "dateCreated": 1486128286386,
+      "dateModified": 1486128286386,
       "path": "vim-jump-to-middle-of-paragraph.md"
     }
   ]
