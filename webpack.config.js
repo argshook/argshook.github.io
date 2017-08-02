@@ -1,9 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const deepAssign = require('deep-assign');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
 const excludes = ['/node_modules/', '/elm-stuff/'];
-
 
 const config = {
   entry: {
@@ -16,63 +17,89 @@ const config = {
     publicPath: '/'
   },
 
+  resolve: {
+    alias: {
+      hljs: path.resolve(__dirname, 'node_modules/highlight.js')
+    }
+  },
+
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.json/,
         exclude: excludes,
-        loader: 'json'
-      }
-    ],
-    loaders: [
+        use: 'json-loader'
+      },
       {
         test: /\.html$/,
         exclude: excludes,
-        loader: 'html'
+        use: 'html-loader'
       },
       {
         test: /\.elm$/,
         exclude: excludes,
-        loader: 'elm-hot!elm-webpack?verbose=true&warn=true'
+        use: [
+          { loader: 'elm-hot-loader' },
+          {
+            loader: 'elm-webpack-loader',
+            options: {
+              verbose: true,
+              warn: true
+            }
+          }
+        ]
       },
       {
         test: /\.js/,
         exclude: excludes,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015']
+          }
         }
       },
       {
-        test: /\.s?css$/,
-        loader: 'style-loader!css-loader!postcss-loader'
+        test: /\.css$/,
+        exclude: excludes,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [ require('autoprefixer'), require('precss') ]
+            }
+          }
+        ]
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url?limit=10000&mimetype=application/font-woff'
+        use: 'url-loader?limit=10000&mimetype=application/font-woff'
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file'
+        use: 'file-loader'
       }
-    ],
+    ]
   },
 
-  postcss: function(webpack) {
-    return [
-      require('autoprefixer'),
-      require('postcss-import')({
-        addDependencyTo: webpack
-      }),
-      require('precss')
-    ];
-  }
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.ejs',
+      inlineSource: '.(js|css)$',
+      minify: {
+        removeComments: true,
+
+      }
+    }),
+    new HtmlWebpackInlineSourcePlugin()
+  ]
 };
 
 const devConfig = {
-  plugins: (config.plugins || []).concat([
-    new webpack.HotModuleReplacementPlugin()
-  ]),
+  plugins: (config.plugins || [])
+    .concat([new webpack.HotModuleReplacementPlugin()]),
 
   devServer: {
     inline: true,
@@ -86,17 +113,18 @@ const devConfig = {
 
 const prodConfig = {
   plugins: (config.plugins || []).concat([
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
-        drop_console: true
-      },
-      minimize: true,
-      comments: false,
-      mangle: {
         screw_ie8: true,
-        keep_fnames: true
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true
       }
     }),
     new webpack.DefinePlugin({

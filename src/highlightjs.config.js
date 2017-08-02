@@ -1,5 +1,5 @@
-import hljs from '../node_modules/highlight.js/lib/highlight.js';
-import '../node_modules/highlight.js/styles/zenburn.css';
+import hljs from 'hljs/lib/highlight.js';
+import 'hljs/styles/zenburn.css';
 
 export default class {
   constructor(selector) {
