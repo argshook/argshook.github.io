@@ -39,14 +39,10 @@ update msg model =
             )
 
         LoadPosts posts ->
-            let
-                _ =
-                    Debug.log "posts" posts
-            in
-                ( { model | posts = posts }
-                , Cmd.none
-                , Cmd.none
-                )
+            ( { model | posts = posts }
+            , Cmd.none
+            , Cmd.none
+            )
 
 
 filteredPosts : Model -> List (Html Msg)
