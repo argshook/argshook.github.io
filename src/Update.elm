@@ -5,7 +5,7 @@ import Model exposing (..)
 import MyNavigation exposing (..)
 import Navigation
 import Pages.Blog.PostMsg
-import Pages.Blog.PostsListMsg
+import Pages.Blog.PostModel
 import Pages.PagesMessages
 import Pages.PagesUpdate
 import States
@@ -27,17 +27,24 @@ update msg model =
 
         UrlChange location ->
             let
-                stateCandidate =
+                newState =
                     UrlParser.parseHash MyNavigation.pageParser location
                         |> Maybe.withDefault States.Home
 
-                openPostMsg slug =
-                    Pages.PagesMessages.PostMsg (Pages.Blog.PostMsg.LoadPost slug)
+                openPostMsg : String -> List Pages.Blog.PostModel.PostMeta -> Pages.PagesMessages.Msg
+                openPostMsg slug postsList =
+                    let
+                        postMeta =
+                            List.filter (\meta -> meta.slug == slug) postsList
+                                |> List.head
+                                |> Maybe.withDefault Pages.Blog.PostModel.initialPostMeta
+                    in
+                        Pages.PagesMessages.PostMsg (Pages.Blog.PostMsg.LoadPost slug postMeta)
 
                 ( pagesModel, pagesCmd ) =
-                    case stateCandidate of
+                    case newState of
                         States.Blog slug ->
-                            Pages.PagesUpdate.update (openPostMsg slug) model.pagesModel
+                            Pages.PagesUpdate.update (openPostMsg slug model.pagesModel.postsListModel.posts) model.pagesModel
 
                         _ ->
                             ( model.pagesModel, Cmd.none )
@@ -45,6 +52,6 @@ update msg model =
                 { model
                     | history = location :: model.history
                     , pagesModel = pagesModel
-                    , state = stateCandidate
+                    , state = newState
                 }
                     ! [ Cmd.map PagesMessages pagesCmd ]

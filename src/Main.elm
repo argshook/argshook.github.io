@@ -5,7 +5,6 @@ import Model
 import Navigation
 import Update exposing (update)
 import View exposing (view)
-import Pages.Blog.PostsListMsg as PostsListMsg
 import Pages.Blog.PostsListModel as PostsListModel
 import Pages.PagesMessages as PagesMessages
 

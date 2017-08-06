@@ -15,13 +15,12 @@ import Pages.Blog.PostsListModel exposing (postsResponseDecoder)
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        LoadPost postId ->
+        LoadPost postId postMeta ->
             { initialModel
                 | postId = postId
+                , postMeta = postMeta
             }
-                ! [ getPost postId
-                  , getPostMeta
-                  ]
+                ! [ getPost postId ]
 
         PostLoaded ->
             model
@@ -83,12 +82,6 @@ getPost postId =
     in
         Http.send PostFetch
             (Http.getString url)
-
-
-getPostMeta : Cmd Msg
-getPostMeta =
-    Http.send PostMetaFetch
-        (Http.get "db.json" postsResponseDecoder)
 
 
 view : Model -> Html Msg
