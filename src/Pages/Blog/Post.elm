@@ -9,7 +9,6 @@ import Navigation
 import Pages.Blog.Date exposing (postDate)
 import Pages.Blog.PostModel exposing (..)
 import Pages.Blog.PostMsg exposing (..)
-import Pages.Blog.PostsListModel exposing (postsResponseDecoder)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -43,15 +42,11 @@ update msg model =
                         update PostLoaded model_
 
                 Err error ->
-                    let
-                        _ =
-                            Debug.log "fetch fail" error
-                    in
-                        { model
-                            | postContent = "Failed to fetch :("
-                            , isPostLoading = False
-                        }
-                            ! []
+                    { model
+                        | postContent = "Failed to fetch :("
+                        , isPostLoading = False
+                    }
+                        ! []
 
         PostMetaFetch postsMeta ->
             case postsMeta of
@@ -64,7 +59,7 @@ update msg model =
                     in
                         { model | postMeta = postMeta } ! []
 
-                Err error ->
+                Err _ ->
                     model ! []
 
         GoBack ->

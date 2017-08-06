@@ -1,12 +1,12 @@
 module View exposing (view)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
-import Messages exposing (..)
-import Model exposing (..)
+import Html exposing (Html, div, button, text, h2, a, p)
+import Html.Attributes exposing (class, target, href)
+import Html.Events exposing (onClick)
+import Messages exposing (Msg)
+import Model exposing (Model)
 import Pages.PagesView as PagesView
-import States exposing (..)
+import States
 
 
 view : Model -> Html Msg
@@ -23,20 +23,20 @@ view model =
                     [ text "personal blog" ]
                 ]
     in
-    div
-        [ class "page-wrapper" ]
-        [ div
-            [ class "page-head" ]
-            [ pageTitle
-            , stateMenu model
+        div
+            [ class "page-wrapper" ]
+            [ div
+                [ class "page-head" ]
+                [ pageTitle
+                , stateMenu model
+                ]
+            , Html.map Messages.PagesMessages (PagesView.view model.pagesModel model.state)
+            , footer
             ]
-        , Html.map PagesMessages (PagesView.view model.pagesModel model.state)
-        , footer model
-        ]
 
 
-footer : model -> Html Msg
-footer model =
+footer : Html Msg
+footer =
     let
         githubLink =
             a
@@ -45,23 +45,23 @@ footer model =
                 ]
                 [ text "github" ]
     in
-    div
-        [ class "page-footer" ]
-        [ text "This blog is written in Elm, check it out at "
-        , githubLink
-        ]
+        div
+            [ class "page-footer" ]
+            [ text "This blog is written in Elm, check it out at "
+            , githubLink
+            ]
 
 
 stateMenu : Model -> Html Msg
 stateMenu model =
     let
         states =
-            [ ( "Posts", Home )
-            , ( "About", Blog "about" )
-            , ( "Projects", Blog "projects" )
+            [ ( "Posts", States.Home )
+            , ( "About", States.Blog "about" )
+            , ( "Projects", States.Blog "projects" )
             ]
 
-        activeClass : State -> String
+        activeClass : States.State -> String
         activeClass state =
             let
                 activeButtonClass : Bool -> String
@@ -71,24 +71,20 @@ stateMenu model =
                     else
                         ""
             in
-            case model.state of
-                Home ->
-                    activeButtonClass (state == Home)
+                case model.state of
+                    States.Home ->
+                        activeButtonClass (state == States.Home)
 
-                Blog postSlug ->
-                    let
-                        postsInMenu =
-                            [ "about", "hello-world" ]
-                    in
-                    activeButtonClass (state == model.state)
+                    States.Blog _ ->
+                        activeButtonClass (state == model.state)
 
         menuItem ( name, state ) =
             button
-                [ onClick (ChangeState state)
+                [ onClick (Messages.ChangeState state)
                 , class <| "page-nav__btn btn " ++ activeClass state
                 ]
                 [ text name ]
     in
-    div
-        [ class "page-nav" ]
-        (List.map menuItem states)
+        div
+            [ class "page-nav" ]
+            (List.map menuItem states)

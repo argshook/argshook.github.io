@@ -1,4 +1,4 @@
-port module Pages.Blog.PostsList exposing (..)
+module Pages.Blog.PostsList exposing (..)
 
 import Css
 import Html exposing (..)
@@ -6,7 +6,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Navigation
 import Pages.Blog.Date exposing (postDate)
-import Pages.Blog.PostModel exposing (PostMeta, initialPostMeta)
+import Pages.Blog.PostModel exposing (PostMeta)
 import Pages.Blog.PostMsg as PostMsg
 import Pages.Blog.PostsListModel exposing (..)
 import Pages.Blog.PostsListMsg exposing (..)

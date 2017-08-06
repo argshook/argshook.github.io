@@ -36,5 +36,5 @@ port posts : (List PostMeta -> msg) -> Sub msg
 
 
 subscriptions : Model -> Sub PostsListMsg.Msg
-subscriptions model =
+subscriptions _ =
     posts PostsListMsg.LoadPosts

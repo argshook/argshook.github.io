@@ -3,7 +3,7 @@ module MyNavigation exposing (..)
 import Regex
 import States exposing (..)
 import String
-import UrlParser exposing ((</>), Parser, int, map, oneOf, s, string)
+import UrlParser exposing ((</>), Parser, map, oneOf, s, string)
 
 
 fromUrl : String -> String
@@ -12,10 +12,10 @@ fromUrl hash =
         withoutPrefix =
             String.dropLeft 2 hash
     in
-    if String.contains "#" withoutPrefix then
-        Regex.replace Regex.All (Regex.regex "#.*$") (\_ -> "") withoutPrefix
-    else
-        withoutPrefix
+        if String.contains "#" withoutPrefix then
+            Regex.replace Regex.All (Regex.regex "#.*$") (\_ -> "") withoutPrefix
+        else
+            withoutPrefix
 
 
 pageParser : Parser (State -> a) a

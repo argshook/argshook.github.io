@@ -1,8 +1,8 @@
 module Update exposing (..)
 
-import Messages exposing (..)
-import Model exposing (..)
-import MyNavigation exposing (..)
+import Messages
+import Model exposing (Model)
+import MyNavigation exposing (toUrl)
 import Navigation
 import Pages.Blog.PostMsg
 import Pages.Blog.PostModel
@@ -15,17 +15,17 @@ import UrlParser
 update : Messages.Msg -> Model -> ( Model, Cmd Messages.Msg )
 update msg model =
     case msg of
-        PagesMessages msg ->
+        Messages.PagesMessages pagesMsg ->
             let
                 ( model_, cmd ) =
-                    Pages.PagesUpdate.update msg model.pagesModel
+                    Pages.PagesUpdate.update pagesMsg model.pagesModel
             in
-                ( { model | pagesModel = model_ }, Cmd.map PagesMessages cmd )
+                ( { model | pagesModel = model_ }, Cmd.map Messages.PagesMessages cmd )
 
-        ChangeState newState ->
+        Messages.ChangeState newState ->
             { model | state = newState } ! [ Navigation.newUrl (toUrl newState) ]
 
-        UrlChange location ->
+        Messages.UrlChange location ->
             let
                 newState =
                     UrlParser.parseHash MyNavigation.pageParser location
@@ -54,4 +54,4 @@ update msg model =
                     , pagesModel = pagesModel
                     , state = newState
                 }
-                    ! [ Cmd.map PagesMessages pagesCmd ]
+                    ! [ Cmd.map Messages.PagesMessages pagesCmd ]
