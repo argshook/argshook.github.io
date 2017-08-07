@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Messages
-import Model
+import Model exposing (Flags, Model)
 import Navigation
 import Update exposing (update)
 import View exposing (view)
@@ -9,14 +9,14 @@ import Pages.Blog.PostsListModel as PostsListModel
 import Pages.PagesMessages as PagesMessages
 
 
-init : Navigation.Location -> ( Model.Model, Cmd Messages.Msg )
-init location =
-    update (Messages.UrlChange location) Model.initialModel
+init : Flags -> Navigation.Location -> ( Model.Model, Cmd Messages.Msg )
+init flags location =
+    update (Messages.Initialize location flags) Model.initialModel
 
 
-main : Program Never Model.Model Messages.Msg
+main : Program Flags Model.Model Messages.Msg
 main =
-    Navigation.program Messages.UrlChange
+    Navigation.programWithFlags Messages.UrlChange
         { init = init
         , view = view
         , update = update

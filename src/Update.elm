@@ -6,10 +6,12 @@ import MyNavigation exposing (toUrl)
 import Navigation
 import Pages.Blog.PostMsg
 import Pages.Blog.PostModel
+import Pages.Blog.PostsListMsg
 import Pages.PagesMessages
 import Pages.PagesUpdate
 import States
 import UrlParser
+import Tuple
 
 
 update : Messages.Msg -> Model -> ( Model, Cmd Messages.Msg )
@@ -55,3 +57,13 @@ update msg model =
                     , state = newState
                 }
                     ! [ Cmd.map Messages.PagesMessages pagesCmd ]
+
+        Messages.Initialize location flags ->
+            { model
+                | pagesModel =
+                    Pages.PagesUpdate.update
+                        (Pages.PagesMessages.PostsListMsg (Pages.Blog.PostsListMsg.LoadPosts flags.posts))
+                        model.pagesModel
+                        |> Tuple.first
+            }
+                |> update (Messages.UrlChange location)

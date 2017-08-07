@@ -5,7 +5,11 @@ import './styles/main.css';
 import Elm from './Main.elm';
 import { posts } from '!json-loader!../db.json';
 
-const app = Elm.Main.embed(document.getElementById('app'));
+const flags = {
+  posts
+};
+
+const app = Elm.Main.embed(document.getElementById('app'), flags);
 const disqus = new Disqus();
 const highlighter = new Highlighter('pre code');
 
@@ -18,8 +22,3 @@ app
   .ports
   .blogPostCommentsEnabled
   .subscribe(slug => disqus.setup(slug));
-
-app
-  .ports
-  .posts
-  .send(posts);
