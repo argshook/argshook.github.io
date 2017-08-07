@@ -1,24 +1,24 @@
-module Pages.PagesView exposing (..)
+module Pages.PagesView exposing (view)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html exposing (Html, div)
+import Html.Attributes exposing (class)
 import Pages.Blog.Post as Post
 import Pages.Blog.PostsList as PostsList
-import Pages.PagesMessages as PagesMessages exposing (..)
-import Pages.PagesModel as PagesModel exposing (..)
+import Pages.PagesMessages as PagesMessages
+import Pages.PagesModel exposing (Model)
 import States exposing (State)
 
 
-view : Model -> State -> Html Msg
+view : Model -> State -> Html PagesMessages.Msg
 view model state =
     let
         component =
             case state of
                 States.Home ->
-                    Html.map PostsListMsg (PostsList.view model.postsListModel)
+                    Html.map PagesMessages.PostsListMsg (PostsList.view model.postsListModel)
 
                 States.Blog _ ->
-                    Html.map PostMsg (Post.view model.postModel)
+                    Html.map PagesMessages.PostMsg (Post.view model.postModel)
     in
         div
             [ class "page-content" ]

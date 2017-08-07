@@ -14,7 +14,7 @@ init flags location =
     update (Messages.Initialize location flags) Model.initialModel
 
 
-main : Program Flags Model.Model Messages.Msg
+main : Program Flags Model Messages.Msg
 main =
     Navigation.programWithFlags Messages.UrlChange
         { init = init

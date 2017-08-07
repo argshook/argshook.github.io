@@ -41,7 +41,7 @@ update msg model =
                     in
                         update PostLoaded model_
 
-                Err error ->
+                Err _ ->
                     { model
                         | postContent = "Failed to fetch :("
                         , isPostLoading = False
