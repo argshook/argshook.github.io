@@ -1,7 +1,5 @@
 elm-stuff/
 node_modules
-elm.js
-!elm.min.js
 *.vim
 dist
-
+*.min.js
