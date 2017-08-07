@@ -15,22 +15,22 @@ export default class {
 
     hljs.registerLanguage(
       'elm',
-      require('../node_modules/highlight.js/lib/languages/elm.js')
+      require('hljs/lib/languages/elm.js')
     );
 
     hljs.registerLanguage(
       'javascript',
-      require('../node_modules/highlight.js/lib/languages/javascript.js')
+      require('hljs/lib/languages/javascript.js')
     );
 
     hljs.registerLanguage(
       'html',
-      require('../node_modules/highlight.js/lib/languages/xml.js')
+      require('hljs/lib/languages/xml.js')
     );
 
     hljs.registerLanguage(
       'vim',
-      require('../node_modules/highlight.js/lib/languages/vim.js')
+      require('hljs/lib/languages/vim.js')
     );
   }
 

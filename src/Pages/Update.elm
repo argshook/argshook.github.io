@@ -1,9 +1,9 @@
-module Pages.PagesUpdate exposing (update)
+module Pages.Update exposing (update)
 
 import Pages.Blog.Post as Post
 import Pages.Blog.PostsList as PostsList
-import Pages.PagesMessages exposing (..)
-import Pages.PagesModel exposing (..)
+import Pages.Msg exposing (..)
+import Pages.Model exposing (..)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

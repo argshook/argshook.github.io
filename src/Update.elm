@@ -1,39 +1,39 @@
 module Update exposing (update)
 
-import Messages
+import Msg exposing (Msg)
 import Model exposing (Model)
 import MyNavigation exposing (toUrl)
 import Navigation
 import Pages.Blog.PostMsg
 import Pages.Blog.PostModel
 import Pages.Blog.PostsListMsg
-import Pages.PagesMessages
-import Pages.PagesUpdate
+import Pages.Msg
+import Pages.Update
 import States
 import UrlParser
 import Tuple
 
 
-update : Messages.Msg -> Model -> ( Model, Cmd Messages.Msg )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Messages.PagesMessages pagesMsg ->
+        Msg.PagesMsg pagesMsg ->
             let
                 ( model_, cmd ) =
-                    Pages.PagesUpdate.update pagesMsg model.pagesModel
+                    Pages.Update.update pagesMsg model.pagesModel
             in
-                ( { model | pagesModel = model_ }, Cmd.map Messages.PagesMessages cmd )
+                ( { model | pagesModel = model_ }, Cmd.map Msg.PagesMsg cmd )
 
-        Messages.ChangeState newState ->
+        Msg.ChangeState newState ->
             { model | state = newState } ! [ Navigation.newUrl (toUrl newState) ]
 
-        Messages.UrlChange location ->
+        Msg.UrlChange location ->
             let
                 newState =
                     UrlParser.parseHash MyNavigation.pageParser location
                         |> Maybe.withDefault States.Home
 
-                openPostMsg : String -> List Pages.Blog.PostModel.PostMeta -> Pages.PagesMessages.Msg
+                openPostMsg : String -> List Pages.Blog.PostModel.PostMeta -> Pages.Msg.Msg
                 openPostMsg slug postsList =
                     let
                         postMeta =
@@ -41,12 +41,12 @@ update msg model =
                                 |> List.head
                                 |> Maybe.withDefault Pages.Blog.PostModel.initialPostMeta
                     in
-                        Pages.PagesMessages.PostMsg (Pages.Blog.PostMsg.LoadPost slug postMeta)
+                        Pages.Msg.PostMsg (Pages.Blog.PostMsg.LoadPost slug postMeta)
 
                 ( pagesModel, pagesCmd ) =
                     case newState of
                         States.Blog slug ->
-                            Pages.PagesUpdate.update (openPostMsg slug model.pagesModel.postsListModel.posts) model.pagesModel
+                            Pages.Update.update (openPostMsg slug model.pagesModel.postsListModel.posts) model.pagesModel
 
                         _ ->
                             ( model.pagesModel, Cmd.none )
@@ -56,14 +56,14 @@ update msg model =
                     , pagesModel = pagesModel
                     , state = newState
                 }
-                    ! [ Cmd.map Messages.PagesMessages pagesCmd ]
+                    ! [ Cmd.map Msg.PagesMsg pagesCmd ]
 
-        Messages.Initialize location flags ->
+        Msg.Initialize location flags ->
             { model
                 | pagesModel =
-                    Pages.PagesUpdate.update
-                        (Pages.PagesMessages.PostsListMsg (Pages.Blog.PostsListMsg.LoadPosts flags.posts))
+                    Pages.Update.update
+                        (Pages.Msg.PostsListMsg (Pages.Blog.PostsListMsg.LoadPosts flags.posts))
                         model.pagesModel
                         |> Tuple.first
             }
-                |> update (Messages.UrlChange location)
+                |> update (Msg.UrlChange location)

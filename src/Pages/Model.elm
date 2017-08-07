@@ -1,4 +1,4 @@
-module Pages.PagesModel exposing (..)
+module Pages.Model exposing (..)
 
 import Pages.Blog.PostModel as PostModel
 import Pages.Blog.PostsListModel as PostsListModel

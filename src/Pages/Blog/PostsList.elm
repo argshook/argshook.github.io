@@ -10,7 +10,7 @@ import Pages.Blog.PostModel exposing (PostMeta)
 import Pages.Blog.PostMsg as PostMsg
 import Pages.Blog.PostsListModel exposing (..)
 import Pages.Blog.PostsListMsg exposing (..)
-import Pages.PagesMessages as PagesMessages
+import Pages.Msg as PagesMsg
 import String
 import Task
 
@@ -24,7 +24,7 @@ emptyListStyles =
         |> Html.Attributes.style
 
 
-update : Msg -> Model -> ( Model, Cmd Msg, Cmd PagesMessages.Msg )
+update : Msg -> Model -> ( Model, Cmd Msg, Cmd PagesMsg.Msg )
 update msg model =
     case msg of
         Filter newFilter ->
@@ -34,7 +34,7 @@ update msg model =
             ( model
               -- TOOD: dont directly change url here
             , Navigation.newUrl ("#blog/" ++ post.slug)
-            , Task.perform PagesMessages.PostMsg
+            , Task.perform PagesMsg.PostMsg
                 (Task.succeed (PostMsg.SetPostMeta post))
             )
 

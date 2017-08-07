@@ -3,9 +3,9 @@ module View exposing (view)
 import Html exposing (Html, div, button, text, h2, a, p)
 import Html.Attributes exposing (class, target, href)
 import Html.Events exposing (onClick)
-import Messages exposing (Msg)
+import Msg exposing (Msg)
 import Model exposing (Model)
-import Pages.PagesView as PagesView
+import Pages.View as PagesView
 import States
 
 
@@ -30,7 +30,7 @@ view model =
                 [ pageTitle
                 , stateMenu model
                 ]
-            , Html.map Messages.PagesMessages (PagesView.view model.pagesModel model.state)
+            , Html.map Msg.PagesMsg (PagesView.view model.pagesModel model.state)
             , footer
             ]
 
@@ -80,7 +80,7 @@ stateMenu model =
 
         menuItem ( name, state ) =
             button
-                [ onClick (Messages.ChangeState state)
+                [ onClick (Msg.ChangeState state)
                 , class <| "page-nav__btn btn " ++ activeClass state
                 ]
                 [ text name ]

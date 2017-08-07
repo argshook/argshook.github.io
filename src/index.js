@@ -1,5 +1,5 @@
-import Highlighter from './highlightjs.config.js';
-import Disqus from './config/disqus.config.js';
+import Highlighter from './js/highlightjs.config.js';
+import Disqus from './js/disqus.config.js';
 
 import './styles/main.css';
 import Elm from './Main.elm';
