@@ -37,7 +37,6 @@
 
 .page-title {
   font-size: .8rem;
-  font-weight: 400;
 
   @mixin min-width $break-sm {
     font-size: 1rem;
@@ -49,7 +48,7 @@
 
   h2 {
     margin: 0;
-    font-weight: 600;
+    font-weight: 400;
     color: $color-fg;
   }
 
@@ -71,6 +70,7 @@
     border-radius: $border-radius; 
     color: $color-fg;
     font-size: .7rem;
+    font-weight: 300;
 
     @mixin min-width $break-xs {
       margin: 0 1rem 0 0;

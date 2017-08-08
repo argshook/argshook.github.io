@@ -124,7 +124,7 @@
   }
 
   @mixin min-width $break-lg {
-    padding: 0 2rem 4rem;
+    padding: 0 2rem 2rem;
   }
 
   .btn {
@@ -155,7 +155,7 @@
 
   h1 {
     margin: 1rem;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 1.8rem;
     line-height: 1.5;
     color: color($color-text alpha(-10%));
@@ -175,18 +175,17 @@
 
   h2 {
     margin: 3rem 1rem 2rem;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 1.4em;
 
     @mixin min-width $break-xs {
-      margin: 5rem 1rem 2rem;
       font-size: 1.5em;
     }
   }
 
   h3 {
     margin: 1rem;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 1.3rem;
 
     code { font-size: 1.1rem; }
@@ -278,7 +277,7 @@
     margin: 0 .2rem;
     color: $color-code-text;
     background: $color-code-background;
-    font-family: monospace;
+    font-family: "Courier New", Courier, monospace;
     font-size: .8rem;
   }
 
