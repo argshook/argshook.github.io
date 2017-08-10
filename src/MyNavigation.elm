@@ -1,7 +1,7 @@
-module MyNavigation exposing (..)
+module MyNavigation exposing (fromUrl, pageParser, toUrl)
 
 import Regex
-import States exposing (..)
+import States exposing (State)
 import String
 import UrlParser exposing ((</>), Parser, map, oneOf, s, string)
 
@@ -21,16 +21,16 @@ fromUrl hash =
 pageParser : Parser (State -> a) a
 pageParser =
     oneOf
-        [ map Home (s "")
-        , map Blog (s "blog" </> string)
+        [ map States.Home (s "")
+        , map States.Blog (s "blog" </> string)
         ]
 
 
 toUrl : State -> String
 toUrl state =
     case state of
-        Home ->
+        States.Home ->
             "#"
 
-        Blog q ->
+        States.Blog q ->
             "#blog/" ++ q

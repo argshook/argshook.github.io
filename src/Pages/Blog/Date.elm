@@ -1,4 +1,4 @@
-module Pages.Blog.Date exposing (..)
+module Pages.Blog.Date exposing (DateInterface, postDate)
 
 import Date
 

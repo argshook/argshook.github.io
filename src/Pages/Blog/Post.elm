@@ -1,35 +1,35 @@
-port module Pages.Blog.Post exposing (..)
+port module Pages.Blog.Post exposing (update, view)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
+import Html exposing (Html, text, div, button, span)
+import Html.Attributes exposing (class, id)
+import Html.Events exposing (onClick)
 import Http
 import Markdown
 import Navigation
 import Pages.Blog.Date exposing (postDate)
-import Pages.Blog.PostModel exposing (..)
-import Pages.Blog.PostMsg exposing (..)
+import Pages.Blog.PostModel exposing (Model, PostMeta, PostId, initialModel, initialPostMeta)
+import Pages.Blog.PostMsg as Msg exposing (Msg)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        LoadPost postId postMeta ->
+        Msg.LoadPost postId postMeta ->
             { initialModel
                 | postId = postId
                 , postMeta = postMeta
             }
                 ! [ getPost postId ]
 
-        PostLoaded ->
+        Msg.PostLoaded ->
             model
                 ! [ highlight "" ]
 
-        ShowComments ->
+        Msg.ShowComments ->
             { model | isCommentsShown = True }
                 ! [ blogPostCommentsEnabled model.postMeta.id ]
 
-        PostFetch data ->
+        Msg.PostFetch data ->
             case data of
                 Ok post ->
                     let
@@ -39,7 +39,7 @@ update msg model =
                                 , isPostLoading = False
                             }
                     in
-                        update PostLoaded model_
+                        update Msg.PostLoaded model_
 
                 Err _ ->
                     { model
@@ -48,7 +48,7 @@ update msg model =
                     }
                         ! []
 
-        PostMetaFetch postsMeta ->
+        Msg.PostMetaFetch postsMeta ->
             case postsMeta of
                 Ok metas ->
                     let
@@ -62,10 +62,10 @@ update msg model =
                 Err _ ->
                     model ! []
 
-        GoBack ->
+        Msg.GoBack ->
             model ! [ Navigation.back 1 ]
 
-        SetPostMeta postMeta ->
+        Msg.SetPostMeta postMeta ->
             { model | postMeta = postMeta } ! []
 
 
@@ -75,7 +75,7 @@ getPost postId =
         url =
             "Posts/" ++ postId ++ ".md"
     in
-        Http.send PostFetch
+        Http.send Msg.PostFetch
             (Http.getString url)
 
 
@@ -100,7 +100,7 @@ showCommentsBlock model =
                 div [ id "disqus_thread" ] []
             else
                 button
-                    [ onClick ShowComments
+                    [ onClick Msg.ShowComments
                     , class "card card--small"
                     ]
                     [ text "Show Comments" ]
@@ -129,7 +129,7 @@ postHeader postMeta =
             [ class "blog-post-header" ]
             [ button
                 [ class "btn btn--as-link"
-                , onClick GoBack
+                , onClick Msg.GoBack
                 ]
                 [ text "« Back" ]
             , div

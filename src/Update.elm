@@ -58,11 +58,11 @@ update msg model =
                 }
                     ! [ Cmd.map Msg.PagesMsg pagesCmd ]
 
-        Msg.Initialize location flags ->
+        Msg.Initialize location posts ->
             { model
                 | pagesModel =
                     Pages.Update.update
-                        (Pages.Msg.PostsListMsg (Pages.Blog.PostsListMsg.LoadPosts flags.posts))
+                        (Pages.Msg.PostsListMsg (Pages.Blog.PostsListMsg.LoadPosts posts))
                         model.pagesModel
                         |> Tuple.first
             }

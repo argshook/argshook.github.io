@@ -2,26 +2,26 @@ module Pages.Update exposing (update)
 
 import Pages.Blog.Post as Post
 import Pages.Blog.PostsList as PostsList
-import Pages.Msg exposing (..)
-import Pages.Model exposing (..)
+import Pages.Msg as Msg exposing (Msg)
+import Pages.Model exposing (Model)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        PostsListMsg listMsg ->
+        Msg.PostsListMsg listMsg ->
             let
                 ( postsListModel, postsListCmd, mainCmd ) =
                     PostsList.update listMsg model.postsListModel
             in
                 { model | postsListModel = postsListModel }
-                    ! [ Cmd.map PostsListMsg postsListCmd
+                    ! [ Cmd.map Msg.PostsListMsg postsListCmd
                       , mainCmd
                       ]
 
-        PostMsg msg ->
+        Msg.PostMsg postMsg ->
             let
                 ( postModel, postCmd ) =
-                    Post.update msg model.postModel
+                    Post.update postMsg model.postModel
             in
-                ( { model | postModel = postModel }, Cmd.map PostMsg postCmd )
+                ( { model | postModel = postModel }, Cmd.map Msg.PostMsg postCmd )

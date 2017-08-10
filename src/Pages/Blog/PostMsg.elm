@@ -1,6 +1,6 @@
 module Pages.Blog.PostMsg exposing (..)
 
-import Pages.Blog.PostModel exposing (..)
+import Pages.Blog.PostModel exposing (PostId, PostMeta)
 import Http
 
 

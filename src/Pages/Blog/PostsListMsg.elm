@@ -1,6 +1,6 @@
 module Pages.Blog.PostsListMsg exposing (..)
 
-import Pages.Blog.PostModel exposing (..)
+import Pages.Blog.PostModel exposing (PostMeta)
 
 
 type Msg

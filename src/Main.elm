@@ -1,4 +1,4 @@
-module Main exposing (..)
+module Main exposing (main)
 
 import Msg exposing (Msg)
 import Model exposing (Flags, Model)

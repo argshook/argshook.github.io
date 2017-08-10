@@ -1,13 +1,13 @@
-module Model exposing (..)
+module Model exposing (Flags, Model, initialModel)
 
 import Navigation exposing (Location)
 import Pages.Model as PagesModel
-import States exposing (..)
+import States exposing (State)
 import Pages.Blog.PostModel exposing (PostMeta)
 
 
 type alias Flags =
-    { posts : List PostMeta }
+    List PostMeta
 
 
 type alias Model =
@@ -21,5 +21,5 @@ initialModel : Model
 initialModel =
     { pagesModel = PagesModel.initialModel
     , history = []
-    , state = Home
+    , state = States.Home
     }

@@ -1,21 +1,21 @@
-module Pages.Blog.PostsList exposing (..)
+module Pages.Blog.PostsList exposing (update, view)
 
 import Css
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
+import Html exposing (Html, div, text, input, button)
+import Html.Attributes exposing (class, style, value, classList)
+import Html.Events exposing (onInput, onClick)
 import Navigation
 import Pages.Blog.Date exposing (postDate)
 import Pages.Blog.PostModel exposing (PostMeta)
 import Pages.Blog.PostMsg as PostMsg
-import Pages.Blog.PostsListModel exposing (..)
-import Pages.Blog.PostsListMsg exposing (..)
+import Pages.Blog.PostsListModel exposing (Model)
+import Pages.Blog.PostsListMsg as Msg exposing (Msg)
 import Pages.Msg as PagesMsg
 import String
 import Task
 
 
-emptyListStyles : Attribute msg
+emptyListStyles : Html.Attribute msg
 emptyListStyles =
     [ Css.padding <| Css.rem 2
     , Css.textAlign Css.center
@@ -27,10 +27,10 @@ emptyListStyles =
 update : Msg -> Model -> ( Model, Cmd Msg, Cmd PagesMsg.Msg )
 update msg model =
     case msg of
-        Filter newFilter ->
+        Msg.Filter newFilter ->
             ( { model | filter = newFilter }, Cmd.none, Cmd.none )
 
-        OpenPost post ->
+        Msg.OpenPost post ->
             ( model
               -- TOOD: dont directly change url here
             , Navigation.newUrl ("#blog/" ++ post.slug)
@@ -38,7 +38,7 @@ update msg model =
                 (Task.succeed (PostMsg.SetPostMeta post))
             )
 
-        LoadPosts posts ->
+        Msg.LoadPosts posts ->
             ( { model | posts = posts }
             , Cmd.none
             , Cmd.none
@@ -87,7 +87,7 @@ filterBlock query =
         [ class "blog-posts-filter" ]
         [ text "List.filter (\\p -> String.contains \""
         , input
-            [ onInput Filter
+            [ onInput Msg.Filter
             , value query
             , style
                 [ ( "width"
@@ -108,7 +108,7 @@ postCard isVisible post =
     in
         button
             [ classList [ ( "card", True ), ( "card--hidden", not isVisible ) ]
-            , onClick (OpenPost post)
+            , onClick (Msg.OpenPost post)
             ]
             [ div [ class "card__title" ] [ text post.title ]
             , div [ class "card__date" ] [ text (date ++ " " ++ time) ]
