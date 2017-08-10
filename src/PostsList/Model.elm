@@ -1,7 +1,7 @@
-port module Pages.Blog.PostsListModel exposing (Model, initialModel, subscriptions)
+port module PostsList.Model exposing (Model, initialModel, subscriptions)
 
-import Pages.Blog.PostModel exposing (PostMeta)
-import Pages.Blog.PostsListMsg as PostsListMsg
+import Post.Model exposing (PostMeta)
+import PostsList.Msg as PostsListMsg
 
 
 type alias Model =

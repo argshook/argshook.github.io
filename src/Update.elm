@@ -4,9 +4,9 @@ import Msg exposing (Msg)
 import Model exposing (Model)
 import MyNavigation exposing (toUrl)
 import Navigation
-import Pages.Blog.PostMsg
-import Pages.Blog.PostModel
-import Pages.Blog.PostsListMsg
+import Post.Msg
+import Post.Model
+import PostsList.Msg
 import Pages.Msg
 import Pages.Update
 import States
@@ -33,15 +33,15 @@ update msg model =
                     UrlParser.parseHash MyNavigation.pageParser location
                         |> Maybe.withDefault States.Home
 
-                openPostMsg : String -> List Pages.Blog.PostModel.PostMeta -> Pages.Msg.Msg
+                openPostMsg : String -> List Post.Model.PostMeta -> Pages.Msg.Msg
                 openPostMsg slug postsList =
                     let
                         postMeta =
                             List.filter (\meta -> meta.slug == slug) postsList
                                 |> List.head
-                                |> Maybe.withDefault Pages.Blog.PostModel.initialPostMeta
+                                |> Maybe.withDefault Post.Model.initialPostMeta
                     in
-                        Pages.Msg.PostMsg (Pages.Blog.PostMsg.LoadPost slug postMeta)
+                        Pages.Msg.PostMsg (Post.Msg.LoadPost slug postMeta)
 
                 ( pagesModel, pagesCmd ) =
                     case newState of
@@ -62,7 +62,7 @@ update msg model =
             { model
                 | pagesModel =
                     Pages.Update.update
-                        (Pages.Msg.PostsListMsg (Pages.Blog.PostsListMsg.LoadPosts posts))
+                        (Pages.Msg.PostsListMsg (PostsList.Msg.LoadPosts posts))
                         model.pagesModel
                         |> Tuple.first
             }

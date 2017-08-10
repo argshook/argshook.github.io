@@ -1,4 +1,4 @@
-module Pages.Blog.PostModel exposing (PostId, Model, initialModel, PostMeta, initialPostMeta)
+module Post.Model exposing (PostId, Model, initialModel, PostMeta, initialPostMeta)
 
 
 type alias PostId =

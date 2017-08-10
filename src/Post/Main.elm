@@ -1,4 +1,4 @@
-port module Pages.Blog.Post exposing (update, view)
+port module Post.Main exposing (update, view)
 
 import Html exposing (Html, text, div, button, span)
 import Html.Attributes exposing (class, id)
@@ -6,9 +6,9 @@ import Html.Events exposing (onClick)
 import Http
 import Markdown
 import Navigation
-import Pages.Blog.Date exposing (postDate)
-import Pages.Blog.PostModel exposing (Model, PostMeta, PostId, initialModel, initialPostMeta)
-import Pages.Blog.PostMsg as Msg exposing (Msg)
+import Post.Date exposing (postDate)
+import Post.Model exposing (Model, PostMeta, PostId, initialModel, initialPostMeta)
+import Post.Msg as Msg exposing (Msg)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

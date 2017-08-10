@@ -5,7 +5,7 @@ import Model exposing (Flags, Model)
 import Navigation
 import Update exposing (update)
 import View exposing (view)
-import Pages.Blog.PostsListModel as PostsListModel
+import PostsList.Model as PostsListModel
 import Pages.Msg as PagesMsg
 
 

@@ -2,8 +2,8 @@ module Pages.View exposing (view)
 
 import Html exposing (Html, div)
 import Html.Attributes exposing (class)
-import Pages.Blog.Post as Post
-import Pages.Blog.PostsList as PostsList
+import Post.Main as Post
+import PostsList.Main as PostsList
 import Pages.Msg as PagesMsg
 import Pages.Model exposing (Model)
 import States exposing (State)

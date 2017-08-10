@@ -1,7 +1,7 @@
 module Pages.Model exposing (Model, initialModel)
 
-import Pages.Blog.PostModel as PostModel
-import Pages.Blog.PostsListModel as PostsListModel
+import Post.Model as PostModel
+import PostsList.Model as PostsListModel
 
 
 type alias Model =

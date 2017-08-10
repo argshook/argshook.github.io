@@ -1,7 +1,7 @@
 module Pages.Update exposing (update)
 
-import Pages.Blog.Post as Post
-import Pages.Blog.PostsList as PostsList
+import Post.Main as Post
+import PostsList.Main as PostsList
 import Pages.Msg as Msg exposing (Msg)
 import Pages.Model exposing (Model)
 

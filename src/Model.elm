@@ -3,7 +3,7 @@ module Model exposing (Flags, Model, initialModel)
 import Navigation exposing (Location)
 import Pages.Model as PagesModel
 import States exposing (State)
-import Pages.Blog.PostModel exposing (PostMeta)
+import Post.Model exposing (PostMeta)
 
 
 type alias Flags =

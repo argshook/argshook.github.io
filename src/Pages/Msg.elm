@@ -1,7 +1,7 @@
 module Pages.Msg exposing (..)
 
-import Pages.Blog.PostMsg as PostMsg
-import Pages.Blog.PostsListMsg as PostsListMsg
+import Post.Msg as PostMsg
+import PostsList.Msg as PostsListMsg
 
 
 type Msg

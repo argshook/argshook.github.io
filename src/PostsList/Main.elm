@@ -1,15 +1,15 @@
-module Pages.Blog.PostsList exposing (update, view)
+module PostsList.Main exposing (update, view)
 
 import Css
 import Html exposing (Html, div, text, input, button)
 import Html.Attributes exposing (class, style, value, classList)
 import Html.Events exposing (onInput, onClick)
 import Navigation
-import Pages.Blog.Date exposing (postDate)
-import Pages.Blog.PostModel exposing (PostMeta)
-import Pages.Blog.PostMsg as PostMsg
-import Pages.Blog.PostsListModel exposing (Model)
-import Pages.Blog.PostsListMsg as Msg exposing (Msg)
+import Post.Date exposing (postDate)
+import Post.Model exposing (PostMeta)
+import Post.Msg as PostMsg
+import PostsList.Model exposing (Model)
+import PostsList.Msg as Msg exposing (Msg)
 import Pages.Msg as PagesMsg
 import String
 import Task

@@ -3,3 +3,4 @@ node_modules
 *.vim
 dist
 *.min.js
+elm.js
