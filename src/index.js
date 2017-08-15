@@ -14,7 +14,10 @@ const highlighter = new Highlighter('pre code');
 app
   .ports
   .highlight
-  .subscribe(() => setTimeout(() => highlighter.render(), 80));
+  .subscribe(() => {
+    setTimeout(() => highlighter.render(), 80);
+    window.scrollTo(0, 0);
+  });
 
 app
   .ports

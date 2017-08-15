@@ -20,16 +20,12 @@ view model =
 
 footer : Html Msg
 footer =
-    let
-        githubLink =
-            a
-                [ href "https://github.com/argshook/argshook.github.io"
-                , target "_blank"
-                ]
-                [ text "github" ]
-    in
-        div
-            [ class "page-footer" ]
-            [ text "This blog is written in Elm, check it out at "
-            , githubLink
+    div
+        [ class "page-footer" ]
+        [ text "This blog is written in Elm, check it out at "
+        , a
+            [ href "https://github.com/argshook/argshook.github.io"
+            , target "_blank"
             ]
+            [ text "github" ]
+        ]
