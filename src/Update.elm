@@ -2,7 +2,7 @@ module Update exposing (update)
 
 import Msg exposing (Msg)
 import Model exposing (Model)
-import MyNavigation exposing (toUrl)
+import MyNavigation exposing (toUrl, fromUrl)
 import Navigation
 import Post.Msg
 import Post.Model
@@ -10,7 +10,6 @@ import PostsList.Msg
 import Pages.Msg
 import Pages.Update
 import States
-import UrlParser
 import Tuple
 
 
@@ -29,10 +28,6 @@ update msg model =
 
         Msg.UrlChange location ->
             let
-                newState =
-                    UrlParser.parseHash MyNavigation.pageParser location
-                        |> Maybe.withDefault States.Home
-
                 openPostMsg : String -> List Post.Model.PostMeta -> Pages.Msg.Msg
                 openPostMsg slug postsList =
                     let
@@ -44,7 +39,7 @@ update msg model =
                         Pages.Msg.PostMsg (Post.Msg.LoadPost slug postMeta)
 
                 ( pagesModel, pagesCmd ) =
-                    case newState of
+                    case fromUrl location of
                         States.Blog slug ->
                             Pages.Update.update (openPostMsg slug model.pagesModel.postsListModel.posts) model.pagesModel
 
@@ -54,7 +49,7 @@ update msg model =
                 { model
                     | history = location :: model.history
                     , pagesModel = pagesModel
-                    , state = newState
+                    , state = fromUrl location
                 }
                     ! [ Cmd.map Msg.PagesMsg pagesCmd ]
 

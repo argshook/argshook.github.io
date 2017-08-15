@@ -1,21 +1,8 @@
-module MyNavigation exposing (fromUrl, pageParser, toUrl)
+module MyNavigation exposing (pageParser, toUrl, fromUrl)
 
-import Regex
+import Navigation
 import States exposing (State)
-import String
 import UrlParser exposing ((</>), Parser, map, oneOf, s, string)
-
-
-fromUrl : String -> String
-fromUrl hash =
-    let
-        withoutPrefix =
-            String.dropLeft 2 hash
-    in
-        if String.contains "#" withoutPrefix then
-            Regex.replace Regex.All (Regex.regex "#.*$") (\_ -> "") withoutPrefix
-        else
-            withoutPrefix
 
 
 pageParser : Parser (State -> a) a
@@ -34,3 +21,9 @@ toUrl state =
 
         States.Blog q ->
             "#blog/" ++ q
+
+
+fromUrl : Navigation.Location -> State
+fromUrl location =
+    Maybe.withDefault States.Home <|
+        UrlParser.parseHash pageParser location
