@@ -1,4 +1,4 @@
-module Pages.Msg exposing (..)
+module Pages.Msg exposing (Msg(PostsListMsg, PostMsg))
 
 import Post.Msg as PostMsg
 import PostsList.Msg as PostsListMsg

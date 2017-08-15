@@ -1,4 +1,4 @@
-module Msg exposing (..)
+module Msg exposing (Msg(PagesMsg, ChangeState, UrlChange, Initialize))
 
 import Navigation
 import Model exposing (Flags)

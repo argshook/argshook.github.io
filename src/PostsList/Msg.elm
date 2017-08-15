@@ -1,4 +1,4 @@
-module PostsList.Msg exposing (..)
+module PostsList.Msg exposing (Msg(Filter, OpenPost, LoadPosts))
 
 import Post.Model exposing (PostMeta)
 

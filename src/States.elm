@@ -1,4 +1,4 @@
-module States exposing (..)
+module States exposing (State(Home, Blog))
 
 
 type State

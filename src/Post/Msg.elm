@@ -1,4 +1,4 @@
-module Post.Msg exposing (..)
+module Post.Msg exposing (Msg(PostFetch, LoadPost, PostLoaded, GoBack, SetPostMeta, PostMetaFetch, ShowComments))
 
 import Post.Model exposing (PostId, PostMeta)
 import Http

@@ -1,7 +1,7 @@
 module View exposing (view)
 
 import Header
-import Html exposing (Html, div, button, text, h2, a, p)
+import Html exposing (Html, div, text, a)
 import Html.Attributes exposing (class, target, href)
 import Msg exposing (Msg)
 import Model exposing (Model)
