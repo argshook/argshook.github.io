@@ -17,7 +17,7 @@
   cursor: pointer;
 
   @mixin min-width $break-md {
-    padding: 2rem;
+    padding: 2.2rem 2.5rem;
   }
 
   &:after {
@@ -71,7 +71,7 @@
     font-size: 1rem;
 
     @mixin min-width $break-md {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       margin-bottom: 1rem;
     }
   }
@@ -81,6 +81,7 @@
 
     @mixin min-width $break-md {
       font-size: .9rem;
+      color: $color-text-dim;
     }
   }
 

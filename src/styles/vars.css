@@ -5,6 +5,7 @@ $color-background: $color-bg;
 $color-content: $color-fg;
 
 $color-text: $color-bg;
+$color-text-dim: color($color-bg alpha(-40%));
 $color-link: $color-bg;
 
 $color-btn-background: transparent;

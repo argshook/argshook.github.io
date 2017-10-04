@@ -7,14 +7,12 @@ body {
   padding: 0;
   margin: 0;
   font-family: sans-serif;
-  font-weight: 300;
   font-size: 17px;
+  background: $color-background;
 
   @mixin min-width $break-sm {
     font-size: 16px;
   }
-
-  background: $color-background;
 }
 
 a {

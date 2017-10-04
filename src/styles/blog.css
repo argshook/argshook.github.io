@@ -42,10 +42,10 @@
   }
 
   .card {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 
     @mixin min-width $break-md {
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
     }
 
     &:last-child { margin-bottom: 0; }
@@ -94,7 +94,7 @@
 
   hr {
     border: 0;
-    border-top: 50px solid $color-bg;
+    border-top: 70px solid $color-bg;
     border-bottom: 5px solid color($color-bg l(+20%));
     margin: 2rem 0;
 
@@ -130,7 +130,7 @@
   .btn {
     font-size: .7rem;
     text-transform: uppercase;
-    color: $color-text;
+    color: $color-text-dim;
 
     @mixin min-width $break-md {
       font-size: 1rem;
@@ -141,7 +141,7 @@
 .blog-post-header-meta {
   display: flex;
   justify-content: space-between;
-  color: $color-text;
+  color: $color-text-dim;
 
   &__date { margin-right: .8rem; }
 }
@@ -154,8 +154,8 @@
   }
 
   h1 {
-    margin: 1rem;
-    font-weight: 300;
+    margin: 1rem 1rem 3rem;
+    font-weight: 400;
     font-size: 1.8rem;
     line-height: 1.5;
     color: color($color-text alpha(-10%));
@@ -175,7 +175,7 @@
 
   h2 {
     margin: 3rem 1rem 2rem;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 1.4em;
 
     @mixin min-width $break-xs {
@@ -192,7 +192,7 @@
   }
 
   p {
-    margin: 2.5rem 1rem;
+    margin: 0 1rem 2.5rem;
     font-size: 1rem;
     line-height: 1.9;
   }
@@ -220,7 +220,7 @@
   }
 
   ol {
-    margin: 0;
+    margin: 0 0 2rem;
     padding: 0 0 0 3rem;
     counter-reset: post-ol-counter;
 
@@ -254,14 +254,14 @@
 
   pre {
     display: block;
-    margin: 0;
+    margin: 0 0 2rem;
     padding: 1rem;
     overflow: auto;
     color: $color-code-text;
     background: $color-code-background;
 
     @mixin min-width $break-md {
-      margin: 0 -1rem;
+      margin: 0 -1rem 2.5rem;
       padding: 1rem 2rem;
     }
 
@@ -272,8 +272,9 @@
   }
 
   code {
-    border-radius: 4px;
-    padding: .2rem .4rem;
+    display: inline-block;
+    border-radius: 5px;
+    padding: .05rem .4rem;
     margin: 0 .2rem;
     color: $color-code-text;
     background: $color-code-background;
