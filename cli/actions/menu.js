@@ -44,7 +44,8 @@ function menu() {
       }
 
       return !!ACTIONS[choice] ? Promise.resolve(ACTIONS[choice]) : Promise.reject();
-    });
+    })
+    .catch(console.log);
 }
 
 function getAction() {

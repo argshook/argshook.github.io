@@ -10,9 +10,11 @@ const defaultAction = 'list';
 if (!action) {
   return actions.menu().then(action => {
     return actions[action]();
-  });
+  })
+  .catch(() => console.log('action canceled'));
 }
 
 return actions[availableActions.includes(action) ? action : defaultAction]()
-  .then(actions.exit);
+  .then(actions.exit)
+  .catch(console.log);
 

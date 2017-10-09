@@ -24,7 +24,8 @@ module.exports = () => {
 
       return createPost();
     })
-    .then(newPost);
+    .then(newPost)
+    .catch(console.log);
 };
 
 
@@ -59,10 +60,13 @@ function newPost(post) {
   console.log('Adding new post');
   console.log(post.title);
 
+  const timestamp = new Date().getTime();
+
   const newPost = {
     id: createGuid(),
     slug: slugify(post.title),
-    dateCreated: new Date().getTime(),
+    dateCreated: timestamp,
+    dateModified: timestamp
   };
 
   newPost.path = `${newPost.slug}.md`;
@@ -72,7 +76,7 @@ function newPost(post) {
       db
         .get('posts')
         .push(Object.assign({}, post, newPost))
-        .value();
+        .write();
 
       logNewPost(newPost);
     });
@@ -83,4 +87,3 @@ function logNewPost(newPost) {
   console.log('');
   console.log(JSON.stringify(newPost, null, 2));
 }
-
