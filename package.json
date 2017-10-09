@@ -52,6 +52,7 @@
     "highlight.js": "^9.5.0",
     "lodash": "^4.13.1",
     "lowdb": "^0.16.2",
+    "marked": "^0.3.6",
     "prompt": "^1.0.0",
     "rss": "^1.2.2",
     "url-loader": "^0.5.9"

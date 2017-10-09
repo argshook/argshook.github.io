@@ -1,6 +1,7 @@
 /* global Promise */
 const RSS = require('rss');
 const path = require('path');
+const marked = require('marked');
 const { readFileAsync, writeFileAsync } = require('../common.js');
 
 module.exports = () => {
@@ -22,12 +23,14 @@ function createRss() {
     webMaster: '@argshook',
   });
 
-  const itemPromises = require(absPath(input)).posts
+  const itemPromises = require(absPath(input))
+    .posts
+    .sort((a, b) => a.dateCreated < b.dateCreated)
     .map(post =>
       readFileAsync(absPath('Posts', post.path))
         .then(content => ({
           title: post.title,
-          description: content,
+          description: marked(content),
           guid: post.id,
           url: `https://arijus.net/#blog/${post.slug}`,
           author: post.author,
