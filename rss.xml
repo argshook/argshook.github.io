@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[arijus.net]]></title>
+        <description><![CDATA[personal blog]]></description>
+        <link>http://github.com/dylang/node-rss</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Mon, 09 Oct 2017 20:58:01 GMT</lastBuildDate>
+        <atom:link href="https://arijus.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <webMaster><![CDATA[@argshook]]></webMaster>
+        <item>
+            <title><![CDATA[vim - jump to middle of paragraph]]></title>
+            <description><![CDATA[<h1 id="vim-jump-to-middle-of-paragraph">vim - jump to middle of paragraph</h1>
+<p>has this ever happened to you? there&#39;s this big paragraph and you need
+to get somewhere near the middle of it?</p>
+<p>wouldn&#39;t it be great to have something similar to <code>M</code> which allows to
+jump to middle of screen but instead work on paragraph?</p>
+<p>with this simple weird trick in your <code>.vimrc</code> now you can do it!</p>
+<pre><code class="lang-vim">function! JumpToMiddleOfParagraph()
+  let line = float2nr(round((line(&quot;&#39;}&quot;) + line(&quot;&#39;{&quot;)) / 2))
+  execute &quot;normal! &quot; . line . &quot;G&quot;
+endfunction
+</code></pre>
+<p>i chose <code>T</code> to run such function when in normal mode:</p>
+<pre><code class="lang-vim">nnoremap T :call JumpToMiddleOfParagraph()&lt;CR&gt;
+</code></pre>
+]]></description>
+            <link>https://arijus.net/#blog/vim-jump-to-middle-of-paragraph</link>
+            <guid isPermaLink="false">c4209daf-3a77-ce54-b3b1-aaf04f62f0ce</guid>
+            <dc:creator><![CDATA[argshook]]></dc:creator>
+            <pubDate>Fri, 03 Feb 2017 13:24:46 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[vimwiki & dropbox to organize and distribute notes]]></title>
+            <description><![CDATA[<h1 id="vimwiki-dropbox-to-organize-and-distribute-notes-with-vim">vimwiki &amp; dropbox to organize and distribute notes with vim</h1>
+<p>Vimwiki is a personal wiki for Vim -- a number of linked text files that have
+their own syntax highlighting.</p>
+<p>install with your favorite plugin manager, by following instructions on <a href="https://github.com/vimwiki/vimwiki">github</a></p>
+<pre><code class="lang-vim">&quot; this
+NeoBundle &#39;vimwiki/vimwiki&#39;
+
+&quot; or most probably this
+Plugin &#39;vimwiki/vimwiki&#39;
+</code></pre>
+<p>set some paths</p>
+<pre><code class="lang-vim">let g:vimwiki_list = [{&#39;path&#39;: &#39;~/Dropbox/vimwiki/&#39; }]
+</code></pre>
+<p>here i set <code>~/Dropbox/vimwiki</code> to keep notes on le cloud. note that it&#39;s a list, you can have multiple <em>wiki</em>s, say one personal, one work, one very secret encrypted where you save your poetry</p>
+<h2 id="all-you-need">All you need</h2>
+<p>for brevity below i use <code>,</code> as a <code>&lt;leader&gt;</code>.</p>
+<ul>
+<li><code>,ww</code> access vimwiki index, a home page. first time it
+will ask if you want to create one</li>
+<li><code>,w,w</code> open diary page with todays date</li>
+<li><code>,wi</code> open diary index, a list of all diary entries</li>
+</ul>
+<p>you have to regenerate diary index manually with
+<code>:VimwikiDiaryGenerateLinks</code>. possible to automate with <code>autocmd</code>,
+though i never needed that</p>
+<h2 id="navigate">Navigate</h2>
+<ul>
+<li><code>enter</code> key creates a link out of a word under cursor or selection.
+looks like <code>[[this]]</code></li>
+<li><code>enter</code> again will follow that link</li>
+<li><code>backspace</code> will go back</li>
+<li><code>tab</code> jumps cursor to next link, <code>shift + tab</code>  jumps to previous</li>
+</ul>
+<h2 id="fancy-format">Fancy Format</h2>
+<ul>
+<li><p><code>=</code> in <strong>n</strong>ormal mode increases heading size</p>
+<p><code>-</code> decreases it</p>
+<p>it goes from <code>= this =</code> up to <code>====== this ======</code></p>
+</li>
+<li><p>lines starting with <code>1.</code>, <code>*</code> or <code>-</code> will start a list</p>
+<p><code>ctrl + space</code>, will attach check mark to <code>* [ ] list item</code></p>
+<p><code>ctrl + space</code> again will toggle that <code>* [X] check mark</code></p>
+</li>
+</ul>
+<p>to write code blocks wrap code with <code>{{{</code> and <code>}}}</code>:</p>
+<pre><code class="lang-html">== thingies ==
+
+1. [ ] do dis
+2. [X] do dat
+
+memorize this command:
+
+{{{sh
+cd ~
+}}}
+</code></pre>
+<h2 id="tips">Tips</h2>
+<p>save something that you can find later? it&#39;s <code>,ww</code></p>
+<p>empty notepad? it&#39;s <code>,w,w</code></p>
+<p>same actions for other wikis (if you set more than one in <code>g:vimwiki_list</code>):
+<code>2,ww</code>, <code>2,w,w</code>, <code>3,ww</code>, <code>3,w,w</code> etc.</p>
+<p>dropbox automatically syncs different machines and im not littering
+system with tiny notes everywhere.</p>
+<p>see <code>:h vimwiki</code> for more.</p>
+]]></description>
+            <link>https://arijus.net/#blog/vimwiki-dropbox-to-organize-and-distribute-notes</link>
+            <guid isPermaLink="false">d2a86628-eed1-e743-51bd-c23dad5968a3</guid>
+            <dc:creator><![CDATA[argshook]]></dc:creator>
+            <pubDate>Mon, 17 Oct 2016 20:33:51 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ng-directive-compiler-helper for angular 1.5 unit testing to the rescue!]]></title>
+            <description><![CDATA[<h1 id="ng-directive-compiler-helper-for-angular-1-5-unit-testing-to-the-rescue-">ng-directive-compiler-helper for angular 1.5 unit testing to the rescue!</h1>
+<p>one of pain points in angular testing is compilation of directives (aka
+components). to do that, you normally have to <code>$inject</code> <code>$compiler</code> into your <code>$scope</code> and then <code>$digest</code> that ugh grose</p>
+<p>when writing many unit tests for different components, compilation setup code quickly piles up as boilerplate.</p>
+<p>here comes <a href="https://github.com/argshook/ng-directive-compiler-helper">ng-directive-compiler-helper</a> to, guess what, help you compile angular directives. i know, great name, thanks.</p>
+<h2 id="installing">installing</h2>
+<pre><code class="lang-sh">npm i ng-directive-compiler-helper --save-dev
+</code></pre>
+<p>include it in your tests:</p>
+<pre><code class="lang-js">// good &#39;ol karma:
+
+files: [
+  &#39;node_modules/ng-directive-compiler-helper/lib/ng-directive-compiler-helper.js&#39;
+]
+</code></pre>
+<p>this file contains <code>createCompiler</code> function just floating there. So in
+karma it&#39;s available on global scope. good enough for me to use with
+karma now so excuse my immodularity. maybe one day.</p>
+<h2 id="simple-usage">simple usage</h2>
+<pre><code class="lang-js">describe(&#39;Component: bestComponent&#39;, () =&gt; {
+  let compile;
+
+  beforeEach(module(&#39;yourModule&#39;));
+
+  beforeEach(inject(($compile, $rootScope) =&gt; {
+    compile = createCompiler(&#39;&lt;best-component /&gt;&#39;, $rootScope, $compile);
+  }));
+});
+</code></pre>
+<p><code>createCompiler</code> requires three things:</p>
+<ol>
+<li><code>&lt;best-component /&gt;</code> - template string of your component</li>
+<li><code>$rootScope</code> to create <code>$scope</code> so you don&#39;t have to</li>
+<li><code>$compile</code>- to properly compile so you don&#39;t have to</li>
+</ol>
+<p>nice, you now have this helper function assigned to <code>compile</code>, let&#39;s use it:</p>
+<pre><code class="lang-js">describe(&#39;Component: bestComponent&#39;, () =&gt; {
+  /* code as above and then: */
+
+  it(&#39;should work!&#39;, () =&gt;
+    compile(scope =&gt; {
+      expect(scope).toBeDefined();
+    })
+  );
+});
+</code></pre>
+<p>call <code>compile</code> and give it a callback. this will compile <code>&lt;best-component /&gt;</code> and call given callback passing <code>scope</code> and <code>element</code>.  Bam, assert the hell out of those.</p>
+<hr>
+<h2 id="great-what-else">great, what else</h2>
+<p>suppose you have this super useful component:</p>
+<pre><code class="lang-js">angular
+  .module(&#39;Pupper&#39;)
+  .component(&#39;pupperLeggies&#39;, {
+    bindings: {
+      count: &#39;&lt;&#39;
+    },
+    template: &#39;&lt;div&gt;{{$ctrl.count}}&lt;/div&gt;&#39;
+  });
+</code></pre>
+<p>you could use this component inside other components like so:</p>
+<pre><code class="lang-html">&lt;div&gt;
+  &lt;h1&gt;Pupper has this many legs:&lt;/h1&gt;
+  &lt;pupper-leggies count=&quot;$ctrl.count&quot;&gt;&lt;/pupper-leggies&gt;
+&lt;/div&gt;
+</code></pre>
+<p>to mimic same environment for <code>&lt;pupper-leggies /&gt;</code> in tests using <code>compile</code>:</p>
+<pre><code class="lang-js">it(&#39;display pupper leg count&#39;, () =&gt;
+  compile(
+    { countFromParent: 4 },
+    { count: &#39;countFromParent&#39; },
+    (scope, element) =&gt; {
+      expect(element.text()).toBe(&#39;4&#39;);
+    })
+);
+</code></pre>
+<p>this time i give three arguments to <code>compile</code>:</p>
+<ol>
+<li><code>{ countFromParent: 4 }</code> - object to imitate parent scope in which
+<code>&lt;pupper-leggies&gt;</code> is compiled</li>
+<li><code>{ count: &#39;countFromParent&#39; }</code> - object which resembles
+<code>&lt;pupper-leggies&gt;</code> attributes.  key - attribute name, value -
+attribute value</li>
+<li><code>(scope, element) =&gt; { /* ... */ }</code> - same callback as before</li>
+</ol>
+<p>by doing this i&#39;m essentially creating an element that looks like this:</p>
+<pre><code class="lang-js">&lt;pupper-leggies count=&quot;countFromParent&quot; /&gt;
+</code></pre>
+<p>the surrounding <code>$scope</code> for it is <code>{ countFromParent: 4 }</code>, so i can
+assign its properties on the element.</p>
+<blockquote>
+<p><strong>Note</strong>: if you don&#39;t care about element attributes, just skip the
+second argument:</p>
+<pre><code class="lang-js">compile({ scopeProperty: 4 }, (scope, element) =&gt; /* ... */ )`
+</code></pre>
+</blockquote>
+<hr>
+<h2 id="why-all-this-">why all this?</h2>
+<p>yeah it may look like boilerplate to solve boilerplate. however, this
+helps tremendously when testing many components under many different
+scenarios. it also DRYs up code quite a bit since you don&#39;t need to
+write custom compile functions anymore (i know i did that a lot)</p>
+<p>by compiling components this way you&#39;re free to supply all parameters to
+<code>compile</code> function programatically. just one way to do this:</p>
+<pre><code class="lang-js">it(&#39;should display given value &#39;, () =&gt; {
+  const valuesAndAsserts = [
+    [ &#39;1&#39;, &#39;1&#39;  ],
+    [  100, &#39;100&#39; ],
+    [ false, &#39;&#39; ]
+    [ -10.5, &#39;-10.5&#39; ]
+    [ undefined, &#39;0&#39; ]
+  ];
+
+  valuesAndAsserts.map(([ value, assert ]) =&gt;
+      compile({}, { value: value }, (scope, element) =&gt;
+        expect(element.text()).toBe(assert))
+  );
+});
+</code></pre>
+<p>basically you can easily prepare component to be tested for 99% of the
+cases, keep tests dry and easy to maintain. i wrote somewhat 700 to
+800 unit tests with this and have yet to stumble upon case which
+this helper couldn&#39;t handle. perhaps i&#39;m lucky though i&#39;d say this
+approach is pretty solid.</p>
+<hr>
+<h2 id="wait-there-s-more">wait there&#39;s more</h2>
+<p>still think this stinks? well allow me to introduce the support for
+drivers. if this is first time you hear about testing with drivers,
+the approach most likely be new to you. it is helpful to learn
+nonetheless.</p>
+<p>let&#39;s rewind to the beginning, how to prepare compiler:</p>
+<pre><code class="lang-js">describe(&#39;Directive: pupperLeggies&#39;, () =&gt; {
+  let compile;
+
+  beforeEach(module(&#39;yourModule&#39;));
+
+  beforeEach(inject(($compile, $rootScope) =&gt; {
+    compile = createCompiler(&#39;&lt;pupper-leggies count=&quot;4&quot; /&gt;&#39;, $rootScope, $compile, {
+      text: () =&gt; this.$.text()
+    });
+  }));
+});
+</code></pre>
+<p>this time I gave fourth argument to <code>createCompiler</code>. it is something
+you can access in a callback of <code>compile</code> as a third argument:</p>
+<pre><code class="lang-js">compile((scope, element, driver) =&gt; {
+  expect(driver.text()).toBe(&#39;4&#39;);
+});
+</code></pre>
+<p>simple example is simple, though consider component with a bunch of
+elements that need to be targeted, their attributes checked, clicked,
+some form elements massaged, etc.</p>
+<p>each property you set in <code>driver</code> can access other driver properties
+through <code>this</code>:</p>
+<pre><code class="lang-js">const driver = {
+  textClass: &#39;.component-text-child&#39;
+  text: function() { return this.$.find(this.textClass).text(); }
+};
+
+let compile = createCompiler(&#39;&lt;pupper-leggies count=&quot;4&quot; /&gt;&#39;, $rootScope, $compile, driver);
+
+compile((scope, element, driver) {
+  expect(driver.text()).toBe(&#39;whatever .component-text-child text is&#39;);
+});
+</code></pre>
+<p>you probably wonder dafuq is <code>this.$</code>. it&#39;s simply a reference to root
+component element. Hopefully this speaks for itself:</p>
+<pre><code class="lang-js">const driver = {
+  // receives element as argument:
+  text: element =&gt; element.find(&#39;.text-element&#39;).text(),
+
+  // uses this.$ to reach same element:
+  nestedText: function(selector) { return this.$.find(selector).text(); },
+};
+
+let compile = createCompiler(&#39;&lt;pupper-leggies count=&quot;4&quot; /&gt;&#39;, $rootScope, $compile, driver);
+
+compile((scope, element, driver) {
+  expect(driver.text(element)).toBe(&#39;text from .text-element&#39;);
+  expect(driver.nestedText(&#39;child&#39;)).toBe(&#39;text from .child&#39;);
+});
+</code></pre>
+<p>suppose for whatever reason you need to check if some child element has
+expected attributes with expected values. Again, under many conditions.
+below is one example to do this (taken from <a href="https://github.com/argshook/orodarius/blob/2df5f232822f98993977235e054c8f539922c4aa/test/unit/sidebar/sidebar-list.directive.spec.js" target="_blank">here</a>):</p>
+<pre><code class="lang-js">const driver = {
+  validateAttrs: attrsAndValues =&gt;
+    attrsAndValues
+      .reduce(
+        (acc, [attr, value]) =&gt;
+          this.$.find(&#39;.important-element&#39;).attr(attr) === value,
+        false
+      )
+};
+
+let compile = createCompiler(&#39;&lt;sidebar-list /&gt;&#39;, $rootScope, $compile, driver);
+
+compile((scope, element, driver) =&gt; {
+  const attrsAndValues = [
+    [ &#39;currentSubreddit&#39;, &#39;$ctrl.currentSubreddit&#39; ],
+    [ &#39;video-item&#39;, &#39;item&#39; ],
+    [ &#39;index&#39;, &#39;$index + 1&#39; ]
+  ];
+
+  expect(driver.validateAttrs(attrsAndValues)).toBe(true);
+});
+</code></pre>
+<hr>
+<p>in order not to bore myself rewriting same <code>createCompiler</code> preparations
+for each test suite, i made a snippet that lays out the scaffold. It
+basically renders this:</p>
+<pre><code class="lang-js">describe(&#39;Component: pupperLeggies&#39;, () =&gt; {
+  const compile;
+
+  const parentScopeMock = {};
+
+  const elementAttrsMock = {};
+
+  const driver = {
+    root: function() { return this.$.find(&#39;.pupper-root&#39;); }
+  };
+
+  beforeEach(module(&#39;butcher&#39;));
+
+  beforeEach(inject(($compile, $rootScope) =&gt; {
+    compile = createCompiler(&#39;&lt;pupper-leggies /&gt;&#39;, $rootScope, $compile, driver);
+  }));
+
+  it(&#39;should exist&#39;, () =&gt; {
+    compile(parentScopeMock, elementAttrsMock, (scope, element, driver) =&gt; {
+      expect(driver.root().length).toBe(1);
+    });
+  });
+});
+</code></pre>
+]]></description>
+            <link>https://arijus.net/#blog/ng-directive-compiler-helper-for-angular-15-unit-testing-to-the-rescue</link>
+            <guid isPermaLink="false">bdd45479-f4be-fe07-2a1c-45beaddb3864</guid>
+            <dc:creator><![CDATA[argshook]]></dc:creator>
+            <pubDate>Thu, 29 Sep 2016 17:02:39 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Projects]]></title>
+            <description><![CDATA[<h1 id="projects">Projects</h1>
+<ul>
+<li><a href="https://github.com/argshook/imgur-bigscreen" target="_blank">imgur bigscreen</a> - image viewer for content from <a href="https://imgur.com">imgur.com</a>, written in elm <small><a href="https://github.com/argshook/imgur-bigscreen" target="_blank">source</a> <a href="https://arijus.net/imgur-bigscreen" target="_blank">demo</a></small></li>
+<li><a href="https://github.com/argshook/orodarius" target="_blank">orodarius</a> - youtube player for content from <a href="https://reddit.com">reddit.com</a>, angular 1.5 <small><a href="https://github.com/argshook/orodarius" target="_blank">source</a> <a href="https://arijus.net/orodarius" target="_blank">demo</a></small></li>
+<li><a href="https://github.com/argshook/redux-msg" target="_blank">redux-msg</a> - a bunch of functions for opinionated usage of redux <small><a href="https://github.com/argshook/redux-msg" target="_blank">source</a></small></li>
+<li><a href="https://github.com/argshook/how-to-redux" target="_blank">how-to-redux</a> - sandbox codebase with examples of how redux can be used with es2015 <small><a href="https://github.com/argshook/how-to-redux" target="_blank">source</a></small></li>
+<li><a href="https://github.com/argshook/generator-headsup" target="_blank">generator-headsup</a> - yeoman generator to kickstart JS development with bare essentials and nothing more, surprisingly useful <small><a href="https://github.com/argshook/generator-headsup" target="_blank">source</a></small></li>
+<li><a href="https://github.com/argshook/ng-on" target="_blank">ng-on</a> - angular 1.x directive for easy custom DOM events handling <small><a href="https://github.com/argshook/ng-on" target="_blank">source</a></small></li>
+<li><a href="https://github.com/argshook/polymer-experiments" target="_blank">polymer experiments</a> - whatever i do with <a href="https://www.polymer-project.org/">Polymer</a> <small><a href="https://github.com/argshook/polymer-experiments" target="_blank">source</a></small></li>
+<li><a href="https://github.com/argshook/react-playground" target="_blank">react playground</a> - boilerplate for simple react projects <small><a href="https://github.com/argshook/react-playground" target="_blank">source</a></small></li>
+<li><a href="https://github.com/argshook/velocity-injectable-loader" target="_blank">Webpack Velocity Loader</a> - loader for webpack to support velocity templates <small><a href="https://github.com/argshook/velocity-injectable-loader" target="_blank">source</a></small></li>
+<li><a href="https://github.com/argshook/argshook.github.io" target="_blank">this blog</a> - Elm yay! <small><a href="https://github.com/argshook/argshook.github.io" target="_blank">source</a></small></li>
+<li><a href="https://github.com/argshook/ng-directive-compiler-helper" target="_blank">ng-directive-compiler-helper</a> - helpful utility for unit testing angular 1.x directives/components <small><a href="https://github.com/argshook/ng-directive-compiler-helper" target="_blank">source</a></small></li>
+<li><a href="https://github.com/argshook/aesthetics" target="_blank">aesthetics</a> - yeah well i like that track <small><a href="https://github.com/argshook/aesthetics" target="_blank">source</a> <a href="https://arijus.net/aesthetics" target="_blank">demo (warning: background music)</a></small></li>
+<li><a href="https://github.com/argshook/ng-attr" target="_blank">ng-attr</a> - angular 1.x directive providing probably easier way to manage DOM element attributes <small><a href="https://github.com/argshook/ng-attr" target="_blank">source</a></small></li>
+<li><a href="https://arijus.net/gameOfLife/" target="_blank">game of life</a> - toy written forever ago <small><a href="https://arijus.net/gameOfLife/" target="_blank">source</a></small></li>
+</ul>
+<p>there might be more on <a href="https://github.com/argshook?tab=repositories">github</a></p>
+]]></description>
+            <link>https://arijus.net/#blog/projects</link>
+            <guid isPermaLink="false">ccd45576-b1f6-2609-a4b6-6e28f9d62d3d</guid>
+            <dc:creator><![CDATA[argshook]]></dc:creator>
+            <pubDate>Sat, 17 Sep 2016 17:30:46 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Vim: easily split long lines]]></title>
+            <description><![CDATA[<h1 id="vim-easily-split-long-lines">Vim: easily split long lines</h1>
+<p>long lines usually is not a good thing, especially in code.</p>
+<p>to split long lines into column of some width, use <code>:set textwidth=72</code></p>
+<p>this will limit your typing to 72 and add line breaks automatically.</p>
+<p>sufficient for new text but what if you want to edit and format existing one?</p>
+<p>answer is <code>gq</code>:</p>
+<blockquote>
+<p><code>gq{motion}</code> - Format the lines that <code>{motion}</code> moves over.</p>
+</blockquote>
+<h2 id="usage">Usage</h2>
+<ol>
+<li><code>set textwidth=72</code> define max num of chars to allow in one line</li>
+<li><p>type new text, wow vim adds line break past 72nd char.</p>
+<p>or</p>
+<p><code>gqap</code> to wrap <strong>A</strong> <strong>P</strong>aragraph under cursor</p>
+<p>or</p>
+<p><code>vap</code> to <strong>V</strong>isually select <strong>A</strong> <strong>P</strong>aragraph, and then wrap with <code>gq</code>.</p>
+</li>
+</ol>
+<h2 id="tips">Tips</h2>
+<p>a shorter version of <code>textwidth=72</code> is <code>tw=72</code></p>
+<p>goes well with <code>autocmd</code>, you can prevent yourself from long lines in markdown readmes or git commit messages:</p>
+<pre><code class="lang-vim">autocmd Filetype gitcommit,markdown setlocal textwidth=72
+</code></pre>
+<p>look at <code>:help textwidth</code> and <code>:help gq</code> to know more</p>
+]]></description>
+            <link>https://arijus.net/#blog/vim-easily-split-long-lines</link>
+            <guid isPermaLink="false">e7a1e66f-75bc-68bf-e03c-25a8027ef672</guid>
+            <dc:creator><![CDATA[argshook]]></dc:creator>
+            <pubDate>Thu, 08 Sep 2016 16:07:57 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Search & Replace everywhere with vim and ag]]></title>
+            <description><![CDATA[<h1 id="search-replace-everywhere-with-vim-and-ag-">Search &amp; Replace everywhere with Vim and <code>ag</code></h1>
+<p>say you need to change <code>http://</code> to <code>https://</code> in a lot of files. you can use <code>ag</code> within vim to achieve that.</p>
+<ol>
+<li>if you don&#39;t yet have, setup <code>ag</code> by following their readme.md on <a href="https://github.com/ggreer/the_silver_searcher">github</a></li>
+<li><code>NeoBundle &#39;rking/ag.vim&#39;</code> or other kind of vundle to install <a href="https://github.com/rking/ag.vim">Ag</a> plugin in vim</li>
+</ol>
+<p>now in vim you can do this:</p>
+<pre><code>:Ag http://
+:cdo s/http:/https:/g
+:bufdo w
+</code></pre><p>same, with explanation:</p>
+<ol>
+<li><code>:Ag http://</code> will search for all <code>http://</code> occurrences in the project recursively and opens a location window with results</li>
+<li><code>:cdo s/http:/https:/g</code> substitutes <code>http:</code> with <code>https:</code> in all locations</li>
+<li><code>:bufdo w</code> will save all changes to files</li>
+</ol>
+]]></description>
+            <link>https://arijus.net/#blog/search-replace-everywhere-with-vim-and-ag</link>
+            <guid isPermaLink="false">3f161dac-c937-1ed4-6999-dab5e47cd452</guid>
+            <dc:creator><![CDATA[argshook]]></dc:creator>
+            <pubDate>Mon, 29 Aug 2016 17:41:25 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[About]]></title>
+            <description><![CDATA[<h1 id="about">About</h1>
+<p>Hello, here i&#39;ll hopefully post about my frontend experiences and maybe some linux also.</p>
+<p>reach me out on twitter 
+<a href="https://twitter.com/argshook" target="_blank" rel="noopener">@argshook</a></p>
+<p>poke at my code on <a href="https://github.com/argshook" target="_blank" rel="noopener">github</a></p>
+<p>Welcome, thanks for hanging out.</p>
+]]></description>
+            <link>https://arijus.net/#blog/about</link>
+            <guid isPermaLink="false">65c247c9-6c09-a724-f3aa-1931707e3a93</guid>
+            <dc:creator><![CDATA[argshook]]></dc:creator>
+            <pubDate>Sun, 28 Aug 2016 20:03:40 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Hello World!]]></title>
+            <description><![CDATA[<h1 id="hello-world-">Hello world!</h1>
+<p>this should be visible in the <code>blog</code> page ;)</p>
+<hr>
+<p>some code below</p>
+<pre><code class="lang-js">const ipa = &#39;ted&#39;;
+
+let po = op =&gt; `po${op}`.toUpperCase();
+</code></pre>
+<p>here&#39;s a link to <a href="http://zombo.com" target="_blank">zombo.com</a></p>
+<p>look at this</p>
+<p><img src="http://stevensegallery.com/400/250" /></p>
+<pre><code class="lang-elm">main =
+  text &lt;| String.reverse &quot;ris ,etov ot esiR&quot;
+</code></pre>
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+<p>Why do we use it?
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &#39;Content here, content here&#39;, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for &#39;lorem ipsum&#39; will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+<h2 id="we-have-to-go-deeper">We <strong>have</strong> to go deeper</h2>
+<iframe src="https://arijus.net" frameborder="0" style="width: 100%; height: 600px;"></iframe>
+]]></description>
+            <link>https://arijus.net/#blog/hello-world</link>
+            <guid isPermaLink="false">44d986c7-155b-d2bd-73b6-877e92c28fe3</guid>
+            <dc:creator><![CDATA[argshook]]></dc:creator>
+            <pubDate>Sun, 24 Jul 2016 15:39:19 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
