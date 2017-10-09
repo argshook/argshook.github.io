@@ -7,7 +7,8 @@ module.exports = () => menu();
 
 const ACTIONS = {
   1: 'list',
-  2: 'add'
+  2: 'add',
+  3: 'rss'
 };
 
 function menu() {
@@ -23,12 +24,14 @@ function menu() {
 
     list - display a table of blog posts
     add - enter prompt to add new post to db.json
+    rss - generate rss.xml from db.json and /Posts
 
 
   you can choose now:
 
     1 - list
     2 - add
+    3 - rss
     q - quit
   `;
 
@@ -48,9 +51,9 @@ function getAction() {
   const promptSchema = {
     properties: {
       choice: {
-        pattern: /^[12q]$/,
+        pattern: /^[123q]$/,
         description: 'which should i do?',
-        message: 'type 1, 2 or q',
+        message: 'type 1, 2, 3 or q',
         required: true
       }
     }

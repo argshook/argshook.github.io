@@ -31,8 +31,10 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "NODE_ENV=prod webpack -p --progress",
+    "postbuild": "npm run rss",
     "test": "elm-test",
-    "cli": "node cli.js"
+    "cli": "node cli.js",
+    "rss": "npm run cli rss"
   },
   "repository": {
     "type": "git",

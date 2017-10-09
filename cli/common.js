@@ -4,6 +4,7 @@ const fs = require('fs');
 
 module.exports = {
   readDirAsync,
+  readFileAsync,
   writeFileAsync,
   resolveOrReject,
   createGuid,
@@ -15,6 +16,14 @@ function readDirAsync(path) {
     fs.readdir(
       path,
       (err, data) =>
+        resolveOrReject(err, data).then(resolve).catch(reject)
+    );
+  });
+}
+
+function readFileAsync(path) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf8', (err, data) =>
       resolveOrReject(err, data).then(resolve).catch(reject)
     );
   });
@@ -32,7 +41,7 @@ function writeFileAsync(path, data) {
 }
 
 function resolveOrReject(err, data) {
-  return err !== null ? Promise.reject(err) : Promise.resolve(data);
+  return err ? Promise.reject(err) : Promise.resolve(data);
 }
 
 function createGuid() {

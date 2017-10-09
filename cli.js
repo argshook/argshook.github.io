@@ -4,7 +4,7 @@ const actions = require('./cli/actions.js');
 
 const [action] = process.argv.slice(2);
 
-const availableActions = ['list', 'add'];
+const availableActions = ['list', 'add', 'rss'];
 const defaultAction = 'list';
 
 if (!action) {
